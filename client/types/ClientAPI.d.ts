@@ -167,6 +167,12 @@ declare class UiInput extends UiText {
     readonly blur: () => string;
     static create(): UiInput;
 }
+declare class UiScreen extends UiNode {
+    visible: boolean;
+    zIndex: number;
+    static create(): UiScreen;
+    static getAllScreen(): UiScreen[];
+}
 declare class UiImage extends UiRenderable {
     image: string;
     imageOpacity: number;

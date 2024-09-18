@@ -16,13 +16,13 @@
                 }
             }
         },
+        "map": {
+            "id": "100268076",
+            "editHash": "6f860b08e8724f2c9539",
+            "playHash": "3154a8d4d9bccf202107"
+        },
         "outputAndUpdate": [
             "bundle.js"
-        ],
-        "map": {
-            "id": "",
-            "editHash": "",
-            "playHash": ""
-        }
+        ]
     }
 }
