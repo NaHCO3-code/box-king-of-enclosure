@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS", // do not change this
+        "strict": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "removeComments": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "baseUrl": ".",
+        "rootDir": ".",
+        "outDir": "dist", // do not change this
+        "typeRoots": [
+            "./types",
+            "../node_modules/@types"
+        ],
+        "lib": [],
+        "paths": {
+            "component": [
+                "./src/Component/Definition"
+            ],
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

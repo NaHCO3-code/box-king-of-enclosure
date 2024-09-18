@@ -1,0 +1,28 @@
+{
+    "ArenaPro": {
+        "file": {
+            "typescript": {
+                "server": {
+                    "base": "./server",
+                    "entry": "src/App.ts",
+                    "development": false,
+                    "webpack": "./server/webpack.config.js"
+                },
+                "client": {
+                    "base": "./client",
+                    "entry": "src/clientApp.ts",
+                    "development": false,
+                    "webpack": "./client/webpack.config.js"
+                }
+            }
+        },
+        "outputAndUpdate": [
+            "bundle.js"
+        ],
+        "map": {
+            "id": "",
+            "editHash": "",
+            "playHash": ""
+        }
+    }
+}
