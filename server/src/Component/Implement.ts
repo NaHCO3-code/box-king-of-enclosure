@@ -4,14 +4,20 @@ import Component, { componentObjByUuid } from "./Definition";
 // 初始化上次更新日期为当前时间
 let lastUpdateDate = Date.now();
 
-// 主逻辑刷新间隔 默认0.0334秒（模拟30帧一秒）
-setInterval(() => {
-    let dt = Date.now() - lastUpdateDate;   
-    lastUpdateDate = Date.now();
+// // 主逻辑刷新间隔 默认0.0334秒（模拟30帧一秒）
+// setInterval(() => {
+//     let dt = Date.now() - lastUpdateDate;   
+//     lastUpdateDate = Date.now();
+//     componentObjByUuid.forEach(component => {
+//         component.update(dt);
+//     });
+// }, 0.0334 * 1000);
+
+world.onTick(({elapsedTimeMS}) => {
     componentObjByUuid.forEach(component => {
-        component.update(dt);
+        component.update(elapsedTimeMS);
     });
-}, 0.0334 * 1000);
+})
 
 /** 移除组件的更新 */
 export function removeComponentTick(component: Component): void {
