@@ -12,6 +12,7 @@ export class Player extends Component {
     super();
     this.entity = entity;
     this.entity.onVoxelContact((event: GameVoxelContactEvent) => this.onVoxelContact(event));
+    this.entity.player.walkSpeed = 1;
   }
 
   onVoxelContact(event: GameVoxelContactEvent){

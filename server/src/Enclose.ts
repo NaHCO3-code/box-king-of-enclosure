@@ -46,33 +46,40 @@ export class KEnclose {
     }
     
     // 要搜索的方块
-    let queue: [PosX, PosY][] = [];
+    let queue: [PosX, PosY][] = new Array(MAP_SIZE.x*MAP_SIZE.y);
+    let head = 0;
+    let tail = 0;
     // 把地图边缘的所有方块加入队列，并标记为访问过了，除非这个方块已经有颜色
     for(let i=0; i<MAP_SIZE.x; ++i){
       if(temp[i][0] == 0){
-        queue.push([i, 0]);
+        queue[tail++] = [i, 0];
         temp[i][0] = 1;
       }
       if(temp[i][MAP_SIZE.y-1] == 0){
-        queue.push([i, MAP_SIZE.y-1]);
+        queue[tail++] = [i, MAP_SIZE.y-1];
         temp[i][MAP_SIZE.y-1] = 1;
       }
     }
     for(let i=1; i<MAP_SIZE.y-1; ++i){
       if(temp[0][i] == 0){
-        queue.push([0, i]);
+        queue[tail++] = [0, i];
         temp[0][i] = 1;
       }
       if(temp[MAP_SIZE.x-1][i] == 0){
-        queue.push([MAP_SIZE.x-1, i]);
+        queue[tail++] = [MAP_SIZE.x-1, i];
         temp[MAP_SIZE.x-1][i] = 1;
       }
     }
     // 洪水填充
-    while(queue.length > 0){
-      const [x, y] = queue.shift()!;
+    while(head < tail){
+      const [x, y] = queue[head++];
       // 向四个方向搜索
-      for(const [dx, dy] of [[0, 1], [1, 0], [0, -1], [-1, 0]]){
+      for(const [dx, dy] of [
+        [0, 1], 
+        [1, 0], 
+        [0, -1], 
+        [-1, 0]
+      ]){
         const nx = x + dx;
         const ny = y + dy;
         // 如果越界，则跳过
@@ -80,7 +87,7 @@ export class KEnclose {
         // 如果非0，说明触碰到颜色或者已经搜索过了，跳过
         if(temp[nx][ny] !== 0) continue;
         // 否则，将此位置加入队列，并标记搜索过了
-        queue.push([nx, ny]);
+        queue[tail++] = [nx, ny];
         temp[nx][ny] = 1;
       }
     }

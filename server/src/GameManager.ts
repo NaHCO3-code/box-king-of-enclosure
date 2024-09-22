@@ -28,6 +28,5 @@ export class KGameManager extends Component {
     this.model.updateVoxels();
     for(let i = 0; i < this.teamMgr.teamNum; ++i)
       this.model.calcDomain(i+1);
-    this.model.updateVoxels();
   }
 }
