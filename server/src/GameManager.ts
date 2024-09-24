@@ -14,7 +14,7 @@ export class KGameManager extends Component {
     this.model = new KEnclose();
     this.teamMgr = new KTeamManager();
     KEmitter.on(KEvents.VoxelContact, (x, y, team) => {
-      this.model.voxelsToUpdate.push([x, y, team]);
+      this.model.setVoxel(x, y, team);
     });
   }
 
@@ -25,8 +25,8 @@ export class KGameManager extends Component {
   }
 
   protected onUpdate(deltaTime: number): void {
-    this.model.updateVoxels();
-    for(let i = 0; i < this.teamMgr.teamNum; ++i)
-      this.model.calcDomain(i+1);
+    this.model.updateMap();
+    for(let i = 1; i <= this.teamMgr.teamNum; ++i)
+      this.model.calcDomain(i);
   }
 }

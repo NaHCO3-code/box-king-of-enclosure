@@ -4,7 +4,6 @@ import { Teams } from "./TeamManager";
 import { Rich } from "./lib/Rich";
 
 const MAP_SIZE = new Vector2(255, 255);
-const FREE_VOXEL = 95; // dark_gray
 const MAP_ZINDEX = 8;
 
 export class KEnclose {
@@ -15,12 +14,20 @@ export class KEnclose {
 
   /**
    * 等待更新的方块
+   * @deprecated
    */
   voxelsToUpdate: [PosX, PosY, TeamId][] = [];
 
+  deltaMap: Uint8Array[] = [];
+
   constructor(){
+    this.map = new Array(MAP_SIZE.x);
     for(let i=0; i<MAP_SIZE.x; ++i){
-      this.map.push(new Uint8Array(MAP_SIZE.y));
+      this.map[i] = new Uint8Array(MAP_SIZE.y);
+    }
+    this.deltaMap = new Array(MAP_SIZE.x);
+    for(let i=0; i<MAP_SIZE.x; ++i){
+      this.deltaMap[i] = new Uint8Array(MAP_SIZE.y);
     }
   }
 
@@ -28,20 +35,23 @@ export class KEnclose {
     for(let arr of this.map){
       arr.fill(0);
     }
+    for(let arr of this.deltaMap){
+      arr.fill(255);
+    }
     for(let i=0; i<MAP_SIZE.x; ++i){
       for(let j=0; j<MAP_SIZE.y; ++j){
-        voxels.setVoxelId(i, MAP_ZINDEX, j, FREE_VOXEL);
+        voxels.setVoxelId(i, MAP_ZINDEX, j, Teams[0].voxel);
       }
     }
   }
 
-  calcDomain(team: number){
+  calcDomain(id: number){
     // 把地图复制一份
     let temp = this.cloneMap();
     // 如果地图中某一位置为该队伍颜色，则设置为1；否则为0
     for(let arr of temp){
       arr.forEach((v, i, arr) => {
-        arr[i] = v === team ? 1 : 0;
+        arr[i] = v === id ? 1 : 0;
       })
     }
     
@@ -91,22 +101,38 @@ export class KEnclose {
         temp[nx][ny] = 1;
       }
     }
-
-    let x = 0;
-    for(let arr of temp){
+    
+    temp.forEach((arr, x) => {
       arr.forEach((v, y) => {
-        if(v === 0) this.voxelsToUpdate.push([x, y, team-1]);
+        if(v === 0) this.setVoxel(x, y, id);
       })
-      x += 1;
-    }
+    })
   }
 
-  updateVoxels(){
+  setVoxel(x: PosX, y: PosY, v: number){
+    this.deltaMap[x][y] = v;
+  }
+
+  /**
+   * @deprecated
+   */
+  updateVoxels_legacy(){
     for(let [x, y, teamId] of this.voxelsToUpdate){
       voxels.setVoxelId(x, MAP_ZINDEX, y, Teams[teamId].voxel);
       this.map[x][y] = teamId + 1;
     }
     this.voxelsToUpdate = [];
+  }
+
+  updateMap(){
+    for(let i=0; i<MAP_SIZE.x; ++i){
+      for(let j=0; j<MAP_SIZE.y; ++j){
+        if(this.deltaMap[i][j] === 255) continue;
+        voxels.setVoxelId(i, MAP_ZINDEX, j, Teams[this.deltaMap[i][j]].voxel);
+        this.map[i][j] = this.deltaMap[i][j];
+      }
+    }
+    this.deltaMap.forEach(arr => arr.fill(255));
   }
 
   cloneMap(){
