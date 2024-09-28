@@ -11,13 +11,17 @@ export class Player extends Component {
     super();
     this.entity = entity;
     this.entity.onVoxelContact((event: GameVoxelContactEvent) => this.onVoxelContact(event));
-    this.entity.player.walkSpeed = 1;
+    this.entity.player.cameraMode = GameCameraMode.FPS;
   }
 
   onVoxelContact(event: GameVoxelContactEvent){
     const { x, z } = event;
     if(this.team === null) return;
     KEmitter.emit(KEvents.VoxelContact, x, z, this.team);
+  }
+
+  findPlayerByBoxId(boxId: string){
+    return Player.players.find(e => e.entity.player.boxId === boxId);
   }
 
   static create(entity: GamePlayerEntity){

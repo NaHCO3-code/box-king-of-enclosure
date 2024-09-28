@@ -2,9 +2,7 @@ import { Vector2 } from "./lib/Vector";
 import { PosX, PosY, TeamId } from "./Interfaces";
 import { Teams } from "./TeamManager";
 import { Rich } from "./lib/Rich";
-
-const MAP_SIZE = new Vector2(255, 255);
-const MAP_ZINDEX = 8;
+import { MAP_SIZE, MAP_ZINDEX } from "./Interfaces";
 
 export class KEnclose {
   /**
@@ -93,7 +91,7 @@ export class KEnclose {
         const nx = x + dx;
         const ny = y + dy;
         // 如果越界，则跳过
-        if(nx < 0 || nx >= MAP_SIZE.x || ny < 0 || ny>= MAP_SIZE.y) continue;
+        if(nx < 0 || nx >= MAP_SIZE.x || ny < 0 || ny >= MAP_SIZE.y) continue;
         // 如果非0，说明触碰到颜色或者已经搜索过了，跳过
         if(temp[nx][ny] !== 0) continue;
         // 否则，将此位置加入队列，并标记搜索过了
@@ -104,24 +102,82 @@ export class KEnclose {
     
     temp.forEach((arr, x) => {
       arr.forEach((v, y) => {
-        if(v === 0) this.setVoxel(x, y, id);
+        if(v === 0) this.deltaMap[x][y] = id;
       })
     })
   }
 
-  setVoxel(x: PosX, y: PosY, v: number){
-    this.deltaMap[x][y] = v;
+  /**
+   * 计算地图上所有联通块的边缘
+   * 返回值是一个二维数组。对于任意一个元素res[x][y]
+   *  - 如果为0，则表示此位置非边界
+   *  - 如果为x(x > 0)，则表示此位置为颜色为x的联通块的外边缘
+   *  - 如果为255，则表示此位置为任意一个有颜色的联通块的内边缘。
+   */
+  calcEdge() {
+    let res: Uint8Array[] = new Array(MAP_SIZE.x);
+    // 初始状态，每个块都标记为254。
+    for(let i=0; i<MAP_SIZE.x; ++i){
+      res[i] = new Uint8Array(MAP_SIZE.y).fill(254);
+    }
+
+    let qx = new Uint8Array(MAP_SIZE.x*MAP_SIZE.y+1);
+    let qy = new Uint8Array(MAP_SIZE.x*MAP_SIZE.y+1);
+    let head = 0;
+    let tail = 1;
+    qx[0] = 0;
+    qy[0] = 0;
+    while(head < tail){
+      const x = qx[head];
+      const y = qy[head];
+      head += 1;
+      const v = this.map[x][y];
+      // 如果基准块有颜色
+      if(v !== 0){
+        if(x === 0 || y === 0 || x === MAP_SIZE.x-1 || y === MAP_SIZE.y-1){
+          // 如果这个块在边界上，则一定是内边界
+          res[x][y] = 255;
+        }else{
+          // 如果四周存在一个块，使得它的颜色与基准块颜色不同，则此块为内边界
+          res[x][y] = (this.map[x][y+1] !== v || this.map[x+1][y] !== v || this.map[x][y-1] !== v || this.map[x-1][y] !== v) ? 255 : 0;
+        }
+      }else{
+        // 如果四周存在一个块有颜色，那么此块为外边界
+        if(this.map[x]?.[y+1] ?? false){
+          res[x][y] = this.map[x][y+1];
+        }else if(this.map[x+1]?.[y] ?? false){
+          res[x][y] = this.map[x+1][y];
+        }else if(this.map[x]?.[y-1] ?? false){
+          res[x][y] = this.map[x][y-1];
+        }else if(this.map[x-1]?.[y] ?? false){
+          res[x][y] = this.map[x-1][y];
+        }
+      }
+      // 向四个方向搜索
+      for(const [dx, dy] of [
+        [0, 1], 
+        [1, 0], 
+        [0, -1], 
+        [-1, 0]
+      ]){
+        const nx = x + dx;
+        const ny = y + dy;
+        // 如果越界，则跳过
+        if(nx < 0 || nx >= MAP_SIZE.x || ny < 0 || ny >= MAP_SIZE.y) continue;
+        if(res[nx][ny] === 254){
+          res[nx][ny] = 0;
+          qx[tail] = nx;
+          qy[tail] = ny;
+          tail += 1;
+        }
+      }
+    }
+
+    return res;
   }
 
-  /**
-   * @deprecated
-   */
-  updateVoxels_legacy(){
-    for(let [x, y, teamId] of this.voxelsToUpdate){
-      voxels.setVoxelId(x, MAP_ZINDEX, y, Teams[teamId].voxel);
-      this.map[x][y] = teamId + 1;
-    }
-    this.voxelsToUpdate = [];
+  setVoxel(x: PosX, y: PosY, v: number){
+    this.deltaMap[x][y] = v;
   }
 
   updateMap(){
@@ -130,9 +186,9 @@ export class KEnclose {
         if(this.deltaMap[i][j] === 255) continue;
         voxels.setVoxelId(i, MAP_ZINDEX, j, Teams[this.deltaMap[i][j]].voxel);
         this.map[i][j] = this.deltaMap[i][j];
+        this.deltaMap[i][j] = 255;
       }
     }
-    this.deltaMap.forEach(arr => arr.fill(255));
   }
 
   cloneMap(){

@@ -2,6 +2,7 @@ import Component, { componentObjByUuid } from "component";
 import { Player } from "./Player";
 import { KGameManager } from "./GameManager";
 import { Rich } from "./lib/Rich";
+import { KCommand } from "./Command";
 
 export class App extends Component {
   protected onStart(): void {
@@ -24,5 +25,6 @@ export class App extends Component {
 }
 
 const gameMgr = new KGameManager();
+const cmd = new KCommand(gameMgr);
 const app = new App();
 

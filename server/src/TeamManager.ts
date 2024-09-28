@@ -14,6 +14,14 @@ export const Teams: {name: string, voxel: number}[] = [
   {
     name: "blue",
     voxel: 91
+  },
+  {
+    name: "yellow",
+    voxel: 121
+  },
+  {
+    name: "purple",
+    voxel: 369
   }
 ] as const;
 
