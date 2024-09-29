@@ -12,7 +12,7 @@ declare const console: {
 declare const world: GameWorld;
 declare const voxels: GameVoxels;
 declare const resources: {
-  ls: (path?: 'snow' | 'mesh' | 'picture' | 'audio' | 'lut') => GameAssetListEntry[];
+  ls: (path?: 'snow' | 'mesh' |'picture' | 'audio' | 'lut') => GameAssetListEntry[];
 };
 declare const db: GameDatabase;
 declare const storage: GameStorage;

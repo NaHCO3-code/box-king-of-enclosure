@@ -3,6 +3,7 @@ import { PosX, PosY, TeamId } from "./Interfaces";
 import { Teams } from "./TeamManager";
 import { Rich } from "./lib/Rich";
 import { MAP_SIZE, MAP_ZINDEX } from "./Interfaces";
+import { KZone, RainZone } from "./Zone";
 
 export class KEnclose {
   /**
@@ -11,10 +12,22 @@ export class KEnclose {
   map: Uint8Array[] = [];
 
   /**
-   * 等待更新的方块
-   * @deprecated
+   * 区域
    */
-  voxelsToUpdate: [PosX, PosY, TeamId][] = [];
+  zones: KZone[] = [];
+
+  zoneRate = [
+    {
+      create: () => {},
+      rate: 1,
+    },
+    {
+      create: RainZone.create,
+      rate: 1
+    }
+  ] as const;
+
+  zoneRateSum: number = this.zoneRate.reduce((acc, cur) => acc + cur.rate, 0);
 
   deltaMap: Uint8Array[] = [];
 
@@ -41,6 +54,7 @@ export class KEnclose {
         voxels.setVoxelId(i, MAP_ZINDEX, j, Teams[0].voxel);
       }
     }
+    this.initZones(new Vector2(0, 0), new Vector2(MAP_SIZE.x, MAP_SIZE.y), 1);
   }
 
   calcDomain(id: number){
@@ -176,11 +190,34 @@ export class KEnclose {
     return res;
   }
 
+  initZones(pos: Vector2, size: Vector2, depth: number){
+    if(depth <= 0 || size.x <= 1 || size.y <= 1){
+      const r = Math.floor(Math.random()*this.zoneRateSum)+1;
+      let s = 0;
+      for(const {create, rate} of this.zoneRate){
+        s += rate;
+        if(r <= s){
+          let z = create(pos, size);
+          Rich.print(pos, size, z);
+          if(!z) return;
+          this.zones.push(z);
+          return;
+        }
+      }
+      return;
+    }
+    const p = new Vector2(Math.floor(Math.random()*size.x), Math.floor(Math.random()*size.y));
+    this.initZones(pos, p, depth - 1);
+    this.initZones(Vector2.add(pos, p).addX(1).addY(1), Vector2.reduce(size, p).addX(-1).addY(-1), depth - 1);
+    this.initZones(pos.clone().addX(p.x), new Vector2(size.x - p.x, p.y), depth - 1);
+    this.initZones(pos.clone().addY(p.y), new Vector2(p.x, size.y - p.y), depth - 1);
+  }
+
   setVoxel(x: PosX, y: PosY, v: number){
     this.deltaMap[x][y] = v;
   }
 
-  updateMap(){
+  updateVoxel(){
     for(let i=0; i<MAP_SIZE.x; ++i){
       for(let j=0; j<MAP_SIZE.y; ++j){
         if(this.deltaMap[i][j] === 255) continue;
@@ -189,6 +226,13 @@ export class KEnclose {
         this.deltaMap[i][j] = 255;
       }
     }
+  }
+
+  update(teamNum: number){
+    this.updateVoxel();
+    for(let i = 1; i <= teamNum; ++i)
+      this.calcDomain(i);
+    let edge = this.calcEdge();
   }
 
   cloneMap(){

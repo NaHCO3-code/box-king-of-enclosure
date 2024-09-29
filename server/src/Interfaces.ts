@@ -16,3 +16,4 @@ export type KEventEmitterType = GenEmitterType<typeof KEvents, KEventType>;
 
 export const MAP_SIZE = { x: 255, y: 255 } as const;
 export const MAP_ZINDEX = 8;
+export const MAP_HEIGHT = 64;

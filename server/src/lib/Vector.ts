@@ -52,6 +52,16 @@ export class Vector2{
     return this;
   }
 
+  addX(n: number){
+    this.x += n;
+    return this;
+  }
+
+  addY(n: number){
+    this.y += n;
+    return this;
+  }
+
   get length(){
     return Math.sqrt(this.x**2 + this.y**2);
   }
@@ -79,5 +89,13 @@ export class Vector2{
 
   static mul(v: Vector2, n: number){
     return new Vector2(v.x * n, v.y * n);
+  }
+
+  static addX(v: Vector2, n: number){
+    return new Vector2(v.x + n, v.y);
+  }
+
+  static addY(v: Vector2, n: number){
+    return new Vector2(v.x, v.y + n);
   }
 }
