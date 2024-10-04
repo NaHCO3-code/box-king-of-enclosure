@@ -10946,6 +10946,26 @@ declare class GameEntity implements GameEntityConfig {
    */
   interactRadius: number;
   /**
+    * Show name of entity
+    * @category entityName
+    */
+  showEntityName: boolean;
+  /**
+    * Name of entity
+    * @category entityName
+    */
+  customName: string;
+  /**
+    * Radius around entity for show entity name
+    * @category entityName
+    */
+  nameRadius: number;
+  /**
+    * Radius around entity for show entity name
+    * @category entityName
+    */
+  nameColor: GameRGBColor;
+  /**
    * Plays when an entity chat
    * @category sound
    */

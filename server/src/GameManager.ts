@@ -1,38 +1,50 @@
 import Component from "component";
-import { KEnclose } from "./Enclose";
-import { KEmitter } from "./Events";
-import { KEvents, MAP_SIZE, MAP_ZINDEX } from "./Interfaces";
-import { KTeamManager, Teams } from "./TeamManager";
-import { Rich } from "./lib/Rich";
-import { Listener } from "./lib/Emitter";
+import { KGameUpdater } from "./GameUpdater";
+import { GAME_REST_TIME, GAME_TIME } from "./Constants";
+
+export enum KGameState {
+  GAME,
+  REST
+}
 
 export class KGameManager extends Component {
-  model: KEnclose;
-  teamMgr: KTeamManager;
-  voxelContactListener: Listener | null;
+  updater: KGameUpdater;
+  state: KGameState;
+  nextStateChangeTime: number;
+  tick: number;
 
   constructor(){
     super();
-    this.model = new KEnclose();
-    this.teamMgr = new KTeamManager();
-    this.voxelContactListener = null;
+    this.tick = 27000;
+    this.state = KGameState.REST;
+    this.nextStateChangeTime = GAME_REST_TIME;
+    this.updater = new KGameUpdater();
+    this.updater.enable = false;
   }
 
-  startGame(): void {
-    this.model.init();
-    this.teamMgr.clear();
-    this.teamMgr.alloc();
-    this.voxelContactListener = KEmitter.on(KEvents.VoxelContact, (x, y, team) => {
-      this.model.setVoxel(x, y, team);
-    });
+  toGame(){
+    this.state = KGameState.GAME;
+    this.nextStateChangeTime = GAME_TIME;
+    this.updater.enable = true;
   }
 
-  endGame(): void {
-    this.teamMgr.clear();
-    this.voxelContactListener?.cancel();
+  toRest(){
+    this.state = KGameState.REST;
+    this.nextStateChangeTime = GAME_REST_TIME;
+    this.updater.enable = false;
   }
 
   protected onUpdate(deltaTime: number): void {
-    this.model.update(this.teamMgr.teamNum);
+    this.tick += deltaTime;
+    console.log(this.tick);
+    if(this.tick / 1000 <= this.nextStateChangeTime){
+      return;
+    }
+    if(this.state === KGameState.REST){
+      this.toGame();
+    }else{
+      this.toRest();
+    }
+    this.tick = 0;
   }
 }

@@ -164,7 +164,10 @@ export default abstract class Component {
     set enable(v: boolean) {
         if (this._enable === v) return;
         this._enable = v;
-        if (this._enable) {
+        if (this._enable) { 
+            // 这里Component的实现逻辑有误，此时_enable已经是true了，
+            // 因此onEnableIfNotEnable内部逻辑根本不会被执行。这是临时的修复方案。
+            this._enable = false;
             this.onEnableIfNotEnabled();
         } else {
             if (this.onUpdate) {

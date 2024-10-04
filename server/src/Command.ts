@@ -1,11 +1,14 @@
 import Component from "component";
-import { KGameManager } from "./GameManager";
+import { KGameUpdater } from "./GameUpdater";
 import { Rich } from "./lib/Rich";
 
 const ADMINS = ["x4o97kjqdeo823q"]
 
+/**
+ * @deprecated
+ */
 export class KCommand extends Component {
-  constructor(public gameMgr: KGameManager) {
+  constructor(public gameMgr: KGameUpdater) {
     super();
     world.onChat(event => this.onChat(event));
   }

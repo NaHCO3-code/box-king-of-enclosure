@@ -1,6 +1,6 @@
 import Component from "component";
 import { KEmitter } from "./Events";
-import { KEvents, TeamId } from "./Interfaces";
+import { KEvents, TeamId } from "./Constants";
 
 export class Player extends Component {
   static players: Player[] = [];

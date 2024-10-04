@@ -1,9 +1,6 @@
-import { Vector2 } from "./lib/Vector";
-import { PosX, PosY, TeamId } from "./Interfaces";
+import { PosX, PosY } from "./Constants";
 import { Teams } from "./TeamManager";
-import { Rich } from "./lib/Rich";
-import { MAP_SIZE, MAP_ZINDEX } from "./Interfaces";
-import { KZone, RainZone } from "./Zone";
+import { MAP_SIZE, MAP_ZINDEX } from "./Constants";
 
 export class KEnclose {
   /**
@@ -12,24 +9,14 @@ export class KEnclose {
   map: Uint8Array[] = [];
 
   /**
-   * 区域
+   * 该帧变化的方块
    */
-  zones: KZone[] = [];
-
-  zoneRate = [
-    {
-      create: () => {},
-      rate: 1,
-    },
-    {
-      create: RainZone.create,
-      rate: 1
-    }
-  ] as const;
-
-  zoneRateSum: number = this.zoneRate.reduce((acc, cur) => acc + cur.rate, 0);
-
   deltaMap: Uint8Array[] = [];
+  
+  /**
+   * 边缘检测的结果
+   */
+  edge: Uint8Array[] = [];
 
   constructor(){
     this.map = new Array(MAP_SIZE.x);
@@ -54,12 +41,11 @@ export class KEnclose {
         voxels.setVoxelId(i, MAP_ZINDEX, j, Teams[0].voxel);
       }
     }
-    this.initZones(new Vector2(0, 0), new Vector2(MAP_SIZE.x, MAP_SIZE.y), 1);
   }
 
   calcDomain(id: number){
     // 把地图复制一份
-    let temp = this.cloneMap();
+    let temp = this.map.map<Uint8Array>(arr => new Uint8Array(arr));
     // 如果地图中某一位置为该队伍颜色，则设置为1；否则为0
     for(let arr of temp){
       arr.forEach((v, i, arr) => {
@@ -190,34 +176,11 @@ export class KEnclose {
     return res;
   }
 
-  initZones(pos: Vector2, size: Vector2, depth: number){
-    if(depth <= 0 || size.x <= 1 || size.y <= 1){
-      const r = Math.floor(Math.random()*this.zoneRateSum)+1;
-      let s = 0;
-      for(const {create, rate} of this.zoneRate){
-        s += rate;
-        if(r <= s){
-          let z = create(pos, size);
-          Rich.print(pos, size, z);
-          if(!z) return;
-          this.zones.push(z);
-          return;
-        }
-      }
-      return;
-    }
-    const p = new Vector2(Math.floor(Math.random()*size.x), Math.floor(Math.random()*size.y));
-    this.initZones(pos, p, depth - 1);
-    this.initZones(Vector2.add(pos, p).addX(1).addY(1), Vector2.reduce(size, p).addX(-1).addY(-1), depth - 1);
-    this.initZones(pos.clone().addX(p.x), new Vector2(size.x - p.x, p.y), depth - 1);
-    this.initZones(pos.clone().addY(p.y), new Vector2(p.x, size.y - p.y), depth - 1);
-  }
-
   setVoxel(x: PosX, y: PosY, v: number){
     this.deltaMap[x][y] = v;
   }
 
-  updateVoxel(){
+  updateMap(){
     for(let i=0; i<MAP_SIZE.x; ++i){
       for(let j=0; j<MAP_SIZE.y; ++j){
         if(this.deltaMap[i][j] === 255) continue;
@@ -228,14 +191,9 @@ export class KEnclose {
     }
   }
 
-  update(teamNum: number){
-    this.updateVoxel();
+  updateModel(teamNum: number){
     for(let i = 1; i <= teamNum; ++i)
       this.calcDomain(i);
-    let edge = this.calcEdge();
-  }
-
-  cloneMap(){
-    return this.map.map<Uint8Array>(arr => new Uint8Array(arr));
+    this.edge = this.calcEdge();
   }
 }
