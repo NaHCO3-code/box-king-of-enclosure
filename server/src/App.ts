@@ -1,6 +1,6 @@
 import Component from "component";
-import { Player } from "./Player";
-import { KGameManager } from "./GameManager";
+import { Player } from "./Controller/Player";
+import { KGameManager } from "./Controller/GameManager";
 
 export class App extends Component {
   protected onStart(): void {

@@ -1,5 +1,10 @@
+/**
+ * @deprecated
+ * @todo 重构
+ */
+
 import Component from "component";
-import { KGameUpdater } from "./GameUpdater";
+import { KGameUpdater } from "./Controller/GameUpdater";
 import { Rich } from "./lib/Rich";
 
 const ADMINS = ["x4o97kjqdeo823q"]

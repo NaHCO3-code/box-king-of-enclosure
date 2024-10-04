@@ -1,6 +1,5 @@
-import { PosX, PosY } from "./Constants";
-import { Teams } from "./TeamManager";
-import { MAP_SIZE, MAP_ZINDEX } from "./Constants";
+import { PosX, PosY, Teams } from "../Constants";
+import { MAP_SIZE, MAP_ZINDEX } from "../Constants";
 
 export class KEnclose {
   /**
@@ -41,6 +40,10 @@ export class KEnclose {
         voxels.setVoxelId(i, MAP_ZINDEX, j, Teams[0].voxel);
       }
     }
+  }
+
+  clear(){
+    this.init();
   }
 
   calcDomain(id: number){

@@ -14,6 +14,30 @@ export type KEventType = {
 
 export type KEventEmitterType = GenEmitterType<typeof KEvents, KEventType>;
 
+
+export const Teams: {name: string, voxel: number}[] = [
+  {
+    name: "DEFAULT",
+    voxel: 95,
+  },
+  {
+    name: "red",
+    voxel: 105,
+  },
+  {
+    name: "blue",
+    voxel: 91
+  },
+  {
+    name: "yellow",
+    voxel: 121
+  },
+  {
+    name: "purple",
+    voxel: 369
+  }
+] as const;
+
 export const MAP_SIZE = { x: 255, y: 255 } as const;
 export const MAP_ZINDEX = 8;
 export const MAP_HEIGHT = 64;

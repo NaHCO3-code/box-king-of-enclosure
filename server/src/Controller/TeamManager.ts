@@ -1,29 +1,8 @@
-import { Rich } from "./lib/Rich";
+import { Teams } from "../Constants";
+import { Rich } from "../lib/Rich";
 import { Player } from "./Player";
 
 
-export const Teams: {name: string, voxel: number}[] = [
-  {
-    name: "DEFAULT",
-    voxel: 95,
-  },
-  {
-    name: "red",
-    voxel: 105,
-  },
-  {
-    name: "blue",
-    voxel: 91
-  },
-  {
-    name: "yellow",
-    voxel: 121
-  },
-  {
-    name: "purple",
-    voxel: 369
-  }
-] as const;
 
 export class KTeamManager {
   teams: Player[][];

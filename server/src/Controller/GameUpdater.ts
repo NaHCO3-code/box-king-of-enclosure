@@ -1,11 +1,11 @@
 import Component from "component";
-import { KEnclose } from "./Enclose";
-import { KEmitter } from "./Events";
-import { KEvents, WEATHER_CHANGE_TIME, WEATHER_EFFECT_TIME } from "./Constants";
+import { KEnclose } from "../Model/Enclose";
+import { KEmitter } from "../Events";
+import { KEvents, WEATHER_CHANGE_TIME, WEATHER_EFFECT_TIME } from "../Constants";
 import { KTeamManager } from "./TeamManager";
-import { Rich } from "./lib/Rich";
-import { Listener } from "./lib/Emitter";
-import { KZoneMgr } from "./Zone";
+import { Rich } from "../lib/Rich";
+import { Listener } from "../lib/Emitter";
+import { KZoneMgr } from "../Zone/ZoneMgr";
 
 export class KGameUpdater extends Component {
   model: KEnclose;
@@ -43,6 +43,7 @@ export class KGameUpdater extends Component {
 
   protected onDisable(): void {
     world.say("Game end.");
+    this.model.clear();
     this.teamMgr.clear();
     this.zoneMgr.clear();
     this.voxelContactListener?.cancel();

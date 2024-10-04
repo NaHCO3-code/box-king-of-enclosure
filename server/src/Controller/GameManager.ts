@@ -1,6 +1,6 @@
 import Component from "component";
 import { KGameUpdater } from "./GameUpdater";
-import { GAME_REST_TIME, GAME_TIME } from "./Constants";
+import { GAME_REST_TIME, GAME_TIME } from "../Constants";
 
 export enum KGameState {
   GAME,
@@ -36,6 +36,7 @@ export class KGameManager extends Component {
 
   protected onUpdate(deltaTime: number): void {
     this.tick += deltaTime;
+    console.clear();
     console.log(this.tick);
     if(this.tick / 1000 <= this.nextStateChangeTime){
       return;
