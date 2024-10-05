@@ -1,5 +1,5 @@
-import { KEnclose } from "src/Model/Enclose";
-import { Vector2 } from "src/lib/Vector";
+import { KEnclose } from "../Model/Enclose";
+import { Vector2 } from "../lib/Vector";
 import { KZone } from "./Zone";
 
 
@@ -16,7 +16,7 @@ export class RainZone extends KZone {
 
     this.gameZone.onEnter(({ entity }) => {
       if (entity.isPlayer) {
-        (entity as GamePlayerEntity).player.directMessage("you enter rain zone.");
+        (entity as GamePlayerEntity).player.directMessage("rain zone.");
       }
     });
   }

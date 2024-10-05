@@ -1,4 +1,4 @@
 import { Emitter } from "./lib/Emitter";
-import { KEventEmitterType } from "./Constants";
+import { KEventEmitterType, KEvents } from "./Constants";
 
 export const KEmitter = new Emitter<KEventEmitterType>();

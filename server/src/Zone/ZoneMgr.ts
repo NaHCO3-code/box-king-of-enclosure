@@ -1,6 +1,6 @@
-import { MIN_ZONE_SIZE, MAP_SIZE } from "src/Constants";
-import { KEnclose } from "src/Model/Enclose";
-import { Vector2 } from "src/lib/Vector";
+import { MIN_ZONE_SIZE, MAP_SIZE } from "../Constants";
+import { KEnclose } from "../Model/Enclose";
+import { Vector2 } from "../lib/Vector";
 import { KZone } from "./Zone";
 import { SunnyZone } from "./SunnyZone";
 import { RainZone } from "./RainZone";
