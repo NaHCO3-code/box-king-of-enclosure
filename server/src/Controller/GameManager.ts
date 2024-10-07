@@ -15,7 +15,7 @@ export class KGameManager extends Component {
 
   constructor(){
     super();
-    this.tick = 27000;
+    this.tick = 30000;
     this.state = KGameState.REST;
     this.nextStateChangeTime = GAME_REST_TIME;
     this.updater = new KGameUpdater();
@@ -36,8 +36,6 @@ export class KGameManager extends Component {
 
   protected onUpdate(deltaTime: number): void {
     this.tick += deltaTime;
-    console.clear();
-    console.log(this.tick);
     if(this.tick / 1000 <= this.nextStateChangeTime){
       return;
     }

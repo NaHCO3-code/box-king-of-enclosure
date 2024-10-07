@@ -24,3 +24,5 @@ export class App extends Component {
 const gameMgr = new KGameManager();
 // const cmd = new KCommand(gameMgr);
 const app = new App();
+
+

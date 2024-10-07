@@ -8,30 +8,97 @@ declare const console: {
   warn: GameLoggerMethod;
   clear: GameLoggerMethod;
 };
-
+/**
+ * GameWorld 是整个游戏世界的主要接口，它对应涵盖了控制环境天气、物理重力、画面滤镜等全局场景属性，还可以在世界中创建、搜索实体，或监听世界中实体和玩家的碰撞、伤害、互动等事件。
+ */
 declare const world: GameWorld;
+/**
+ * GameVoxels 是控制游戏方块的接口，你可以控制地形变化，利用循环语法批量生成/销毁方块，获取某个方块的类型、名称、旋转角度等。
+ */
 declare const voxels: GameVoxels;
+/**
+ * GameAssetListEntry 是控制游戏中的资产对象，用于获取游戏内模型、图片、音频等资源。
+ */
 declare const resources: {
-  ls: (path?: 'snow' | 'mesh' |'picture' | 'audio' | 'lut') => GameAssetListEntry[];
+  ls: (path?: 'snow' | 'mesh' | 'picture' | 'audio' | 'lut') => GameAssetListEntry[];
 };
+/**
+ * 旧代编辑器使用的数据库接口，已弃用，请在使用GameDataStorage，如：
+ * ```
+ * const sa = storage.getGroupStorage('boxGame');
+ * sa.get('box');
+ * ```
+ * @deprecated
+ */
 declare const db: GameDatabase;
+/**
+ * GameDataStorage 代表数据存储空间的类，能控制单地图或组地图数据库，能够以键值对的形式存储数据，提供方法处理空间内键值对相关的操作。
+ */
 declare const storage: GameStorage;
+/**
+ * GameHttpAPI 是可以链接外部网站数据的对象，用于对接第三方平台接口的操作。
+ */
 declare const http: GameHttpAPI;
+/**
+ * GameRTC 是实时通讯技术，用于与其他游戏玩家语音交流的操作。
+ */
 declare const rtc: GameRTC;
+/**
+ * 较老版本的GUI接口，已不推荐使用，请在客户端使用GameUI，如：
+ * ```
+ * const box = ui.findChildByName('box');
+ * box.zIndex=2;
+ * ```
+ * @deprecated
+ */
 declare const gui: GameGUI;
+/**
+ * ServerRemoteChannel 是管理客户端与服务端通讯的对象，用于对跨端传递信息的操作。
+ */
 declare const remoteChannel: ServerRemoteChannel;
 
+/**
+ * sleep是一种函数，作用是延时，程序暂停若干时间，在执行时要抛出一个中断异常，必须对其进行捕获并处理才可以使用这个函数。
+ * @param ms 延迟时间，单位为毫秒。
+ */
 declare function sleep(ms: number): Promise<void>;
 
+/**
+ * 用于加载模块，返回模块对象。
+ */
 declare const require: {
+  /**
+   * 加载模块，返回模块对象。
+   * @param module 模块名称。
+   */
   (module: string): any;
+  /**
+   * 
+   * @param path 路径
+   * @returns 
+   */
   resolve: (path: string) => string;
 };
+/**
+ * 用于导出模块，返回模块对象。
+ */
 declare const module: {
+  /**
+   * 导出模块，返回模块对象。
+   */
   exports: any;
 };
+/**
+ * 用于导出模块，返回模块对象。
+ */
 declare const exports: any;
+/**
+ * __dirname 是一个只读的属性，返回当前模块的目录名。
+ */
 declare const __dirname: string;
+/**
+ * __filename 是一个只读的属性，返回当前模块的文件名。
+ */
 declare const __filename: string;
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved. 
@@ -9299,9 +9366,12 @@ interface GUIConfigItem<T extends string> {
 declare type GUIConfig<T extends string, U extends T> = {
   [name in T]: GUIConfigItem<U>;
 };
-declare type JSONValue = string | number | boolean | {
+declare type JSONValue = string | number | boolean |
+{
   [x: string]: JSONValue;
-} | Array<JSONValue>;
+}
+  | Array<JSONValue>;
+
 declare enum GameLogLevel {
   ERROR = 0,
   WARN = 1,
@@ -13146,9 +13216,7 @@ declare enum GameAssetType {
   SOUND = "sound",
   PICTURE = "picture"
 }
-/**
- * An entry from an asset list
- */
+
 declare class GameAssetListEntry {
   /**
    * Fully qualified path of asset, split by directory
@@ -13252,23 +13320,62 @@ declare class GameGUI {
   constructor(init: <T extends string, U extends T>(entity: GamePlayerEntity, config: GUIConfig<T, U>) => Promise<void>, show: (entity: GamePlayerEntity, name: string, allowMultiple?: boolean) => Promise<void>, remove: (entity: GamePlayerEntity, selector: string) => Promise<void>, getAttribute: (entity: GamePlayerEntity, selector: string, name: string) => Promise<any>, setAttribute: (entity: GamePlayerEntity, selector: string, name: string, value: any) => Promise<void>, onMessage: (listener: GameGUIEventListener) => void);
 }
 declare type GameHttpFetchHeaders = {
+  /**
+   * 响应头名称
+   */
   [name: string]: string | string[];
 };
 declare type GameHttpFetchRequestOptions = {
+  /**
+   * 请求超时时间，单位为毫秒
+   */
   timeout?: number;
+  /**
+   * 请求方法
+   */
   method?: 'OPTIONS' | 'GET' | 'HEAD' | 'PUT' | 'POST' | 'DELETE' | 'PATCH';
+  /**
+   * 请求头
+   */
   headers?: GameHttpFetchHeaders;
+  /**
+   * 请求体
+   */
   body?: string | ArrayBuffer;
 };
 declare class GameHttpFetchResponse {
+  /**
+   * 状态码
+   */
   status: number;
+  /**
+   * 状态码描述
+   */
   statusText: string;
+  /**
+   * 所有响应头
+   */
   headers: GameHttpFetchHeaders;
+  /**
+   * 返回一个Promise，Promise resolve的值为JSON格式的数据
+   */
   json: () => Promise<any>;
+  /**
+   * 返回一个Promise，Promise resolve的值为文本格式的数据
+   */
   text: () => Promise<string>;
+  /**
+   * 返回一个Promise，Promise resolve的值为二进制格式的数据
+   */
   arrayBuffer: () => Promise<ArrayBuffer>;
+  /**
+   * 关闭连接
+   */
   close: () => Promise<void>;
   constructor(status: number, statusText: string, headers: GameHttpFetchHeaders, json: () => Promise<any>, text: () => Promise<string>, arrayBuffer: () => Promise<ArrayBuffer>, close: () => Promise<void>);
+  /**
+   * 是否请求成功
+   */
   get ok(): boolean;
 }
 declare class GameHttpRequest {
@@ -13277,6 +13384,12 @@ declare class GameHttpResponse {
 }
 declare type GameHttpHandler = (request: GameHttpRequest, response: GameHttpResponse) => void;
 declare class GameHttpAPI {
+  /**
+   * 请求网络资源
+   * @param url 请求地址
+   * @param options 请求配置
+   * @returns 返回一个Promise，Promise resolve的值为请求结果
+   */
   fetch: (url: string, options?: GameHttpFetchRequestOptions) => Promise<GameHttpFetchResponse>;
   constructor(fetch: (url: string, options?: GameHttpFetchRequestOptions) => Promise<GameHttpFetchResponse>);
 }
@@ -13347,7 +13460,13 @@ declare class GameVector3 {
   toString(): string;
 }
 declare class GameBounds3 {
+  /**
+   * 区域的低处顶点
+   */
   lo: GameVector3;
+  /**
+   * 区域的高处顶点
+   */
   hi: GameVector3;
   constructor(lo: GameVector3, hi: GameVector3);
   static fromPoints(...points: GameVector3[]): GameBounds3;
@@ -13407,73 +13526,217 @@ declare class GameRGBColor {
 
 declare type SendClientEventType = (entities: GamePlayerEntity | GamePlayerEntity[], clientEvent: JSONValue) => void;
 declare type ServerEvent = {
+  /**
+   * 服务端当前时间
+   */
   tick: number;
+  /**
+   * 发送者实体
+   */
   entity: GamePlayerEntity;
+  /**
+   * 事件参数
+   */
   args: JSONValue;
 };
 declare class ServerRemoteChannel {
+  /**
+   * 服务端 发送至 客户端，向指定玩家发送事件。
+   */
   sendClientEvent: SendClientEventType;
+  /**
+   * 服务端 发送至 客户端，向所有玩家发送事件。
+   */
   broadcastClientEvent: (clientEvent: JSONValue) => void;
+  /**
+   * 监听 客户端 发来的事件
+   */
   onServerEvent: GameEventChannel<ServerEvent>;
   constructor(sendClientEvent: SendClientEventType, broadcastClientEvent: (clientEvent: JSONValue) => void, onServerEvent: GameEventChannel<ServerEvent>);
 }
 
 declare class GameRTCChannel {
+  /**
+   * 向该通道加入一个玩家
+   */
   add: (entity: GamePlayerEntity) => Promise<void>;
+  /**
+   * 从该通道移除一个玩家
+   */
   remove: (entity: GamePlayerEntity) => Promise<void>;
+  /**
+   * 停止向该通道发布麦克风
+   */
   unpublish: (entity: GamePlayerEntity) => Promise<void>;
+  /**
+   * 允许玩家发布麦克风
+   */
   publishMicrophone: (entity: GamePlayerEntity) => Promise<void>;
+  /**
+   * 获取该通道内的玩家列表
+   */
   getPlayers: () => Promise<GamePlayerEntity[]>;
+  /**
+   * 销毁该通道
+   */
   destroy: () => Promise<void>;
+  /**
+   * 获取玩家音量
+   * @param entity
+   */
   getVolume: (entity: GamePlayerEntity) => Promise<number>;
+  /**
+   * 设置玩家音量
+   * @param entity
+   */
   setVolume: (entity: GamePlayerEntity, volume: number) => Promise<void>;
+  /**
+   * 获取玩家麦克风权限
+   * @param entity
+   */
   getMicrophonePermission: (entity: GamePlayerEntity) => Promise<boolean>;
   constructor(add: (entity: GamePlayerEntity) => Promise<void>, remove: (entity: GamePlayerEntity) => Promise<void>, unpublish: (entity: GamePlayerEntity) => Promise<void>, publishMicrophone: (entity: GamePlayerEntity) => Promise<void>, getPlayers: () => Promise<GamePlayerEntity[]>, destroy: () => Promise<void>, getVolume: (entity: GamePlayerEntity) => Promise<number>, setVolume: (entity: GamePlayerEntity, volume: number) => Promise<void>, getMicrophonePermission: (entity: GamePlayerEntity) => Promise<boolean>);
 }
 declare class GameRTC {
+  /**
+   * 新建一个rtc通道
+   * @param channelId 默认为空，表示创建一个随机的channelId
+   */
   createChannel: (channelId?: string) => Promise<GameRTCChannel>;
   constructor(createChannel: (channelId?: string) => Promise<GameRTCChannel>);
 }
 
 declare type DB_ERROR_STATUS = 'CONSTRAINT_TARGET_INVALID' | 'PARAMS_INVALID' | 'DB_NAME_INVALID' | 'KEY_INVALID' | 'VALUE_INVALID' | 'SERVER_FETCH_ERROR' | 'REQUEST_THROTTLED' | 'UNKNOWN';
 declare class GameStorage implements I.GameStorage {
+  /**
+   * 连接指定数据存储空间，如果不存在则创建一个新的空间。
+   * 只能在本地图使用此空间，其他地图（如副图）无法访问此空间，从而避免全局污染。
+   */
   getDataStorage: (key: string) => GameDataStorage;
+  /**
+   * 连接指定数据存储空间，如果不存在则创建一个新的空间。
+   * 此方法为主图和副图共同维护的数据存储空间。
+   */
   getGroupStorage: (key: string) => GameDataStorage | undefined;
   constructor(getDataStorage: (key: string) => GameDataStorage, getGroupStorage: (key: string) => GameDataStorage | undefined);
 }
-declare type JSONValue = I.JSONValue;
 declare type ResultValue = {
+  /**
+   * 数据键名
+   */
   key: string;
+  /**
+   * 数据值
+   */
   value: JSONValue;
+  /**
+   * 数据版本号
+   */
   version: string;
+  /**
+   * 数据更新时间
+   */
   updateTime: number;
+  /**
+   * 数据创建时间
+   */
   createTime: number;
-};
+} | undefined;
 declare type ListReturnValue = {
+  /**
+   * 数据列表
+   */
   items: ResultValue[];
+  /**
+   * 是否为最后一页
+   */
   isLastPage: boolean;
 };
-declare type ReturnValue = I.ReturnValue;
-declare type ListPageOptions = I.ListPageOptions;
-/**
- *
- * A Data storage class
- * @export
- * @class GameDataStorage
- */
+declare type ReturnValue = ResultValue;
+declare type ListPageOptions = {
+  /**
+   * 分页指针，用于指定本次获取的分页起点页码。
+   * 第一页从0开始。展示第1项至第{pageSize}项数据。
+   */
+  cursor: number;
+  /**
+   * 分页大小，一页内的数据量，取值范围[0,100]，默认100。
+   */
+  pageSize?: number;
+  /**
+   * - 约束目标值的路径，当值是JSON格式时，指定用作排序的值的路径。例如传入 score时，会取值上score属性的值作为排序、最大最小值的限制目标；
+   * - 可以级联最多5级，例如a.b.c.d.e，超出视作非法参数，按下一条方式处理；
+   * - 当路径不存在或传入非法参数时，以值本身作为目标进行排序，并打印一条警告；
+   */
+  constraintTarget?: string;
+  /**
+   * 是否升序，设置为 true 时为升序，false为降序，不传或传入undefined时不排序；
+   */
+  ascending?: boolean;
+  /**
+   * 最大值，过滤返回对应值的最大值，超出或非数字则不返回该Key，默认不过滤；
+   */
+  max?: number;
+  /**
+   * 最小值，过滤返回对应值的最小值，超出或非数字则不返回该Key，默认不过滤；
+   */
+  min?: number;
+};
+
 declare class GameDataStorage implements I.GameDataStorage {
+  /**
+   * 数据存储空间名称
+   */
   readonly key: string;
+  /**
+   * 设置数据
+   * @param key 数据键名
+   * @param value 数据值
+   */
   set: (key: string, value: JSONValue) => Promise<void>;
+  /**
+   * 更新数据
+   * @param key 数据键名
+   * @param handler 数据更新处理器
+   * @returns 返回更新后的数据
+   */
   update: (key: string, handler: (prevValue: ReturnValue) => JSONValue) => Promise<void>;
+  /**
+   * 获取数据
+   * @param key 数据键名
+   * @returns 返回数据
+   */
   get: (key: string) => Promise<ReturnValue>;
+  /**
+   * 获取数据列表
+   * @param options 分页参数
+   * @returns 返回数据列表
+   */
   list: (options: ListPageOptions) => Promise<QueryList>;
+  /**
+   * 删除数据
+   * @param key 数据键名
+   * @returns 返回删除的数据
+   */
   remove: (key: string) => Promise<ReturnValue>;
+  /**
+   * 销毁数据存储空间
+   */
   destroy: () => Promise<void>;
   constructor(key: string, set: (key: string, value: JSONValue) => Promise<void>, update: (key: string, handler: (prevValue: ReturnValue) => JSONValue) => Promise<void>, get: (key: string) => Promise<ReturnValue>, list: (options: ListPageOptions) => Promise<QueryList>, remove: (key: string) => Promise<ReturnValue>, destroy: () => Promise<void>);
 }
 declare class QueryList implements I.QueryList {
+  /**
+   * 	按 {QueryList | pageSize} 获取当前页的键值对，返回当前页的键值对内容
+   */
   getCurrentPage: () => ReturnValue[];
+  /**
+   * 翻到下一页，执行后 {getCurrentPage} 将返回下一页的键值对内容
+   */
   nextPage: () => Promise<void>;
+  /**
+   * 是否为最后一页，如果翻过头了，也会为 true
+   */
   isLastPage: boolean;
   constructor(getCurrentPage: () => ReturnValue[], nextPage: () => Promise<void>);
 }

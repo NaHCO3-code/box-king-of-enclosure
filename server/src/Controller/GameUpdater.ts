@@ -5,7 +5,7 @@ import { KEvents, WEATHER_CHANGE_TIME, WEATHER_EFFECT_TIME } from "../Constants"
 import { KTeamManager } from "./TeamManager";
 import { Rich } from "../lib/Rich";
 import { Listener } from "../lib/Emitter";
-import { KZoneMgr } from "../Zone/ZoneMgr";
+import { KZoneMgr } from "./ZoneManager";
 
 export class KGameUpdater extends Component {
   model: KEnclose;

@@ -1,9 +1,9 @@
 import { MIN_ZONE_SIZE, MAP_SIZE } from "../Constants";
 import { KEnclose } from "../Model/Enclose";
 import { Vector2 } from "../lib/Vector";
-import { KZone } from "./Zone";
-import { SunnyZone } from "./SunnyZone";
-import { RainZone } from "./RainZone";
+import { KZone } from "../Zone/Zone";
+import { SunnyZone } from "../Zone/SunnyZone";
+import { RainZone } from "../Zone/RainZone";
 
 export class KZoneMgr {
   /**
@@ -18,7 +18,7 @@ export class KZoneMgr {
     },
     {
       create: SunnyZone.create,
-      rate: 1
+      rate: 0
     }
   ];
 

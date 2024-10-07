@@ -2,13 +2,11 @@ import Component from "component";
 import { KEmitter } from "../Events";
 import { KEvents, TeamId } from "../Constants";
 
-export class Player extends Component {
-  static players: Player[] = [];
+export class Player {
   entity: GamePlayerEntity;
   team: TeamId | null = null;
 
   constructor(entity: GamePlayerEntity) {
-    super();
     this.entity = entity;
     this.entity.onVoxelContact((event: GameVoxelContactEvent) => this.onVoxelContact(event));
     this.entity.player.cameraMode = GameCameraMode.FPS;
@@ -20,8 +18,10 @@ export class Player extends Component {
     KEmitter.emit(KEvents.VoxelContact, x, z, this.team);
   }
 
-  findPlayerByBoxId(boxId: string){
-    return Player.players.find(e => e.entity.player.boxId === boxId);
+  static players: Player[] = [];
+
+  static findPlayerByBoxId(userId: string){
+    return Player.players.find(e => e.entity.player.userId === userId);
   }
 
   static create(entity: GamePlayerEntity){
@@ -31,7 +31,7 @@ export class Player extends Component {
   static delete(entity: GamePlayerEntity){
     Player.players.splice(
       Player.players.findIndex(
-        e => entity.player.boxId === e.entity.player.boxId
+        e => entity.player.userId === e.entity.player.userId
       ), 
       1
     );

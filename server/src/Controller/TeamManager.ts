@@ -28,11 +28,9 @@ export class KTeamManager {
         if(Math.random() < 0.5){
           player.team = 1;
           this.teams[1].push(player);
-          console.log("red");
         }else{
           player.team = 2;
           this.teams[2].push(player);
-          console.log("blue");
         }
       })
     }else{
