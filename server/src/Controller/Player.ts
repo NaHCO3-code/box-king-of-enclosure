@@ -10,6 +10,7 @@ export class Player {
     this.entity = entity;
     this.entity.onVoxelContact((event: GameVoxelContactEvent) => this.onVoxelContact(event));
     this.entity.player.cameraMode = GameCameraMode.FPS;
+    this.entity.player.runSpeed = 5;
   }
 
   onVoxelContact(event: GameVoxelContactEvent){

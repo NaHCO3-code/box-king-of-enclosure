@@ -17,4 +17,5 @@ const grid = new KGrid(
   await grid.hide();
   await grid.show();
   await grid.forceClear();
+  await grid.hide();
 })();

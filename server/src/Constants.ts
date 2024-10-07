@@ -46,4 +46,3 @@ export const MIN_ZONE_SIZE = 16;
 export const GAME_TIME = 180;
 export const GAME_REST_TIME = 30;
 export const WEATHER_CHANGE_TIME = 30;
-export const WEATHER_EFFECT_TIME = 5;

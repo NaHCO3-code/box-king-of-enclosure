@@ -1,7 +1,7 @@
 import Component from "component";
 import { KEnclose } from "../Model/Enclose";
 import { KEmitter } from "../Events";
-import { KEvents, WEATHER_CHANGE_TIME, WEATHER_EFFECT_TIME } from "../Constants";
+import { KEvents, WEATHER_CHANGE_TIME } from "../Constants";
 import { KTeamManager } from "./TeamManager";
 import { Rich } from "../lib/Rich";
 import { Listener } from "../lib/Emitter";
@@ -12,7 +12,6 @@ export class KGameUpdater extends Component {
   tick: number;
   teamMgr: KTeamManager;
   zoneMgr: KZoneMgr;
-  zoneEffectCnt = 0;
   voxelContactListener: Listener | null;
 
   constructor(){
@@ -50,13 +49,14 @@ export class KGameUpdater extends Component {
     this.voxelContactListener = null;
   }
 
-  protected onUpdate(deltaTime: number): void {
+  protected onUpdate(deltaTime: number): void {    
+    const start = Date.now();
+
     this.model.updateModel(this.teamMgr.teamNum);
-    if(this.tick / 1000 >= this.zoneEffectCnt * WEATHER_EFFECT_TIME){
-      this.zoneMgr.calcEffect(this.model);
-      this.zoneEffectCnt += 1;
-    }
+    this.zoneMgr.calcEffect(this.model);
     this.model.updateMap();
+    console.clear();
+    console.log(Date.now() - start);
 
     this.tick += deltaTime;
     if(this.tick / 1000 <= WEATHER_CHANGE_TIME){
@@ -64,6 +64,5 @@ export class KGameUpdater extends Component {
     }
     this.changeWeather();
     this.tick = 0;
-    this.zoneEffectCnt = 0;
   }
 }

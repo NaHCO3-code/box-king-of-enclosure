@@ -1,21 +1,18 @@
-import { KEnclose } from "../Model/Enclose";
-import { Vector2 } from "../lib/Vector";
+import { Vector2 } from "src/lib/Vector";
 import { KZone } from "./Zone";
+import { KEnclose } from "src/Model/Enclose";
 
-
-export class SunnyZone extends KZone {
-  level: number;
-
+export class SnowZone extends KZone {
   constructor(
     position: Vector2,
     size: Vector2
   ) {
     super(position, size);
-    this.level = Math.random() * 0.005;
+    this.gameZone.snowEnabled = true;
 
     this.gameZone.onEnter(({ entity }) => {
       if (entity.isPlayer) {
-        (entity as GamePlayerEntity).player.directMessage("sunny zone");
+        (entity as GamePlayerEntity).player.directMessage("snow zone.");
       }
     });
   }
@@ -25,20 +22,20 @@ export class SunnyZone extends KZone {
     const my = this.position.y + this.size.y;
     for (let x = this.position.x; x < mx; ++x) {
       for (let y = this.position.y; y < my; ++y) {
-        const v = model.edge[x][y];
-        if (v !== 255) continue;
-        if (Math.random() < this.level) {
-          model.deltaMap[x][y] = 0;
-        }
+        model.deltaMap[x][y] = 255;
       }
     }
   }
 
   destory(): void {
-    world.removeZone(this.gameZone);
+    this.gameZone.snowEnabled = false;
+    ; (async () => {
+      await sleep(1000);
+      this.gameZone.remove();
+    })();
   }
 
   static create(pos: Vector2, size: Vector2) {
-    return new SunnyZone(pos, size);
+    return new SnowZone(pos, size);
   }
 }
