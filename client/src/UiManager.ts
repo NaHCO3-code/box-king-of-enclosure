@@ -1,7 +1,7 @@
 import { FontSize_H1, GirdSize, ScreenInfo } from "./Constants";
 import { KGrid } from "./Grid";
 import { Vector2 } from "./lib/Vector";
-import { MineMotion } from "./MineMotion";
+import { MineMotion } from "./lib/MineMotion";
 import { tutorial } from "./Tutorial";
 
 

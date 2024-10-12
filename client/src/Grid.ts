@@ -1,4 +1,4 @@
-import { Ease, MineMotion } from "./MineMotion";
+import { Ease, MineMotion } from "./lib/MineMotion";
 import { Rich } from "./lib/Rich";
 import { Vector2 } from "./lib/Vector";
 

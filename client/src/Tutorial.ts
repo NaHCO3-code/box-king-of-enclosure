@@ -1,6 +1,6 @@
 import { FontSize_H1, GirdSize, ScreenInfo } from "./Constants";
 import { KGrid } from "./Grid";
-import { MineMotion } from "./MineMotion";
+import { MineMotion } from "./lib/MineMotion";
 
 async function text(textEl: UiText, text: string) {
   await MineMotion.fromTo(textEl.textColor, 500, {

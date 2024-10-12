@@ -68,6 +68,15 @@ export class MineMotion<T extends Object>{
     this.motions.delete(id);
   }
 
+  /**
+   * 创建一个动画
+   * @param obj 需要应用动画的对象
+   * @param duration 动画时间（毫秒）
+   * @param from 起始值列表，只允许数字，以{属性名: 数值}的形式传入
+   * @param to 终止值列表
+   * @param ease 缓动函数（从[0, 1) -> [0, 1)的一个函数
+   * @returns 动画对象
+   */
   static fromTo<T extends Object>(
     obj: T, 
     duration: number, 
