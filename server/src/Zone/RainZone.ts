@@ -12,7 +12,7 @@ export class RainZone extends KZone {
   ) {
     super(position, size);
     this.gameZone.rainEnabled = true;
-    this.level = Math.random() * 0.01;
+    this.level = Math.random() * 0.005;
 
     this.gameZone.onEnter(({ entity }) => {
       if (entity.isPlayer) {

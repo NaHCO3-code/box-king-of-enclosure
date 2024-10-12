@@ -13,6 +13,7 @@ export class KGrid{
   updateInfo: Uint8Array[];
   blocks: UiImage[][];
   lock: boolean = false;
+  isShown: boolean = true;
 
   constructor(
     public gridWidth: number,
@@ -83,6 +84,7 @@ export class KGrid{
   }
 
   async show(){
+    if(this.isShown) return;
     if(this.lock) throw new Error("Grid is locked 3");
     this.lock = true;
     let _last: null | Promise<void> = null;
@@ -97,6 +99,7 @@ export class KGrid{
   }
 
   async hide(){
+    if(!this.isShown) return;
     if(this.lock) throw new Error("Grid is locked 4");
     this.lock = true;
     let _last = null;

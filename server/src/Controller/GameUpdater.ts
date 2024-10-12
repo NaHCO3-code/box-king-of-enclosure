@@ -50,13 +50,9 @@ export class KGameUpdater extends Component {
   }
 
   protected onUpdate(deltaTime: number): void {    
-    const start = Date.now();
-
     this.model.updateModel(this.teamMgr.teamNum);
     this.zoneMgr.calcEffect(this.model);
     this.model.updateMap();
-    console.clear();
-    console.log(Date.now() - start);
 
     this.tick += deltaTime;
     if(this.tick / 1000 <= WEATHER_CHANGE_TIME){

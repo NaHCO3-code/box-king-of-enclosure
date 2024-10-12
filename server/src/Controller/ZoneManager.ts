@@ -19,11 +19,11 @@ export class KZoneMgr {
     },
     {
       create: SunnyZone.create,
-      rate: 0
+      rate: 1
     },
     {
       create: SnowZone.create,
-      rate: 0
+      rate: 1
     }
   ];
 
@@ -61,7 +61,7 @@ export class KZoneMgr {
   init() {
     this.clear();
     this.zoneRateSum = this.zoneRate.reduce((acc, cur) => acc + cur.rate, 0);
-    this.initZones(new Vector2(0, 0), new Vector2(MAP_SIZE.x, MAP_SIZE.y), 1);
+    this.initZones(new Vector2(0, 0), new Vector2(MAP_SIZE.x, MAP_SIZE.y), 3);
   }
 
   clear() {
