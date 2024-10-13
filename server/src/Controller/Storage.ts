@@ -1,0 +1,1 @@
+export const SPlayed = storage.getDataStorage("played");

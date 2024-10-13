@@ -3,6 +3,7 @@ module.exports = {
     resolve: {
         alias: {
             'component': path.resolve(__dirname, 'dist/src/Component/Definition'),
+            "@": path.resolve(__dirname, 'dist/src'),
         }
     }
 };

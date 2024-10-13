@@ -5,7 +5,7 @@
                 "server": {
                     "base": "./server",
                     "entry": "src/App.ts",
-                    "development": true,
+                    "development": false,
                     "webpack": "./server/webpack.config.js"
                 },
                 "client": {

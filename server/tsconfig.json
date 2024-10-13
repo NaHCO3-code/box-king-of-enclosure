@@ -22,6 +22,7 @@
             "component": [
                 "./src/Component/Definition"
             ],
+            "@/*": ["./src/*"]
         }
     },
     "exclude": [

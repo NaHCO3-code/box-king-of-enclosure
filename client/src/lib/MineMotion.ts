@@ -1,6 +1,9 @@
 export const Ease = {
-  linear: (rate: number) => rate,
-  sine: (rate: number) => Math.sin(rate*Math.PI/2),
+  linear: (r: number) => r,
+  sine: (r: number) => Math.sin(r*Math.PI/2),
+  easeInOut: (r: number) => 6*r**5 - 15*r**4 + 10*r**3,
+  easeIn: (r: number) => Math.sqrt(r),
+  easeOut: (r: number) => r ** 3
 } as const;
 
 export class MineMotion<T extends Object>{
