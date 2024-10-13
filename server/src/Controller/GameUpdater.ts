@@ -1,6 +1,6 @@
 import Component from "component";
 import { KEnclose } from "@/Model/Enclose";
-import { KEmitter } from "@/Events";
+import { Emit } from "@/Events";
 import { KEvents, WEATHER_CHANGE_TIME } from "@/Constants";
 import { KTeamManager } from "./TeamManager";
 import { Rich } from "@/lib/Rich";
@@ -35,7 +35,7 @@ export class KGameUpdater extends Component {
     this.teamMgr.clear();
     this.teamMgr.alloc();
     this.zoneMgr.init();
-    this.voxelContactListener = KEmitter.on(KEvents.VoxelContact, (x, y, team) => {
+    this.voxelContactListener = Emit.on(KEvents.VoxelContact, (x, y, team) => {
       this.model.setVoxel(x, y, team);
     });
   }

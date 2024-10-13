@@ -1,4 +1,4 @@
-import { BackgroundColor, FontSize_H1, GirdSize, Gray, ScreenInfo } from "./Constants";
+import { BackgroundColor, Black, FontSize_H1, FontSize_H2, GirdSize, Gray, ScreenInfo, White } from "./Constants";
 import { KGrid } from "./Grid";
 import { Vector2 } from "./lib/Vector";
 import { Ease, MineMotion } from "./lib/MineMotion";
@@ -11,6 +11,9 @@ export class UiManager {
   grid: KGrid;
   coverEl: UiBox;
   titleTextEl: UiText;
+  joinNextGameBtn: UiText;
+  joinNextGame: boolean = false;
+  gaming: boolean = false;
 
   constructor() {
     this.grid = new KGrid(
@@ -22,7 +25,7 @@ export class UiManager {
     this.coverEl = UiBox.create();
     this.coverEl.size.offset.x = 0;
     this.coverEl.size.offset.y = 0;
-    this.coverEl.size.scale.x = 0;
+    this.coverEl.size.scale.x = 1;
     this.coverEl.size.scale.y = 1;
     this.coverEl.zIndex = 0;
     this.coverEl.parent = ui;
@@ -39,13 +42,42 @@ export class UiManager {
     this.titleTextEl.visible = false;
     this.titleTextEl.parent = ui;
 
+    this.joinNextGameBtn = UiText.create();
+    this.joinNextGameBtn.textContent = "⊚加入下一次游戏";
+    this.joinNextGameBtn.textColor.copy(Black);
+    this.joinNextGameBtn.size.offset.x = 0;
+    this.joinNextGameBtn.size.offset.y = 50;
+    this.joinNextGameBtn.size.scale.x = 0.2;
+    this.joinNextGameBtn.backgroundColor.copy(White);
+    this.joinNextGameBtn.backgroundOpacity = 0.5;
+    this.joinNextGameBtn.parent = ui;
+    this.joinNextGameBtn.events.add("pointerdown", () => {
+      this.alterInvolvement();
+    })
+    
+
     Emit.on(ScreenEvent.resize, () => {
       this.titleTextEl.position.offset.y = ScreenInfo.height / 2 - (GirdSize * 2) - FontSize_H1*1.1;
       this.titleTextEl.textFontSize = FontSize_H1;
+
+      this.joinNextGameBtn.textFontSize = FontSize_H2;
     });
 
     Emit.on(RemoteEvent.tutorial, () => {
       this.tutorial();
+    });
+
+    Emit.on(RemoteEvent.gameStart, () => {
+      this.gaming = true;
+      this.grid.hide();
+      this.sideCover();
+    })
+
+    Emit.on(RemoteEvent.gameEnd, () => {
+      if(!this.gaming) return;
+      this.fullCover();
+      this.grid.show();
+      if(this.joinNextGame) this.alterInvolvement();
     })
   }
 
@@ -68,7 +100,7 @@ export class UiManager {
     }, Ease.easeInOut).wait;
   }
   
-  async halfCover(){
+  async sideCover(){
     this.coverEl.visible = true;
     MineMotion.fromTo(this.coverEl.backgroundColor, 500, {
       r: BackgroundColor.r, g: BackgroundColor.g, b: BackgroundColor.b
@@ -92,17 +124,26 @@ export class UiManager {
     await this.fullCover();
     await this.grid.show();
     await tutorial(this.grid, this.titleTextEl);
-    this.halfCover();
+    this.sideCover();
     this.grid.hide();
     this.titleTextEl.visible = false;
   }
 
-  static inst: UiManager;
+  alterInvolvement(){
+    remoteChannel.sendServerEvent({
+      type: RemoteEvent.alterInvolvement,
+      value: !this.joinNextGame
+    })
+    this.joinNextGameBtn.textContent = this.joinNextGame ? "⊚加入下一次游戏" : "⋄取消加入下一次游戏";
+    this.joinNextGame = !this.joinNextGame;
+  }
+
+  static _inst: UiManager;
 
   static getInstance(){
-    if(!UiManager.inst){
-      UiManager.inst = new UiManager();
+    if(!UiManager._inst){
+      UiManager._inst = new UiManager();
     }
-    return UiManager.inst;
+    return UiManager._inst;
   }
 }

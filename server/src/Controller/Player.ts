@@ -1,5 +1,5 @@
 import Component from "component";
-import { KEmitter } from "@/Events";
+import { Emit } from "@/Events";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
 import { Rich } from "@/lib/Rich";
@@ -19,6 +19,7 @@ export class Player {
   }
 
   async init(){
+    // await SPlayed.remove(this.entity.player.userId);
     const isPlayed = await SPlayed.get(this.entity.player.userId);
     if(!isPlayed || Date.now() - isPlayed.updateTime >= 2592000000){
       await SPlayed.set(this.entity.player.userId, true);
@@ -31,12 +32,12 @@ export class Player {
   onVoxelContact(event: GameVoxelContactEvent){
     const { x, z } = event;
     if(this.team === null) return;
-    KEmitter.emit(KEvents.VoxelContact, x, z, this.team);
+    Emit.emit(KEvents.VoxelContact, x, z, this.team);
   }
 
   static players: Player[] = [];
 
-  static findPlayerByBoxId(userId: string){
+  static findPlayerByUserId(userId: string){
     return Player.players.find(e => e.entity.player.userId === userId);
   }
 
@@ -53,3 +54,9 @@ export class Player {
     );
   }
 }
+
+Emit.on(RemoteEvent.alterInvolvement, (event) => {
+  const player = Player.findPlayerByUserId(event.entity.player.userId);
+  if(!player) return;
+  player.joinNextGame = event.args.value;
+})

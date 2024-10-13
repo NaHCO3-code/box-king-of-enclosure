@@ -19,8 +19,8 @@ export const Emit = new Emitter<
 remoteChannel.onClientEvent((e) => {
   const event = e as unknown as {type: string, [K: string]: any};
   for(let k in RemoteEvent){
-    if(event?.type === RemoteEvent[k as keyof typeof RemoteEvent]){
-      Emit.emit(event?.type, event);
+    if(event.type === RemoteEvent[k as keyof typeof RemoteEvent]){
+      Emit.emit(event.type, event);
     }
   }
 });

@@ -80,6 +80,7 @@ export class KGrid{
 
   async show(){
     if(this.isShown) return;
+    this.isShown = true;
     if(this.lock) throw new Error("Grid is locked 3");
     this.lock = true;
     let _last: null | Promise<void> = null;
@@ -95,6 +96,7 @@ export class KGrid{
 
   async hide(){
     if(!this.isShown) return;
+    this.isShown = false;
     if(this.lock) throw new Error("Grid is locked 4");
     this.lock = true;
     let _last = null;
