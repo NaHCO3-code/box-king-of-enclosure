@@ -1,5 +1,5 @@
-import { PosX, PosY, Teams } from "../Constants";
-import { MAP_SIZE, MAP_ZINDEX } from "../Constants";
+import { PosX, PosY, Teams } from "@/Constants";
+import { MAP_SIZE, MAP_ZINDEX } from "@/Constants";
 
 export class KEnclose {
   /**

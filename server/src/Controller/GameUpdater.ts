@@ -1,10 +1,10 @@
 import Component from "component";
-import { KEnclose } from "../Model/Enclose";
-import { KEmitter } from "../Events";
-import { KEvents, WEATHER_CHANGE_TIME } from "../Constants";
+import { KEnclose } from "@/Model/Enclose";
+import { KEmitter } from "@/Events";
+import { KEvents, WEATHER_CHANGE_TIME } from "@/Constants";
 import { KTeamManager } from "./TeamManager";
-import { Rich } from "../lib/Rich";
-import { Listener } from "../lib/Emitter";
+import { Rich } from "@/lib/Rich";
+import { Listener } from "@/lib/Emitter";
 import { KZoneMgr } from "./ZoneManager";
 
 export class KGameUpdater extends Component {

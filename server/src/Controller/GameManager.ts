@@ -1,6 +1,6 @@
 import Component from "component";
 import { KGameUpdater } from "./GameUpdater";
-import { GAME_REST_TIME, GAME_TIME } from "../Constants";
+import { GAME_REST_TIME, GAME_TIME } from "@/Constants";
 
 export enum KGameState {
   GAME,

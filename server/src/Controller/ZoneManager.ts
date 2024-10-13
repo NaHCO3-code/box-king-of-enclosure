@@ -1,10 +1,10 @@
-import { MIN_ZONE_SIZE, MAP_SIZE } from "../Constants";
-import { KEnclose } from "../Model/Enclose";
-import { Vector2 } from "../lib/Vector";
-import { KZone } from "../Zone/Zone";
-import { SunnyZone } from "../Zone/SunnyZone";
-import { RainZone } from "../Zone/RainZone";
-import { SnowZone } from "../Zone/SnowZone";
+import { MIN_ZONE_SIZE, MAP_SIZE } from "@/Constants";
+import { KEnclose } from "@/Model/Enclose";
+import { Vector2 } from "@/lib/Vector";
+import { KZone } from "@/Zone/Zone";
+import { SunnyZone } from "@/Zone/SunnyZone";
+import { RainZone } from "@/Zone/RainZone";
+import { SnowZone } from "@/Zone/SnowZone";
 
 export class KZoneMgr {
   /**

@@ -1,5 +1,5 @@
-import { KEnclose } from "../Model/Enclose";
-import { Vector2 } from "../lib/Vector";
+import { KEnclose } from "@/Model/Enclose";
+import { Vector2 } from "@/lib/Vector";
 import { KZone } from "./Zone";
 
 

@@ -1,5 +1,5 @@
-import { Teams } from "../Constants";
-import { Rich } from "../lib/Rich";
+import { Teams } from "@/Constants";
+import { Rich } from "@/lib/Rich";
 import { Player } from "./Player";
 
 

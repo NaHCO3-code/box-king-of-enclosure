@@ -1,8 +1,8 @@
 import Component from "component";
-import { KEmitter } from "../Events";
-import { KEvents, TeamId } from "../Constants";
+import { KEmitter } from "@/Events";
+import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
-import { Rich } from "../lib/Rich";
+import { Rich } from "@/lib/Rich";
 import { RemoteEvent } from "@/RemoteEvent";
 
 export class Player {

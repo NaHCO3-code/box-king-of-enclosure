@@ -1,7 +1,7 @@
-import { KEnclose } from "../Model/Enclose";
-import { MAP_HEIGHT } from "../Constants";
-import { Vector2 } from "../lib/Vector";
-import { Rich } from "../lib/Rich";
+import { KEnclose } from "@/Model/Enclose";
+import { MAP_HEIGHT } from "@/Constants";
+import { Vector2 } from "@/lib/Vector";
+import { Rich } from "@/lib/Rich";
 export abstract class KZone {
   gameZone: GameZone;
 
