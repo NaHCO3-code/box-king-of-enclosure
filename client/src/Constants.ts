@@ -11,6 +11,7 @@ export const BackgroundColor = Vec3.create({r: 255, g: 255, b: 255});
 export const Gray = Vec3.create({r: 64, g: 64, b: 64});
 export const Black = Vec3.create({r: 0, g: 0, b: 0});
 export const White = Vec3.create({r: 255, g: 255, b: 255});
+export const Blue = Vec3.create({r: 51, g: 102, b: 153});
 export const TextColor = Vec3.create({r: 0, g: 0, b: 0});
 
 setInterval(() => {

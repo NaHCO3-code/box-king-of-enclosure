@@ -1,4 +1,4 @@
-import { BackgroundColor, Black, FontSize_H1, FontSize_H2, GirdSize, Gray, ScreenInfo, White } from "./Constants";
+import { BackgroundColor, Black, Blue, FontSize_H1, FontSize_H2, GirdSize, Gray, ScreenInfo, White } from "./Constants";
 import { KGrid } from "./Grid";
 import { Vector2 } from "./lib/Vector";
 import { Ease, MineMotion } from "./lib/MineMotion";
@@ -48,7 +48,7 @@ export class UiManager {
     this.joinNextGameBtn.size.offset.x = 0;
     this.joinNextGameBtn.size.offset.y = 50;
     this.joinNextGameBtn.size.scale.x = 0.2;
-    this.joinNextGameBtn.backgroundColor.copy(White);
+    this.joinNextGameBtn.backgroundColor.copy(Blue);
     this.joinNextGameBtn.backgroundOpacity = 0.5;
     this.joinNextGameBtn.parent = ui;
     this.joinNextGameBtn.events.add("pointerdown", () => {
@@ -70,7 +70,7 @@ export class UiManager {
     Emit.on(RemoteEvent.gameStart, () => {
       this.gaming = true;
       this.grid.hide();
-      this.sideCover();
+      this.hideCover();
     })
 
     Emit.on(RemoteEvent.gameEnd, () => {
@@ -100,7 +100,7 @@ export class UiManager {
     }, Ease.easeInOut).wait;
   }
   
-  async sideCover(){
+  async hideCover(){
     this.coverEl.visible = true;
     MineMotion.fromTo(this.coverEl.backgroundColor, 500, {
       r: BackgroundColor.r, g: BackgroundColor.g, b: BackgroundColor.b
@@ -115,7 +115,7 @@ export class UiManager {
     await MineMotion.fromTo(this.coverEl.size.scale, 500, {
       x: 1
     }, {
-      x: 0.2
+      x: 0
     }, Ease.easeInOut).wait;
   }
 
@@ -124,7 +124,7 @@ export class UiManager {
     await this.fullCover();
     await this.grid.show();
     await tutorial(this.grid, this.titleTextEl);
-    this.sideCover();
+    this.hideCover();
     this.grid.hide();
     this.titleTextEl.visible = false;
   }

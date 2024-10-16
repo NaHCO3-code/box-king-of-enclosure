@@ -1,5 +1,5 @@
 import Component from "component";
-import { Emit } from "@/Events";
+import { Emit } from "@/Event";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
 import { Rich } from "@/lib/Rich";

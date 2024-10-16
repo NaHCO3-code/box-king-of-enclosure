@@ -1,6 +1,7 @@
 import { Emitter, GenEmitterType } from "./lib/Emitter";
 import { Rich } from "./lib/Rich";
-import { RemoteEvent, RemoteEventType } from "./RemoteEvent";
+import { RemoteEvent } from "./RemoteEvent";
+import { RemoteEventType } from "./RemoteEventType";
 import { tutorial } from "./Tutorial";
 
 export const ScreenEvent = {

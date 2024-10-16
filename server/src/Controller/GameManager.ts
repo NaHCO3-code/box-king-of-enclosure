@@ -1,7 +1,6 @@
 import Component from "component";
 import { KGameUpdater } from "./GameUpdater";
 import { GAME_REST_TIME, GAME_TIME } from "@/Constants";
-import { RemoteEvent } from "@/RemoteEvent";
 
 export enum KGameState {
   GAME,
@@ -16,7 +15,7 @@ export class KGameManager extends Component {
 
   constructor(){
     super();
-    this.tick = 20000;
+    this.tick = 0;
     this.state = KGameState.REST;
     this.nextStateChangeTime = GAME_REST_TIME;
     this.updater = new KGameUpdater();

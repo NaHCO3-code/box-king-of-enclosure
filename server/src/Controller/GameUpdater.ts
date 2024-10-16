@@ -1,6 +1,6 @@
 import Component from "component";
 import { KEnclose } from "@/Model/Enclose";
-import { Emit } from "@/Events";
+import { Emit } from "@/Event";
 import { KEvents, WEATHER_CHANGE_TIME } from "@/Constants";
 import { KTeamManager } from "./TeamManager";
 import { Rich } from "@/lib/Rich";
