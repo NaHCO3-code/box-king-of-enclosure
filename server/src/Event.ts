@@ -2,7 +2,7 @@ import { Emitter, GenEmitterType } from "./lib/Emitter";
 import { KEventEmitterType, KEvents } from "./Constants";
 import { RemoteEventType } from "./RemoteEventType";
 import { Rich } from "./lib/Rich";
-import { RemoteEvent } from "./RemoteEvent";
+import { RemoteEvent } from "@shares/RemoteEvent";
 
 export const Emit = new Emitter<
   KEventEmitterType 

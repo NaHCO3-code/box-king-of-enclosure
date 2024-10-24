@@ -1,6 +1,9 @@
-import { UiManager } from "./UiManager";
+// import { UiManager } from "./UiManager";
 
-UiManager.getInstance();
+import { Rich } from "./lib/Rich";
 
-;(async function(){
-})();
+// UiManager.getInstance();
+
+// Rich.print(ui);
+
+Rich.print(ui, 321)

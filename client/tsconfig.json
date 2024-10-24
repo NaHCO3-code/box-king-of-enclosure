@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "module": "ES2015", // do not change this
+        "module": "ESNext",
         "strict": true,
+        "allowJs": true,
+        "checkJs": true,
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "removeComments": true,
@@ -11,7 +13,7 @@
         "experimentalDecorators": true,
         "moduleResolution": "node",
         "baseUrl": ".",
-        "rootDir": ".",
+        "rootDir": "../",
         "outDir": "dist", // do not change this
         "typeRoots": [
             "./types"
@@ -19,9 +21,18 @@
         "lib": [
             "ES2015"
         ],
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@shares/*": [
+                "../shares/*"
+            ],
+        }
     },
     "exclude": [
         "node_modules",
+        "webpack.config.js",
         "dist"
     ]
 }

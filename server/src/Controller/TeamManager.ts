@@ -1,7 +1,7 @@
 import { Teams } from "@/Constants";
 import { Rich } from "@/lib/Rich";
 import { Player } from "./Player";
-import { RemoteEvent } from "@/RemoteEvent";
+import { RemoteEvent } from "@shares/RemoteEvent";
 
 
 

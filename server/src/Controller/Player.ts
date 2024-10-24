@@ -3,7 +3,7 @@ import { Emit } from "@/Event";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
 import { Rich } from "@/lib/Rich";
-import { RemoteEvent } from "@/RemoteEvent";
+import { RemoteEvent } from "@shares/RemoteEvent";
 
 export class Player {
   entity: GamePlayerEntity;

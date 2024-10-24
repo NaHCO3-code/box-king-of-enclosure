@@ -20,6 +20,16 @@ declare const voxels: GameVoxels;
  * GameAssetListEntry 是控制游戏中的资产对象，用于获取游戏内模型、图片、音频等资源。
  */
 declare const resources: {
+  /**
+  * 列出指定类型的游戏资源。
+  * @param path - 可选。指定游戏资源的类型。如果不提供，默认返回全部资源（包含脚本）。
+  *        - 'snow': 查询雪贴图资源。
+  *        - 'mesh': 查询体素模型资源。
+  *        - 'picture': 查询图片资源。
+  *        - 'audio': 查询音频资源。
+  *        - 'lut': 查询滤镜资源。
+  * @returns 返回一个 GameAssetListEntry 对象数组，每个对象代表一个游戏资源条目。
+  */
   ls: (path?: 'snow' | 'mesh' | 'picture' | 'audio' | 'lut') => GameAssetListEntry[];
 };
 /**
@@ -4765,157 +4775,180 @@ interface Math {
 /** An intrinsic object that provides basic mathematics functionality and constants. */
 declare var Math: Math;
 
-/** Enables basic storage and retrieval of dates and times. */
+/** 启用日期和时间的基本存储和检索功能。 */
 interface Date {
-  /** Returns a string representation of a date. The format of the string depends on the locale. */
+  /** 返回日期的字符串表示形式。字符串的格式取决于本地化设置。 */
   toString(): string;
-  /** Returns a date as a string value. */
+  /** 以字符串值返回日期。 */
   toDateString(): string;
-  /** Returns a time as a string value. */
+  /** 以字符串值返回时间。 */
   toTimeString(): string;
-  /** Returns a value as a string value appropriate to the host environment's current locale. */
+  /** 以适合主机环境当前本地化设置的字符串值返回值。 */
   toLocaleString(): string;
-  /** Returns a date as a string value appropriate to the host environment's current locale. */
+  /** 以适合主机环境当前本地化设置的字符串值返回日期。 */
   toLocaleDateString(): string;
-  /** Returns a time as a string value appropriate to the host environment's current locale. */
+  /** 以适合主机环境当前本地化设置的字符串值返回时间。 */
   toLocaleTimeString(): string;
-  /** Returns the stored time value in milliseconds since midnight, January 1, 1970 UTC. */
+  /** 返回自 1970 年 1 月 1 日午夜（UTC）以来的存储时间值（以毫秒为单位）。 */
   valueOf(): number;
-  /** Gets the time value in milliseconds. */
+  /** 获取时间值（以毫秒为单位）。 */
   getTime(): number;
-  /** Gets the year, using local time. */
+  /** 使用本地时间获取年份。 */
   getFullYear(): number;
-  /** Gets the year using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取年份。 */
   getUTCFullYear(): number;
-  /** Gets the month, using local time. */
+  /** 使用本地时间获取月份。 */
   getMonth(): number;
-  /** Gets the month of a Date object using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取月份。 */
   getUTCMonth(): number;
-  /** Gets the day-of-the-month, using local time. */
+  /** 使用本地时间获取月份中的日期。 */
   getDate(): number;
-  /** Gets the day-of-the-month, using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取月份中的日期。 */
   getUTCDate(): number;
-  /** Gets the day of the week, using local time. */
+  /** 使用本地时间获取星期几。 */
   getDay(): number;
-  /** Gets the day of the week using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取星期几。 */
   getUTCDay(): number;
-  /** Gets the hours in a date, using local time. */
+  /** 使用本地时间获取小时数。 */
   getHours(): number;
-  /** Gets the hours value in a Date object using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取 Date 对象中的小时数。 */
   getUTCHours(): number;
-  /** Gets the minutes of a Date object, using local time. */
+  /** 使用本地时间获取分钟数。 */
   getMinutes(): number;
-  /** Gets the minutes of a Date object using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取 Date 对象中的分钟数。 */
   getUTCMinutes(): number;
-  /** Gets the seconds of a Date object, using local time. */
+  /** 使用本地时间获取秒数。 */
   getSeconds(): number;
-  /** Gets the seconds of a Date object using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取 Date 对象中的秒数。 */
   getUTCSeconds(): number;
-  /** Gets the milliseconds of a Date, using local time. */
+  /** 使用本地时间获取 Date 对象中的毫秒数。 */
   getMilliseconds(): number;
-  /** Gets the milliseconds of a Date object using Universal Coordinated Time (UTC). */
+  /** 使用协调世界时 (UTC) 获取 Date 对象中的毫秒数。 */
   getUTCMilliseconds(): number;
-  /** Gets the difference in minutes between the time on the local computer and Universal Coordinated Time (UTC). */
+  /** 获取本地计算机时间和协调世界时 (UTC) 之间的差值（以分钟为单位）。 */
   getTimezoneOffset(): number;
+
   /**
-   * Sets the date and time value in the Date object.
-   * @param time A numeric value representing the number of elapsed milliseconds since midnight, January 1, 1970 GMT.
-   */
+  * 设置 Date 对象中的日期和时间值。
+  * @param time 自 1970 年 1 月 1 日午夜（GMT）以来经过的毫秒数。
+  */
   setTime(time: number): number;
+
   /**
-   * Sets the milliseconds value in the Date object using local time.
-   * @param ms A numeric value equal to the millisecond value.
+   * 使用本地时间设置 Date 对象中的毫秒值。
+   * @param ms 等于毫秒值的数字。
    */
   setMilliseconds(ms: number): number;
+
   /**
-   * Sets the milliseconds value in the Date object using Universal Coordinated Time (UTC).
-   * @param ms A numeric value equal to the millisecond value.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的毫秒值。
+   * @param ms 等于毫秒值的数字。
    */
   setUTCMilliseconds(ms: number): number;
 
   /**
-   * Sets the seconds value in the Date object using local time.
-   * @param sec A numeric value equal to the seconds value.
-   * @param ms A numeric value equal to the milliseconds value.
+   * 使用本地时间设置 Date 对象中的秒数。
+   * @param sec 等于秒数的数字。
+   * @param ms 可选参数，等于毫秒值的数字。
    */
   setSeconds(sec: number, ms?: number): number;
+
   /**
-   * Sets the seconds value in the Date object using Universal Coordinated Time (UTC).
-   * @param sec A numeric value equal to the seconds value.
-   * @param ms A numeric value equal to the milliseconds value.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的秒数。
+   * @param sec 等于秒数的数字。
+   * @param ms 可选参数，等于毫秒值的数字。
    */
   setUTCSeconds(sec: number, ms?: number): number;
+
   /**
-   * Sets the minutes value in the Date object using local time.
-   * @param min A numeric value equal to the minutes value.
-   * @param sec A numeric value equal to the seconds value.
-   * @param ms A numeric value equal to the milliseconds value.
+   * 使用本地时间设置 Date 对象中的分钟数。
+   * @param min 等于分钟数的数字。
+   * @param sec 可选参数，等于秒数的数字。
+   * @param ms 可选参数，等于毫秒值的数字。
    */
   setMinutes(min: number, sec?: number, ms?: number): number;
+
   /**
-   * Sets the minutes value in the Date object using Universal Coordinated Time (UTC).
-   * @param min A numeric value equal to the minutes value.
-   * @param sec A numeric value equal to the seconds value.
-   * @param ms A numeric value equal to the milliseconds value.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的分钟数。
+   * @param min 等于分钟数的数字。
+   * @param sec 可选参数，等于秒数的数字。
+   * @param ms 可选参数，等于毫秒值的数字。
    */
   setUTCMinutes(min: number, sec?: number, ms?: number): number;
+
   /**
-   * Sets the hour value in the Date object using local time.
-   * @param hours A numeric value equal to the hours value.
-   * @param min A numeric value equal to the minutes value.
-   * @param sec A numeric value equal to the seconds value.
-   * @param ms A numeric value equal to the milliseconds value.
+   * 使用本地时间设置 Date 对象中的小时数。
+   * @param hours 等于小时数的数字。
+   * @param min 可选参数，等于分钟数的数字。
+   * @param sec 可选参数，等于秒数的数字。
+   * @param ms 可选参数，等于毫秒值的数字。
    */
   setHours(hours: number, min?: number, sec?: number, ms?: number): number;
+
   /**
-   * Sets the hours value in the Date object using Universal Coordinated Time (UTC).
-   * @param hours A numeric value equal to the hours value.
-   * @param min A numeric value equal to the minutes value.
-   * @param sec A numeric value equal to the seconds value.
-   * @param ms A numeric value equal to the milliseconds value.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的小时数。
+   * @param hours 等于小时数的数字。
+   * @param min 可选参数，等于分钟数的数字。
+   * @param sec 可选参数，等于秒数的数字。
+   * @param ms 可选参数，等于毫秒值的数字。
    */
   setUTCHours(hours: number, min?: number, sec?: number, ms?: number): number;
+
   /**
-   * Sets the numeric day-of-the-month value of the Date object using local time.
-   * @param date A numeric value equal to the day of the month.
+   * 使用本地时间设置 Date 对象中的月份日期。
+   * @param date 等于月份日期的数字。
    */
   setDate(date: number): number;
+
   /**
-   * Sets the numeric day of the month in the Date object using Universal Coordinated Time (UTC).
-   * @param date A numeric value equal to the day of the month.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的月份日期。
+   * @param date 等于月份日期的数字。
    */
   setUTCDate(date: number): number;
+
   /**
-   * Sets the month value in the Date object using local time.
-   * @param month A numeric value equal to the month. The value for January is 0, and other month values follow consecutively.
-   * @param date A numeric value representing the day of the month. If this value is not supplied, the value from a call to the getDate method is used.
+   * 使用本地时间设置 Date 对象中的月份。
+   * @param month 等于月份的数字。1 月为 0，其他月份依次递增。
+   * @param date 可选参数，等于月份日期的数字。如果未提供，则使用 `getDate` 方法的返回值。
    */
   setMonth(month: number, date?: number): number;
+
   /**
-   * Sets the month value in the Date object using Universal Coordinated Time (UTC).
-   * @param month A numeric value equal to the month. The value for January is 0, and other month values follow consecutively.
-   * @param date A numeric value representing the day of the month. If it is not supplied, the value from a call to the getUTCDate method is used.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的月份。
+   * @param month 等于月份的数字。1 月为 0，其他月份依次递增。
+   * @param date 可选参数，等于月份日期的数字。如果未提供，则使用 `getUTCDate` 方法的返回值。
    */
   setUTCMonth(month: number, date?: number): number;
+
   /**
-   * Sets the year of the Date object using local time.
-   * @param year A numeric value for the year.
-   * @param month A zero-based numeric value for the month (0 for January, 11 for December). Must be specified if numDate is specified.
-   * @param date A numeric value equal for the day of the month.
+   * 使用本地时间设置 Date 对象中的年份。
+   * @param year 等于年份的数字。
+   * @param month 可选参数，等于月份的数字。1 月为 0，其他月份依次递增。如果提供了 `date` 参数，则必须提供此参数。
+   * @param date 可选参数，等于月份日期的数字。
    */
   setFullYear(year: number, month?: number, date?: number): number;
+
   /**
-   * Sets the year value in the Date object using Universal Coordinated Time (UTC).
-   * @param year A numeric value equal to the year.
-   * @param month A numeric value equal to the month. The value for January is 0, and other month values follow consecutively. Must be supplied if numDate is supplied.
-   * @param date A numeric value equal to the day of the month.
+   * 使用协调世界时 (UTC) 设置 Date 对象中的年份。
+   * @param year 等于年份的数字。
+   * @param month 可选参数，等于月份的数字。1 月为 0，其他月份依次递增。如果提供了 `date` 参数，则必须提供此参数。
+   * @param date 可选参数，等于月份日期的数字。
    */
   setUTCFullYear(year: number, month?: number, date?: number): number;
-  /** Returns a date converted to a string using Universal Coordinated Time (UTC). */
+
+  /**
+   * 将日期转换为使用协调世界时 (UTC) 的字符串。
+   */
   toUTCString(): string;
-  /** Returns a date as a string value in ISO format. */
+
+  /**
+   * 将日期作为 ISO 格式的字符串值返回。
+   */
   toISOString(): string;
-  /** Used by the JSON.stringify method to enable the transformation of an object's data for JavaScript Object Notation (JSON) serialization. */
+
+  /**
+   * 用于 `JSON.stringify` 方法，以便在将对象数据序列化为 JSON 时进行转换。
+   */
   toJSON(key?: any): string;
 }
 
@@ -9408,186 +9441,396 @@ declare enum SocialType {
   FOLLOWERS = 1,
   FRIENDS = 2
 }
+/**
+ * 定义游戏音效配置的接口
+ * 此接口用于标准化音效配置，确保音效在游戏中的表现一致性和可预测性
+ */
 interface GameSoundEffectConfig {
+  // 音效样本的标识符，用于引用特定的音效资源
   sample: string;
+  // 音效生效的最大半径，超出此范围将无法听到音效
   radius: number;
+  // 音效的基础音量增益，用于控制音效的初始响度
   gain: number;
+  // 音量增益的变化范围，用于随机化音效的响度，增加真实感
   gainRange: number;
+  // 音效的基础音高，用于控制音效的初始频率
   pitch: number;
+  // 音高变化的范围，用于随机化音效的频率，增加多样性和真实感
   pitchRange: number;
 }
 /**
- * A single sound effect table
+ * 单个音效表
  */
 declare class GameSoundEffect implements GameSoundEffectConfig {
   /**
-   * Sample weight
+   * 样本权重
    */
   radius: number;
   /**
-   * Volume gain, makes sound louder
+   * 音量增益，使声音更大
    */
   gain: number;
   /**
-   * Variability in volume gain
+   * 音量增益的变化范围
    */
   gainRange: number;
   /**
-   * Pitch adjustment multiplier.
-   * * 1 : normal
-   * * < 1 : slower playback
-   * * > 1 : faster playback
+   * 音调调整倍数。
+   * * 1 : 正常
+   * * < 1 : 播放速度变慢
+   * * > 1 : 播放速度变快
    */
   pitch: number;
   /**
-   * Variability in pitch
+   * 音调变化范围
    */
   pitchRange: number;
   /**
-   * Path to sample
+   * 样本路径
    */
   sample: string;
 }
 /**
- * Triggers can be used to detect when an object enters some zone or leaves.
+ * 触发器可以用于检测对象何时进入或离开某个区域。
  */
 declare class GameZone {
   /**
-   * List all entities
+   * 列出所有实体
    */
   entities: () => GameEntity[];
+
   /**
-   * Triggered when an entity enters the zone
+   * 当实体进入区域时触发
    */
   onEnter: GameEventChannel<GameTriggerEvent>;
-  nextEnter: GameEventFuture<GameTriggerEvent>;
+
   /**
-   * Triggers when an entity leaves the zone
+   * 获取下一个进入事件
+   */
+  nextEnter: GameEventFuture<GameTriggerEvent>;
+
+  /**
+   * 当实体离开区域时触发
    */
   onLeave: GameEventChannel<GameTriggerEvent>;
-  nextLeave: GameEventFuture<GameTriggerEvent>;
+
   /**
-   * Destroys the zone
+   * 获取下一个离开事件
+   */
+  nextLeave: GameEventFuture<GameTriggerEvent>;
+
+  /**
+   * 销毁区域
    */
   remove: () => void;
+
   /**
-   * Bounds of the zone
+   * 区域的边界
    */
   bounds: GameBounds3;
+
   /**
-   * Selector filter
+   * 选择器过滤条件
    */
   selector: GameSelectorString;
+
   /**
-   * Controls how much the object's mass applies to the force
-   * 0 = behaves like gravity
-   * 1 = behaves like wind
+   * 控制对象的质量对力的影响
+   * 0 = 行为像重力
+   * 1 = 行为像风
    */
   massScale: number;
+
   /**
-   * The amount of force to apply to the object
+   * 应用到对象上的力的大小
    */
   force: GameVector3;
-  fogEnabled: boolean;
-  fogColor: GameRGBColor;
-  fogStartDistance: number;
-  fogHeightOffset: number;
-  fogHeightFalloff: number;
-  fogDensity: number;
-  fogMax: number;
-  snowEnabled: boolean;
-  snowDensity: number;
-  snowSizeLo: number;
-  snowSizeHi: number;
-  snowFallSpeed: number;
-  snowSpinSpeed: number;
-  snowColor: GameRGBAColor;
-  snowTexture: string;
-  rainEnabled: boolean;
-  rainDensity: number;
-  rainDirection: GameVector3;
-  rainSpeed: number;
-  rainSizeLo: number;
-  rainSizeHi: number;
-  rainInterference: number;
-  rainColor: GameRGBAColor;
-  skyEnabled: boolean;
-  skyMode: 'natural' | 'manual';
-  skySunPhase: number;
-  skySunFrequency: number;
-  skyLunarPhase: number;
-  skySunDirection: GameVector3;
-  skySunLight: GameRGBColor;
-  skyLeftLight: GameRGBColor;
-  skyRightLight: GameRGBColor;
-  skyBottomLight: GameRGBColor;
-  skyTopLight: GameRGBColor;
-  skyFrontLight: GameRGBColor;
-  skyBackLight: GameRGBColor;
+
   /**
-   * @ignore
+   * 是否启用雾效果
+   */
+  fogEnabled: boolean;
+
+  /**
+   * 雾的颜色
+   */
+  fogColor: GameRGBColor;
+
+  /**
+   * 雾开始的距离
+   */
+  fogStartDistance: number;
+
+  /**
+   * 雾的高度偏移
+   */
+  fogHeightOffset: number;
+
+  /**
+   * 雾的高度衰减
+   */
+  fogHeightFalloff: number;
+
+  /**
+   * 雾的密度
+   */
+  fogDensity: number;
+
+  /**
+   * 雾的最大值
+   */
+  fogMax: number;
+
+  /**
+   * 是否启用雪效果
+   */
+  snowEnabled: boolean;
+
+  /**
+   * 雪的密度
+   */
+  snowDensity: number;
+
+  /**
+   * 雪的最小尺寸
+   */
+  snowSizeLo: number;
+
+  /**
+   * 雪的最大尺寸
+   */
+  snowSizeHi: number;
+
+  /**
+   * 雪的下落速度
+   */
+  snowFallSpeed: number;
+
+  /**
+   * 雪的旋转速度
+   */
+  snowSpinSpeed: number;
+
+  /**
+   * 雪的颜色
+   */
+  snowColor: GameRGBAColor;
+
+  /**
+   * 雪的纹理
+   */
+  snowTexture: string;
+
+  /**
+   * 是否启用雨效果
+   */
+  rainEnabled: boolean;
+
+  /**
+   * 雨的密度
+   */
+  rainDensity: number;
+
+  /**
+   * 雨的方向
+   */
+  rainDirection: GameVector3;
+
+  /**
+   * 雨的速度
+   */
+  rainSpeed: number;
+
+  /**
+   * 雨的最小尺寸
+   */
+  rainSizeLo: number;
+
+  /**
+   * 雨的最大尺寸
+   */
+  rainSizeHi: number;
+
+  /**
+   * 雨的干扰程度
+   */
+  rainInterference: number;
+
+  /**
+   * 雨的颜色
+   */
+  rainColor: GameRGBAColor;
+
+  /**
+   * 是否启用天空效果
+   */
+  skyEnabled: boolean;
+
+  /**
+   * 天空模式
+   * 'natural' - 自然模式
+   * 'manual' - 手动模式
+   */
+  skyMode: 'natural' | 'manual';
+
+  /**
+   * 太阳相位
+   */
+  skySunPhase: number;
+
+  /**
+   * 太阳频率
+   */
+  skySunFrequency: number;
+
+  /**
+   * 月相
+   */
+  skyLunarPhase: number;
+
+  /**
+   * 太阳方向
+   */
+  skySunDirection: GameVector3;
+
+  /**
+   * 太阳光颜色
+   */
+  skySunLight: GameRGBColor;
+
+  /**
+   * 左侧光颜色
+   */
+  skyLeftLight: GameRGBColor;
+
+  /**
+   * 右侧光颜色
+   */
+  skyRightLight: GameRGBColor;
+
+  /**
+   * 底部光颜色
+   */
+  skyBottomLight: GameRGBColor;
+
+  /**
+   * 顶部光颜色
+   */
+  skyTopLight: GameRGBColor;
+
+  /**
+   * 前方光颜色
+   */
+  skyFrontLight: GameRGBColor;
+
+  /**
+   * 后方光颜色
+   */
+  skyBackLight: GameRGBColor;
+
+  /**
+   * 构造函数
+   * @param entities - 列出所有实体的函数
+   * @param onEnter - 实体进入区域时触发的事件通道
+   * @param nextEnter - 获取下一个进入事件的未来对象
+   * @param onLeave - 实体离开区域时触发的事件通道
+   * @param nextLeave - 获取下一个离开事件的未来对象
+   * @param remove - 销毁区域的函数
    */
   constructor(
-    /**
-     * List all entities
-     */
     entities: () => GameEntity[],
-    /**
-     * Triggered when an entity enters the zone
-     */
-    onEnter: GameEventChannel<GameTriggerEvent>, nextEnter: GameEventFuture<GameTriggerEvent>,
-    /**
-     * Triggers when an entity leaves the zone
-     */
-    onLeave: GameEventChannel<GameTriggerEvent>, nextLeave: GameEventFuture<GameTriggerEvent>,
-    /**
-     * Destroys the zone
-     */
+    onEnter: GameEventChannel<GameTriggerEvent>,
+    nextEnter: GameEventFuture<GameTriggerEvent>,
+    onLeave: GameEventChannel<GameTriggerEvent>,
+    nextLeave: GameEventFuture<GameTriggerEvent>,
     remove: () => void);
 }
+
 /**
- * Trigger constructor parameters
+ * 定义游戏区域的配置对象
+ * 包含了游戏区域内各种环境效果和物理属性的配置
  */
 declare type GameZoneConfig = {
+  // 定义游戏区域的边界
   bounds: GameBounds3;
+  // 定义游戏区域的选择器字符串，用于标识和选择游戏区域
   selector: GameSelectorString;
+  // 定义物体质量的缩放因子，影响物理模拟中的质量计算
   massScale: number;
+  // 定义应用于游戏区域内的力矢量
   force: GameVector3;
+  // 表示是否启用雾效
   fogEnabled: boolean;
+  // 定义雾效的颜色
   fogColor: GameRGBColor;
+  // 定义雾效的起始距离
   fogStartDistance: number;
+  // 定义雾效的高度偏移量
   fogHeightOffset: number;
+  // 定义雾效的高度衰减系数
   fogHeightFalloff: number;
+  // 定义雾效的密度
   fogDensity: number;
+  // 定义雾效的最大浓度
   fogMax: number;
+  // 表示是否启用雪效
   snowEnabled: boolean;
+  // 定义雪效的密度
   snowDensity: number;
+  // 定义雪粒子的最小尺寸
   snowSizeLo: number;
+  // 定义雪粒子的最大尺寸
   snowSizeHi: number;
+  // 定义雪粒子的下落速度
   snowFallSpeed: number;
+  // 定义雪粒子的旋转速度
   snowSpinSpeed: number;
+  // 定义雪效的颜色
   snowColor: GameRGBAColor;
+  // 定义雪粒子的纹理贴图路径
   snowTexture: string;
+  // 表示是否启用雨效
   rainEnabled: boolean;
+  // 定义雨效的密度
   rainDensity: number;
+  // 定义雨效的方向矢量
   rainDirection: GameVector3;
+  // 定义雨效的速度
   rainSpeed: number;
+  // 定义雨粒子的最小尺寸
   rainSizeLo: number;
+  // 定义雨粒子的最大尺寸
   rainSizeHi: number;
+  // 定义雨效对视线或信号的干扰程度
   rainInterference: number;
+  // 定义雨效的颜色
   rainColor: GameRGBAColor;
+  // 表示是否启用天空盒
   skyEnabled: boolean;
+  // 定义天空盒的模式，可以是自然模式或手动模式
   skyMode: 'natural' | 'manual';
+  // 定义天空盒的太阳相位，用于控制太阳的位置和光照
   skySunPhase: number;
+  // 定义天空盒的太阳频率，用于控制太阳光照的变化速度
   skySunFrequency: number;
+  // 定义天空盒的月相，用于控制月亮的外观
   skyLunarPhase: number;
+  // 定义天空盒的太阳方向矢量
   skySunDirection: GameVector3;
+  // 定义天空盒的太阳光颜色
   skySunLight: GameRGBColor;
+  // 定义天空盒的左侧光颜色
   skyLeftLight: GameRGBColor;
+  // 定义天空盒的右侧光颜色
   skyRightLight: GameRGBColor;
+  // 定义天空盒的底部光颜色
   skyBottomLight: GameRGBColor;
+  // 定义天空盒的顶部光颜色
   skyTopLight: GameRGBColor;
+  // 定义天空盒的前方光颜色
   skyFrontLight: GameRGBColor;
+  // 定义天空盒的后方光颜色
   skyBackLight: GameRGBColor;
 };
 declare enum GameAnimationPlaybackState {
@@ -9614,56 +9857,85 @@ declare enum GameEasing {
   BOUNCE = "bounce",
   CIRCLE = "circle"
 }
+/**
+ * 定义游戏动画播放的配置接口
+ * 这个接口包含了动画播放的所有必要参数，用于控制动画的行为和特性
+ */
 interface GameAnimationPlaybackConfig {
+  // 动画开始的时间点，单位为毫秒
   startTick: number;
+  // 动画开始前的延迟时间，单位为毫秒
   delay: number;
+  // 动画结束后的延迟时间，单位为毫秒
   endDelay: number;
+  // 动画持续的总时间，单位为毫秒
   duration: number;
+  // 动画播放的方向，可能的值包括正向、反向、交替等
   direction: GameAnimationDirection;
+  // 动画开始播放的位置，表示在动画周期中的一个比例
   iterationStart: number;
+  // 动画重复播放的次数，无限重复时可以设置为特定值（例如Infinity）
   iterations: number;
 }
 declare class GameAnimation<KeyframeType, TargetType> {
   /**
-   * Animation target object (could be world, player or entity)
+   * 动画目标对象（可能是世界、玩家或实体）
    */
   target: TargetType;
+
   /**
-   * Returns all animation keyframes
+   * 返回所有动画关键帧
    */
   keyframes: () => Partial<KeyframeType>[];
+
   /**
-   * Starts or restarts playback for the animation.
+   * 开始或重新开始播放动画
+   * @param playback 可选参数，包含动画播放配置的部分属性
    */
   play: (playback?: Partial<GameAnimationPlaybackConfig>) => void;
+
   /**
-   * Cancels current animation playback
+   * 取消当前动画播放
    */
   cancel: () => void;
+
   /**
-   * Fires when animation begins
+   * 当动画开始时触发
    */
   onReady: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>;
-  nextReady: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>;
+
   /**
-   * Fires when animation completes successfully
+   * 获取下一个动画准备完成的事件
+   */
+  nextReady: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>;
+
+  /**
+   * 当动画成功完成时触发
    */
   onFinish: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>;
-  nextFinish: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>;
+
   /**
-   * Current playback time for animation (in animation frames)
+   * 获取下一个动画完成的事件
+   */
+  nextFinish: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>;
+
+  /**
+   * 动画的当前播放时间（以动画帧为单位）
    */
   currentTime: number;
+
   /**
-   * Start tick for animation
+   * 动画的开始刻度
    */
   startTime: number;
+
   /**
-   * Current playback state for animation
+   * 动画的当前播放状态
    */
   playState: GameAnimationPlaybackState;
+
   /**
-   * Playback rate in frames per tick
+   * 播放速率（每刻度的帧数）
    */
   playbackRate: number;
   /**
@@ -9696,291 +9968,419 @@ declare class GameAnimation<KeyframeType, TargetType> {
     onFinish: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>, nextFinish: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>);
   then<T>(resolve: (event: GameAnimationEvent<KeyframeType, TargetType>) => T, reject?: (error: any) => any): any;
 }
+/**
+ * 定义游戏世界的关键帧接口，用于描述游戏环境中各种效果和状态的动画变化
+ */
 interface GameWorldKeyframe {
+  // 关键帧持续时间，单位为毫秒
   duration: number;
+  // 加速曲线类型，用于控制关键帧开始时的变化速度
   easeIn: GameEasing;
+  // 减速曲线类型，用于控制关键帧结束时的变化速度
   easeOut: GameEasing;
+  // 雾效颜色，使用RGB格式
   fogColor: GameRGBColor;
+  // 雾效起始距离，单位为米
   fogStartDistance: number;
+  // 雾效高度偏移量，用于调整雾效的垂直位置
   fogHeightOffset: number;
+  // 雾效高度衰减系数，用于控制雾效随高度减少的速度
   fogHeightFalloff: number;
+  // 统一雾效密度，用于控制雾效的浓密程度
   fogUniformDensity: number;
+  // 最大雾效强度，用于限制雾效的最大可见度
   maxFog: number;
+  // 光照模式，可以是自然或手动
   lightMode: 'natural' | 'manual';
+  // 太阳相位，用于控制太阳的位置和光照
   sunPhase: number;
+  // 太阳频率，用于控制太阳光照的变化速度
   sunFrequency: number;
+  // 月相，用于控制月亮的光照效果
   lunarPhase: number;
+  // 太阳方向，使用三维向量表示
   sunDirection: GameVector3;
+  // 太阳光照颜色，使用RGB格式
   sunLight: GameRGBColor;
+  // 左侧天空光照颜色
   skyLeftLight: GameRGBColor;
+  // 右侧天空光照颜色
   skyRightLight: GameRGBColor;
+  // 底部天空光照颜色
   skyBottomLight: GameRGBColor;
+  // 顶部天空光照颜色
   skyTopLight: GameRGBColor;
+  // 前方天空光照颜色
   skyFrontLight: GameRGBColor;
+  // 后方天空光照颜色
   skyBackLight: GameRGBColor;
+  // 雨密度，用于控制雨效的浓密程度
   rainDensity: number;
+  // 雨方向，使用三维向量表示
   rainDirection: GameVector3;
+  // 雨速，单位为米/秒
   rainSpeed: number;
+  // 小雨滴大小，单位为米
   rainSizeLo: number;
+  // 大雨滴大小，单位为米
   rainSizeHi: number;
+  // 雨干扰程度，用于控制雨滴的随机偏移
   rainInterference: number;
+  // 雨色，使用RGBA格式，支持透明度
   rainColor: GameRGBAColor;
+  // 雪密度，用于控制雪效的浓密程度
   snowDensity: number;
+  // 小雪片大小，单位为米
   snowSizeLo: number;
+  // 大雪片大小，单位为米
   snowSizeHi: number;
+  // 雪片下落速度，单位为米/秒
   snowFallSpeed: number;
+  // 雪片旋转速度，用于控制雪片的旋转动画
   snowSpinSpeed: number;
+  // 雪色，使用RGBA格式，支持透明度
   snowColor: GameRGBAColor;
+  // 雪纹理，使用字符串表示雪片的纹理资源
   snowTexture: string;
+  // 重力加速度，用于控制物体下落速度
   gravity: number;
+  // 空气摩擦系数，用于控制物体在空气中移动时的阻力
   airFriction: number;
 }
+
+/**
+ * 定义声音类，用于控制声音的播放
+ */
 declare class Sound {
+  /**
+  * 可能用于控制音频或视频播放的函数，根据提供的参数恢复播放
+  * @param currentTime 可选参数，指定当前播放的时间点，如果不提供，则从上次停止或暂停处继续播放
+  */
   resume: (currentTime?: number) => void;
+
+  /**
+   * 设置当前播放时间的函数，允许精确控制播放进度
+   * @param currentTime 必需参数，指定当前播放的时间点
+   */
   setCurrentTime: (currentTime: number) => void;
+
+  /**
+   * 暂停当前播放的函数，可以记录当前播放时间以便后续恢复
+   */
   pause: () => void;
+
+  /**
+   * 停止当前播放的函数，可能重置播放进度到初始状态
+   */
   stop: () => void;
   constructor(resume: (currentTime?: number) => void, setCurrentTime: (currentTime: number) => void, pause: () => void, stop: () => void);
 }
 /**
- * {@link Game.GameWorld} is the main entry point to the engine API.  Using this object you can control
- * global scene properties like the weather, timeOfDay, etc. and perform searches on the set of all {@link Game.GameEntity}
- * which exist in the world.
+ * {@link Game.GameWorld} 是引擎 API 的主要入口点。使用此对象可以控制场景的全局属性，如天气、一天中的时间等，并对存在于世界中的所有 {@link Game.GameEntity} 进行搜索。
  */
 declare class GameWorld {
   /**
-   * Public URL of the currently running world
+   * 当前运行世界公共 URL
    */
   url: URL;
+
   /**
-   * Returns the remaining number of entities the script is allowed to create
-   * @category entities
+   * 返回脚本允许创建的剩余实体数量
+   * @category 实体
    */
   entityQuota: () => number;
+
   /**
-   * @category health
+   * @category 健康
    */
   onRespawn: GameEventChannel<GameRespawnEvent>;
+
   nextRespawn: GameEventFuture<GameRespawnEvent>;
+
   /**
-   * Creates a new {@link Game.GameEntity} or makes a copy of an existing entity.
-   * If entity quota is exceeded, then returns null.
-   * @param config A set of initial values for the entity or a new entity which we want to copy
-   * @returns A newly created entity with the given parameters
-   * @category entity
+   * 创建一个新的 {@link Game.GameEntity} 或复制一个现有实体。
+   * 如果超出实体配额，则返回 null。
+   * @param config 实体的初始值集或要复制的新实体
+   * @returns 具有给定参数的新创建的实体
+   * @category 实体
    */
   createEntity: (config: Partial<GameEntityConfig>) => GameEntity | null;
+
   /**
-   * The entities in game can be searched using a jQuery selector-like syntax.
-   * For more examples see {@link Game.GameSelectorString}
+   * 可以使用类似于 jQuery 选择器的语法搜索游戏中的实体。
+   * 更多示例参见 {@link Game.GameSelectorString}
    *
-   * @param selector a selector search pattern
-   * @returns the first entity which matches the selector/
-   * @category entity
+   * @param selector 选择器搜索模式
+   * @returns 匹配选择器的第一个实体
+   * @category 实体
    */
   querySelector: (selector: GameSelectorString) => GameEntity | null;
+
   /**
-   * The entities in game can be searched using a jQuery selector-like syntax
-   * For more examples see {@link Game.GameSelectorString}
+   * 可以使用类似于 jQuery 选择器的语法搜索游戏中的实体
+   * 更多示例参见 {@link Game.GameSelectorString}
    *
-   * @param selector a selector search pattern
-   * @returns All entities which match the selector
-   * @category entity
+   * @param selector 选择器搜索模式
+   * @returns 所有匹配选择器的实体
+   * @category 实体
    */
   querySelectorAll: (selector: GameSelectorString) => GameEntity[];
+
   /**
-   * Test a selector on an entity
+   * 测试实体上的选择器
    *
-   * @param selector the selector pattern to test
-   * @param entity The entity to test
-   * @category entity
+   * @param selector 要测试的选择器模式
+   * @param entity 要测试的实体
+   * @category 实体
    */
   testSelector: (selector: GameSelectorString, entity: GameEntity) => boolean;
+
   /**
-   * Disables collisions between the set of all entities matching aSelector and bSelector
+   * 禁用所有匹配 aSelector 和 bSelector 的实体之间的碰撞
    *
-   * @param aSelector the selector for the first set of entities
-   * @param bSelector the selector for the second set of entities
-   * @category physics
+   * @param aSelector 第一组实体的选择器
+   * @param bSelector 第二组实体的选择器
+   * @category 物理
    */
   addCollisionFilter: (aSelector: GameSelectorString, bSelector: GameSelectorString) => void;
+
   /**
-   * Removes collision filter between aSelector and bSelector
+   * 移除 aSelector 和 bSelector 之间的碰撞过滤器
    *
-   * @param aSelector the selector for the first set of entities
-   * @param bSelector the selector for the second set of entities
-   * @category physics
+   * @param aSelector 第一组实体的选择器
+   * @param bSelector 第二组实体的选择器
+   * @category 物理
    */
   removeCollisionFilter: (aSelector: GameSelectorString, bSelector: GameSelectorString) => void;
+
   /**
-   * Clears all collision filters
+   * 清除所有碰撞过滤器
    *
-   * @category physics
+   * @category 物理
    */
   clearCollisionFilters: () => void;
+
   /**
-   * Returns a list of all currently active collision filters
+   * 返回当前所有活动的碰撞过滤器列表
    *
-   * @returns All currently active collision filters
-   * @category physics
+   * @returns 所有当前活动的碰撞过滤器
+   * @category 物理
    */
   collisionFilters: () => string[][];
+
   /**
-   * Shoots a ray through the world from `origin` in `direction`
-   * @param origin the start point of the ray
-   * @param direction the direction of the ray
-   * @param options An option configuration parameter
-   * @returns Information about the resulting raycast
-   * @category search
+   * 从 `origin` 沿 `direction` 射出一条光线
+   * @param origin 光线的起点
+   * @param direction 光线的方向
+   * @param options 选项配置参数
+   * @returns 关于射线结果的信息
+   * @category 搜索
    */
   raycast: (origin: GameVector3, direction: GameVector3, options?: Partial<GameRaycastOptions>) => GameRaycastResult;
+
   /**
-   * Search for all entities contained in a bounding box
-   * @param bounds the bounding box to search
-   * @returns All entities contained in ``bounds``
+   * 搜索包含在边界框内的所有实体
+   * @param bounds 要搜索的边界框
+   * @returns 包含在 `bounds` 中的所有实体
    */
   searchBox: (bounds: GameBounds3) => GameEntity[];
+
   /**
-   * Plays an animation on the world object
+   * 在世界对象上播放动画
    */
   animate: (keyframes: Partial<GameWorldKeyframe>[], playbackInfo?: Partial<GameAnimationPlaybackConfig>) => GameAnimation<GameWorldKeyframe, GameWorld>;
+
   getAnimations: () => GameAnimation<GameWorldKeyframe, GameWorld>[];
+
   getEntityAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[];
+
   getPlayerAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[];
+
   /**
-   * An event handler called each tick
+   * 每个 tick 调用的事件处理程序
    * @category tick
    */
   onTick: GameEventChannel<GameTickEvent>;
+
   nextTick: GameEventFuture<GameTickEvent>;
+
   /**
-   * Called when an entity takes damage
-   * @category health
+   * 当实体受到伤害时调用
+   * @category 健康
    */
   onTakeDamage: GameEventChannel<GameDamageEvent>;
+
   nextTakeDamage: GameEventFuture<GameDamageEvent>;
+
   /**
-   * Called when an entity dies
-   * @category health
+   * 当实体死亡时调用
+   * @category 健康
    */
   onDie: GameEventChannel<GameDieEvent>;
+
   nextDie: GameEventFuture<GameDieEvent>;
+
   /**
-   * Called whenever a player joins the game
-   * @category player
+   * 当玩家加入游戏时调用
+   * @category 玩家
    */
   onPlayerJoin: GameEventChannel<GamePlayerEntityEvent>;
+
   nextPlayerJoin: GameEventFuture<GamePlayerEntityEvent>;
+
   /**
-   * Called whenever a player leaves the game
-   * @category player
+   * 当玩家离开游戏时调用
+   * @category 玩家
    */
   onPlayerLeave: GameEventChannel<GamePlayerEntityEvent>;
+
   nextPlayerLeave: GameEventFuture<GamePlayerEntityEvent>;
+
   /**
-   * Called whenever an entity is created
-   * @category entity
+   * 当创建实体时调用
+   * @category 实体
    */
   onEntityCreate: GameEventChannel<GameEntityEvent>;
+
   nextEntityCreate: GameEventFuture<GameEntityEvent>;
+
   /**
-   * Called whenever an entity is destroyed
-   * @category chat
+   * 当销毁实体时调用
+   * @category 聊天
    */
   onEntityDestroy: GameEventChannel<GameEntityEvent>;
+
   nextEntityDestroy: GameEventFuture<GameEntityEvent>;
+
   /**
-   * Broadcast a global message to all players
-   * @param message is some text we want to broadcast
-   * @category player
+   * 广播一条消息给所有玩家
+   * @param message 要广播的文本
+   * @category 玩家
    */
   say: (message: string) => void;
+
   /**
-   * Called whenever a player says something
-   * @category player
+   * 当玩家发言时调用
+   * @category 玩家
    */
   onChat: GameEventChannel<GameChatEvent>;
+
   nextChat: GameEventFuture<GameChatEvent>;
+
   /**
-   * Called whenever a player clicks on an object
-   * @category player
+   * 当玩家点击对象时调用
+   * @category 玩家
    */
   onClick: GameEventChannel<GameClickEvent>;
+
   nextClick: GameEventFuture<GameClickEvent>;
+
   /**
-   * Called whenever a player pushes a button
-   * @category player
+   * 当玩家按下按钮时调用
+   * @category 玩家
    */
   onPress: GameEventChannel<GameInputEvent>;
+
   nextPress: GameEventFuture<GameInputEvent>;
+
   /**
-   * Called whenever a player releases a button
-   * @category player
+   * 当玩家释放按钮时调用
+   * @category 玩家
    */
   onRelease: GameEventChannel<GameInputEvent>;
+
   nextRelease: GameEventFuture<GameInputEvent>;
+
   /**
-   * Called whenever two entities collide
-   * @category entity
+   * 当两个实体发生碰撞时调用
+   * @category 实体
    */
   onEntityContact: GameEventChannel<GameEntityContactEvent>;
+
   nextEntityContact: GameEventFuture<GameEntityContactEvent>;
+
   /**
-   * Called whenever two entities stop colliding
-   * @category entity
+   * 当两个实体停止碰撞时调用
+   * @category 实体
    */
   onEntitySeparate: GameEventChannel<GameEntityContactEvent>;
+
   nextEntitySeparate: GameEventFuture<GameEntityContactEvent>;
+
   /**
-   * Called whenever an entity touches a voxel
-   * @category entity
+   * 当实体接触方块时调用
+   * @category 实体
    */
   onVoxelContact: GameEventChannel<GameVoxelContactEvent>;
+
   nextVoxelContact: GameEventFuture<GameVoxelContactEvent>;
+
   /**
-   * Called whenever an entity stops touching a voxel
-   * @category entity
+   * 当实体停止接触方块时调用
+   * @category 实体
    */
   onVoxelSeparate: GameEventChannel<GameVoxelContactEvent>;
+
   nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>;
+
   /**
-   * Called when an entity enters a fluid
-   * @category entity
+   * 当实体进入流体时调用
+   * @category 实体
    */
   onFluidEnter: GameEventChannel<GameFluidContactEvent>;
+
   nextFluidEnter: GameEventFuture<GameFluidContactEvent>;
+
   /**
-   * Called when an entity leaves a fluid
-   * @category entity
+   * 当实体离开流体时调用
+   * @category 实体
    */
   onFluidLeave: GameEventChannel<GameFluidContactEvent>;
+
   nextFluidLeave: GameEventFuture<GameFluidContactEvent>;
+
   /**
-   * Zones
-   * @category zone
+   * 区域
+   * @category 区域
    */
   zones: () => GameZone[];
+
   addZone: (config: Partial<GameZoneConfig>) => GameZone;
+
   removeZone: (trigger: GameZone) => void;
+
   /**
-   * @category interactive
+   * @category 互动
    */
   onInteract: GameEventChannel<GameInteractEvent>;
+
   nextInteract: GameEventFuture<GameInteractEvent>;
+
   /**
-   * Called when player buy product success
-   * @category player
+   * 当玩家购买产品成功时调用
+   * @category 玩家
    */
   onPlayerPurchaseSuccess: GameEventChannel<GamePurchaseSuccessEvent>;
+
   nextPlayerPurchaseSuccess: GameEventFuture<GamePurchaseSuccessEvent>;
+
   /**
-   * Plays a sound at a given location
+   * 在指定位置播放声音
    */
   sound: (spec: {
+    // 定义一个样本字符串，用于标识或描述某个音频样本
     sample: string;
+
+    // 可选地定义一个三维位置，表示音频在游戏世界中的位置
     position?: GameVector3;
+
+    // 可选地定义一个半径，用于指定音频影响或听觉范围的大小
     radius?: number;
+
+    // 可选地定义一个增益值，用于调整音频的音量
     gain?: number;
+
+    // 可选地定义一个音调值，用于调整音频的播放速度或频率
     pitch?: number;
   } | string) => Sound;
   /**
@@ -10012,194 +10412,253 @@ declare class GameWorld {
    */
   getTempChatUsers: (chatId: string) => Promise<string[]>;
   /**
-   * The name of the project (read only)
+   * 项目的名称（只读）
    */
   projectName: string;
-  currentTick: number;
+
   /**
-   * Type of lighting to use for the sky and ambient light
+   * 当前的滴答数
+   * 用于记录当前的时间点或事件序列中的位置
+   */
+  currentTick: number;
+
+  /**
+   * 用于天空和环境光的照明类型
    */
   lightMode: 'natural' | 'manual';
+
   /**
-   * The initial phase of the sun's motion through the sky.  The time of day is calculated using the formula:
+   * 太阳在天空中的初始相位。一天中的时间通过以下公式计算：
    * `timeOfDay = (sunPhase + sunFrequency * tick) % 1`
-   * @category weather
+   * @category 天气
    */
   sunPhase: number;
+
   /**
-   * The frequency at which the sun moves through the sky.  Higher values = faster sun movement.
-   * @category weather
+   * 太阳在天空中移动的频率。值越高，太阳移动越快。
+   * @category 天气
    */
   sunFrequency: number;
+
   /**
-   * The phase of the moon.  Must be between 0 and 1
-   * @category weather
+   * 月球的相位。必须在 0 和 1 之间
+   * @category 天气
    */
   lunarPhase: number;
+
   /**
-   * Direction of sun (only used if ambientLightMode === 'manual)
-   * @category weather
+   * 太阳的方向（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   sunDirection: GameVector3;
+
   /**
-   * Light level of the sun (only used if ambientLightMode === 'manual')
-   * @category weather
+   * 太阳的光照强度（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   sunLight: GameRGBColor;
+
   /**
-   * -x direction ambient light value (only used if ambientLightMode === 'manual')
-   * @category weather
+   * -x 方向的环境光值（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   skyLeftLight: GameRGBColor;
+
   /**
-   * +x direction ambient light value (only used if ambientLightMode === 'manual')
-   * @category weather
+   * +x 方向的环境光值（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   skyRightLight: GameRGBColor;
+
   /**
-   * -y direction ambient light value (only used if ambientLightMode === 'manual')
-   * @category weather
+   * -y 方向的环境光值（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   skyBottomLight: GameRGBColor;
+
   /**
-   * +y direction ambient light value (only used if ambientLightMode === 'manual')
-   * @category weather
+   * +y 方向的环境光值（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   skyTopLight: GameRGBColor;
+
   /**
-   * -z direction ambient light value (only used if ambientLightMode === 'manual')
-   * @category weather
+   * -z 方向的环境光值（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   skyFrontLight: GameRGBColor;
+
   /**
-   * +z direction ambient light value (only used if ambientLightMode === 'manual')
-   * @category weather
+   * +z 方向的环境光值（仅当 ambientLightMode === 'manual' 时使用）
+   * @category 天气
    */
   skyBackLight: GameRGBColor;
+
   /**
-   * Fog color
-   * @category weather
+   * 雾的颜色
+   * @category 天气
    */
   fogColor: GameRGBColor;
+
   /**
-   * Distance when fog starts
-   * @category weather
+   * 雾开始的距离
+   * @category 天气
    */
   fogStartDistance: number;
+
   /**
-   * Height that fog starts at
-   * @category weather
+   * 雾开始的高度
+   * @category 天气
    */
   fogHeightOffset: number;
+
   /**
-   * Rate that height fog decays
-   * @category weather
+   * 高度雾衰减率
+   * @category 天气
    */
   fogHeightFalloff: number;
+
   /**
-   * Amount of uniform fog (if > 0, cannot see skybox)
-   * @category weather
+   * 均匀雾的量（如果大于 0，则看不到天空盒）
+   * @category 天气
    */
   fogUniformDensity: number;
+
   /**
-   * Maximum amount of fog
-   * @category weather
+   * 最大雾量
+   * @category 天气
    */
   maxFog: number;
+
   /**
-   * @category weather
+   * 雪的密度
+   * @category 天气
    */
   snowDensity: number;
+
   /**
-   * @category weather
+   * 雪的最小尺寸
+   * @category 天气
    */
   snowSizeLo: number;
+
   /**
-   * @category weather
+   * 雪的最大尺寸
+   * @category 天气
    */
   snowSizeHi: number;
+
   /**
-   * @category weather
+   * 雪的下落速度
+   * @category 天气
    */
   snowFallSpeed: number;
+
   /**
-   * @category weather
+   * 雪的旋转速度
+   * @category 天气
    */
   snowSpinSpeed: number;
+
   /**
-   * @category weather
+   * 雪的颜色
+   * @category 天气
    */
   snowColor: GameRGBAColor;
+
   /**
-   * @category weather
+   * 雪的纹理
+   * @category 天气
    */
   snowTexture: string;
+
   /**
-   * @category weather
+   * 雨的密度
+   * @category 天气
    */
   rainDensity: number;
+
   /**
-   * @category weather
+   * 雨的方向
+   * @category 天气
    */
   rainDirection: GameVector3;
+
   /**
-   * @category weather
+   * 雨的速度
+   * @category 天气
    */
   rainSpeed: number;
+
   /**
-   * @category weather
+   * 雨的最小尺寸
+   * @category 天气
    */
   rainSizeLo: number;
+
   /**
-   * @category weather
+   * 雨的最大尺寸
+   * @category 天气
    */
   rainSizeHi: number;
+
   /**
-   * @category weather
+   * 雨的干扰程度
+   * @category 天气
    */
   rainInterference: number;
+
   /**
-   * @category weather
+   * 雨的颜色
+   * @category 天气
    */
   rainColor: GameRGBAColor;
+
   /**
-   * Amount and direction of gravitational field
-   * @category physics
+   * 引力场的量和方向
+   * @category 物理
    */
   gravity: number;
+
   /**
-   * Amount of air friction
-   * @category physics
+   * 空气摩擦力的量
+   * @category 物理
    */
   airFriction: number;
+
   /**
-   * Use obb rigid body to solve physics
-   * @category physics
+   * 使用 OBB 刚体来解决物理问题
+   * @category 物理
    */
   useOBB: boolean;
+
   /**
-   * Plays when a voxel breaks
-   * @category sound
+   * 当方块被破坏时播放的声音
+   * @category 声音
    */
   breakVoxelSound: GameSoundEffect;
+
   /**
-   * Plays when a voxel is placed
-   * @category sound
+   * 当方块被放置时播放的声音
+   * @category 声音
    */
   placeVoxelSound: GameSoundEffect;
+
   /**
-   * Plays when a player joins
-   * @category sound
+   * 当玩家加入时播放的声音
+   * @category 声音
    */
   playerJoinSound: GameSoundEffect;
+
   /**
-   * Plays when a player leaves
-   * @category sound
+   * 当玩家离开时播放的声音
+   * @category 声音
    */
   playerLeaveSound: GameSoundEffect;
+
   /**
-   * Ambient sound, plays in background globally
-   * @category sound
+   * 背景环境声音，全局播放
+   * @category 声音
    */
   ambientSound: GameSoundEffect;
   /**
@@ -10446,107 +10905,120 @@ declare class GameWorld {
     getTempChatUsers: (chatId: string) => Promise<string[]>);
 }
 /**
- * {@link Game.GameVoxels} gives an interface for all the voxels in Game.  You can use it to control the terrain
+ * {@link Game.GameVoxels} 提供了游戏中所有方块的接口。您可以使用它来控制地形。
  */
 declare class GameVoxels {
   /**
-   * Size of the voxel grid along the x/y/z dimensions
+   * 方块网格在 x/y/z 维度上的大小
    */
   shape: GameVector3;
+
   /**
-   * An array of all supported voxel types
-   * @category names
+   * 所支持的方块类型的数组
+   * @category 名称
    */
   VoxelTypes: string[];
+
   /**
-   * @param name the human readable name for the voxel
-   * @returns the voxel id number
-   * @category names
+   * 根据方块的可读名称获取其 ID
+   * @param name 方块的可读名称
+   * @returns 方块的 ID 编号
+   * @category 名称
    */
   id: (name: string) => number;
+
   /**
-   * @param id the numerical id of a voxel
-   * @returns the human readable voxel name
-   * @category names
+   * 根据方块的 ID 获取其可读名称
+   * @param id 方块的数字 ID
+   * @returns 方块的可读名称
+   * @category 名称
    */
   name: (id: number) => string;
+
   /**
-   * Sets a voxel in the grid
-   * @param voxel The name of the voxel or its voxel id
-   * @param rotation The rotation code of the voxel
-   * @returns the id of the updated voxel
+   * 在网格中设置一个方块
+   * @param voxel 方块的名称或其 ID
+   * @param rotation 方块的旋转代码
+   * @returns 更新后的方块 ID
    */
   setVoxel: (x: number, y: number, z: number, voxel: number | string, rotation?: number | string) => number;
+
   /**
-   * Get the type of a voxel at some point
-   * @returns the voxel type code at point x/y/z
+   * 获取某一点处的方块类型
+   * @returns 点 x/y/z 处的方块类型代码
    */
   getVoxel: (x: number, y: number, z: number) => number;
+
   /**
-   * Get the rotation of a voxel at point x/y/z
-   * @returns the voxel rotation code
+   * 获取某一点处的方块旋转
+   * @returns 点 x/y/z 处的方块旋转代码
    */
   getVoxelRotation: (x: number, y: number, z: number) => number;
+
   /**
-   * Sets a voxel in the grid directly using its id code
-   * @category advanced
+   * 使用方块的 ID 代码直接在网格中设置一个方块
+   * @category 高级
    */
   setVoxelId: (x: number, y: number, z: number, voxel: number) => number;
+
   /**
-   * Retrieves the voxel id in the grid
-   * @category advanced
+   * 在网格中检索方块的 ID
+   * @category 高级
    */
   getVoxelId: (x: number, y: number, z: number) => number;
+
   /**
    * @ignore
    */
   constructor(
     /**
-     * Size of the voxel grid along the x/y/z dimensions
+     * 方块网格在 x/y/z 维度上的大小
      */
     shape: GameVector3,
     /**
-     * An array of all supported voxel types
-     * @category names
+     * 所支持的方块类型的数组
+     * @category 名称
      */
     VoxelTypes: string[],
     /**
-     * @param name the human readable name for the voxel
-     * @returns the voxel id number
-     * @category names
+     * 根据方块的可读名称获取其 ID
+     * @param name 方块的可读名称
+     * @returns 方块的 ID 编号
+     * @category 名称
      */
     id: (name: string) => number,
     /**
-     * @param id the numerical id of a voxel
-     * @returns the human readable voxel name
-     * @category names
+     * 根据方块的 ID 获取其可读名称
+     * @param id 方块的数字 ID
+     * @returns 方块的可读名称
+     * @category 名称
      */
     name: (id: number) => string,
     /**
-     * Sets a voxel in the grid
-     * @param voxel The name of the voxel or its voxel id
-     * @param rotation The rotation code of the voxel
-     * @returns the id of the updated voxel
+     * 在网格中设置一个方块
+     * @param voxel 方块的名称或其 ID
+     * @param rotation 方块的旋转代码
+     * @returns 更新后的方块 ID
      */
     setVoxel: (x: number, y: number, z: number, voxel: number | string, rotation?: number | string) => number,
     /**
-     * Get the type of a voxel at some point
-     * @returns the voxel type code at point x/y/z
+     * 获取某一点处的方块类型
+     * @returns 点 x/y/z 处的方块类型代码
      */
     getVoxel: (x: number, y: number, z: number) => number,
     /**
-     * Get the rotation of a voxel at point x/y/z
-     * @returns the voxel rotation code
+     * 获取某一点处的方块旋转
+     * @returns 点 x/y/z 处的方块旋转代码
      */
     getVoxelRotation: (x: number, y: number, z: number) => number,
     /**
-     * Sets a voxel in the grid directly using its id code
-     * @category advanced
+     * 使用方块的 ID 代码直接在网格中设置一个方块
+     * @category 高级
      */
     setVoxelId: (x: number, y: number, z: number, voxel: number) => number,
     /**
-     * Retrieves the voxel id in the grid
-     * @category advanced
+     * 在网格中检索方块的 ID
+     * @category 高级
      */
     getVoxelId: (x: number, y: number, z: number) => number);
 }
@@ -10558,206 +11030,362 @@ declare type GamePlayerEntityEvent = GameEntityEvent & {
   entity: GamePlayerEntity;
 };
 /**
- * A set of parameters which can be used to specify an entity
+ * 定义游戏实体的配置接口
  */
 interface GameEntityConfig {
+  // 实体的位置
   position: GameVector3;
+  // 实体的速度
   velocity: GameVector3;
+  // 实体的边界
   bounds: GameVector3;
+  // 实体的质量
   mass: number;
+  // 实体的摩擦力
   friction: number;
+  // 实体的恢复系数
   restitution: number;
+  // 实体是否可以碰撞
   collides: boolean;
+  // 实体是否固定
   fixed: boolean;
+  // 实体是否受重力影响
   gravity: boolean;
+  // 实体的网格模型
   mesh: string;
+  // 实体的网格颜色
   meshColor: GameRGBAColor;
+  // 实体的网格缩放
   meshScale: GameVector3;
+  // 实体的网格朝向
   meshOrientation: GameQuaternion;
+  // 实体的网格金属度
   meshMetalness: number;
+  // 实体的网格发光强度
   meshEmissive: number;
+  // 实体的网格光泽度
   meshShininess: number;
+  // 实体的粒子发射速率
   particleRate: number;
+  // 实体的粒子发射速率的随机范围
   particleRateSpread: number;
+  // 实体的粒子数量上限
   particleLimit: number;
+  // 实体的粒子颜色数组
   particleColor: GameRGBColor[];
+  // 实体的粒子大小数组
   particleSize: number[];
+  // 实体的粒子大小的随机范围
   particleSizeSpread: number;
+  // 实体的粒子生命周期
   particleLifetime: number;
+  // 实体的粒子生命周期的随机范围
   particleLifetimeSpread: number;
+  // 实体的粒子初速度
   particleVelocity: GameVector3;
+  // 实体的粒子初速度的随机范围
   particleVelocitySpread: GameVector3;
+  // 实体的粒子阻尼
   particleDamping: number;
+  // 实体的粒子加速度
   particleAcceleration: GameVector3;
+  // 实体的粒子噪声强度
   particleNoise: number;
+  // 实体的粒子噪声频率
   particleNoiseFrequency: number;
+  // 实体的粒子目标
   particleTarget: GameEntity | null;
+  // 实体的粒子目标权重
   particleTargetWeight: number;
+  // 实体是否可以交互
   enableInteract: boolean;
+  // 实体的交互颜色
   interactColor: GameRGBColor;
+  // 实体的交互提示文本
   interactHint: string;
+  // 实体的交互半径
   interactRadius: number;
+  // 实体受伤时的声音配置
   hurtSound: GameSoundEffectConfig;
+  // 实体死亡时的声音配置
   dieSound: GameSoundEffectConfig;
+  // 实体交互时的声音配置
   interactSound: GameSoundEffectConfig;
+  // 实体聊天时的声音配置
   chatSound: GameSoundEffectConfig;
+  // 实体的唯一标识符
   id: string;
+  // 实体的标签，可以是返回字符串数组的函数或字符串数组
   tags: (() => string[]) | string[];
 }
+
+/**
+ * 定义游戏实体受伤选项的接口
+ */
 interface GameHurtOptions {
+  // 伤害来源的实体
   attacker: GameEntity;
+  // 伤害类型
   damageType: string;
 }
+
+/**
+ * 定义游戏实体关键帧的接口
+ */
 interface GameEntityKeyframe {
+  // 关键帧的持续时间
   duration: number;
+  // 关键帧的加速方式
   easeIn: GameEasing;
+  // 关键帧的减速方式
   easeOut: GameEasing;
+  // 实体的位置
   position: GameVector3;
+  // 实体的速度
   velocity: GameVector3;
+  // 实体的质量
   mass: number;
+  // 实体的摩擦力
   friction: number;
+  // 实体的恢复系数
   restitution: number;
+  // 实体是否可以碰撞
   collides: boolean;
+  // 实体是否固定
   fixed: boolean;
+  // 实体是否受重力影响
   gravity: boolean;
+  // 实体的网格模型
   mesh: string;
+  // 实体的网格是否不可见
   meshInvisible: boolean;
+  // 实体的网格缩放
   meshScale: GameVector3;
+  // 实体的网格朝向
   meshOrientation: GameQuaternion;
+  // 实体的网格偏移
   meshOffset: GameVector3;
+  // 实体的网格颜色
   meshColor: GameRGBAColor;
+  // 实体的网格金属度
   meshMetalness: number;
+  // 实体的网格发光强度
   meshEmissive: number;
+  // 实体的网格光泽度
   meshShininess: number;
+  // 实体的粒子发射速率
   particleRate: number;
+  // 实体的粒子发射速率的随机范围
   particleRateSpread: number;
+  // 实体的粒子数量上限
   particleLimit: number;
+  // 实体的粒子生命周期
   particleLifetime: number;
+  // 实体的粒子生命周期的随机范围
   particleLifetimeSpread: number;
+  // 实体的粒子初速度
   particleVelocity: GameVector3;
+  // 实体的粒子初速度的随机范围
   particleVelocitySpread: GameVector3;
+  // 实体的粒子颜色数组
   particleColor: GameRGBColor[];
+  // 实体的粒子大小数组
   particleSize: number[];
+  // 实体的粒子大小的随机范围
   particleSizeSpread: number;
+  // 实体的粒子阻尼
   particleDamping: number;
+  // 实体的粒子加速度
   particleAcceleration: GameVector3;
+  // 实体的粒子噪声强度
   particleNoise: number;
+  // 实体的粒子噪声频率
   particleNoiseFrequency: number;
+  // 实体的粒子目标
   particleTarget: GameEntity | null;
+  // 实体的粒子目标权重
   particleTargetWeight: number;
+  // 实体的交互颜色
   interactColor: GameRGBColor;
 }
 /**
- * Entities are game objects in Game.  They can be used to encode things like players, objects, etc.
+ * 实体是游戏中的游戏对象，可以用来表示玩家、物体等。
  */
 declare class GameEntity implements GameEntityConfig {
   /**
-   * Set of all tags assigned to the entity in the editor
-   * @category selectors
-   */
+  * 获取分配给实体的所有标签集合
+  * @category selectors
+  */
   tags: () => string[];
+
   /**
-   * Adds a new tag to the entity
+   * 向实体添加新标签
    * @category selectors
    */
   addTag: (tag: string) => void;
+
   /**
-   * Removes a tag from the entity
+   * 从实体中移除标签
    * @category selectors
    */
   removeTag: (tag: string) => void;
+
   /**
-   * Tests if an entity has a tag
+   * 测试实体是否具有某个标签
    * @category selectors
    */
   hasTag: (tag: string) => boolean;
+
   /**
-   * Destroys the entity
+   * 销毁实体
    * @category destroy
    */
   destroy: () => void;
+
   /**
-   * Called when the entity is destroyed
+   * 当实体被销毁时调用
    * @category destroy
    */
   onDestroy: GameEventChannel<GameEntityEvent>;
-  nextDestroy: GameEventFuture<GameEntityEvent>;
+
   /**
-   * Called when entity takes damage
+   * 下一次实体被销毁时的未来事件
+   */
+  nextDestroy: GameEventFuture<GameEntityEvent>;
+
+  /**
+   * 当实体受到伤害时调用
    * @category health
    */
   onTakeDamage: GameEventChannel<GameDamageEvent>;
-  nextTakeDamage: GameEventFuture<GameDamageEvent>;
+
   /**
-   * Called when an entity dies
+   * 下一次实体受到伤害时的未来事件
+   */
+  nextTakeDamage: GameEventFuture<GameDamageEvent>;
+
+  /**
+   * 当实体死亡时调用
    * @category health
    */
   onDie: GameEventChannel<GameDieEvent>;
-  nextDie: GameEventFuture<GameDieEvent>;
+
   /**
-   * Deals damage to an entity
+   * 下一次实体死亡时的未来事件
+   */
+  nextDie: GameEventFuture<GameDieEvent>;
+
+  /**
+   * 对实体造成伤害
    * @category health
    */
   hurt: (amount: number, options?: Partial<GameHurtOptions>) => void;
+
   /**
-   * Makes the entity talk
+   * 使实体说话
    * @category chat
    */
   say: (message: string) => void;
+
   /**
-   * Plays an animation on an entity
+   * 在实体上播放动画
    */
   animate: (keyframes: Partial<GameEntityKeyframe>[], playbackInfo?: Partial<GameAnimationPlaybackConfig>) => GameAnimation<GameEntityKeyframe, GameEntity>;
-  getAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[];
+
   /**
-   * Called whenever a player clicks on this entity
+   * 获取实体当前播放的所有动画
+   */
+  getAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[];
+
+  /**
+   * 当玩家点击此实体时调用
    */
   onClick: GameEventChannel<GameClickEvent>;
-  nextClick: GameEventFuture<GameClickEvent>;
+
   /**
-   * Called when the entity touches another entity
+   * 下一次玩家点击此实体时的未来事件
+   */
+  nextClick: GameEventFuture<GameClickEvent>;
+
+  /**
+   * 当实体接触另一个实体时调用
    * @category physics
    */
   onEntityContact: GameEventChannel<GameEntityContactEvent>;
-  nextEntityContact: GameEventFuture<GameEntityContactEvent>;
+
   /**
-   * Called when the entity stops touching another entity
+   * 下一次实体接触另一个实体时的未来事件
+   */
+  nextEntityContact: GameEventFuture<GameEntityContactEvent>;
+
+  /**
+   * 当实体停止接触另一个实体时调用
    * @category physics
    */
   onEntitySeparate: GameEventChannel<GameEntityContactEvent>;
-  nextEntitySeparate: GameEventFuture<GameEntityContactEvent>;
+
   /**
-   * Called when the entity touches a voxel
+   * 下一次实体停止接触另一个实体时的未来事件
+   */
+  nextEntitySeparate: GameEventFuture<GameEntityContactEvent>;
+
+  /**
+   * 当实体接触方块时调用
    * @category physics
    */
   onVoxelContact: GameEventChannel<GameVoxelContactEvent>;
-  nextVoxelContact: GameEventFuture<GameVoxelContactEvent>;
+
   /**
-   * Called when the entity stops touching a voxel
+   * 下一次实体接触方块时的未来事件
+   */
+  nextVoxelContact: GameEventFuture<GameVoxelContactEvent>;
+
+  /**
+   * 当实体停止接触方块时调用
    * @category physics
    */
   onVoxelSeparate: GameEventChannel<GameVoxelContactEvent>;
-  nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>;
+
   /**
-   * Called when the entity enters a fluid
+   * 下一次实体停止接触方块时的未来事件
+   */
+  nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>;
+
+  /**
+   * 当实体进入流体时调用
    * @category physics
    */
   onFluidEnter: GameEventChannel<GameFluidContactEvent>;
-  nextFluidEnter: GameEventFuture<GameFluidContactEvent>;
+
   /**
-   * Called when the entity leaves a fluid
+   * 下一次实体进入流体时的未来事件
+   */
+  nextFluidEnter: GameEventFuture<GameFluidContactEvent>;
+
+  /**
+   * 当实体离开流体时调用
    * @category physics
    */
   onFluidLeave: GameEventChannel<GameFluidContactEvent>;
-  nextFluidLeave: GameEventFuture<GameFluidContactEvent>;
+
   /**
-   * Called when an entity interact with another entity
+   * 下一次实体离开流体时的未来事件
+   */
+  nextFluidLeave: GameEventFuture<GameFluidContactEvent>;
+
+  /**
+   * 当实体与另一个实体互动时调用
    * @category interactive
    */
   onInteract: GameEventChannel<GameInteractEvent>;
-  nextInteract: GameEventFuture<GameInteractEvent>;
+
   /**
-   * Play a sound effect at the location of this entity
+   * 下一次实体与另一个实体互动时的未来事件
+   */
+  nextInteract: GameEventFuture<GameInteractEvent>;
+
+  /**
+   * 在实体位置播放音效
    * @category sound
    */
   sound: (spec: {
@@ -10766,292 +11394,367 @@ declare class GameEntity implements GameEntityConfig {
     pitch?: number;
     gain?: number;
   } | string) => Sound;
+
   /**
-   * motion controller
+   * 运动控制器
    * @category motion
    */
   motion: GameMotionController<GameEntity>;
+
+  /**
+   * 使实体朝向指定位置
+   */
   lookAt: (targetPosition: GameVector3, facingDirection?: 'X' | 'Y' | 'Z', up?: GameVector3) => void;
   /**
-   * Name of entity seed in the editor
-   * @category selectors
-   */
+  * 实体在编辑器中的种子名称
+  * @category selectors
+  */
   id: string;
+
   /**
-   * If true, entity is destroyed.
+   * 如果为 true，表示实体已被销毁
    * @category destroy
    */
   destroyed: boolean;
+
   /**
+   * 实体的位置
    * @category physics
    */
   position: GameVector3;
+
   /**
+   * 实体的速度
    * @category physics
    */
   velocity: GameVector3;
+
   /**
-   * Radius of the entity's bounding box along x/y/z
+   * 实体边界框在 x/y/z 轴上的半径
    * @category physics
    */
   bounds: GameVector3;
+
   /**
-   * Mass of entity
+   * 实体的质量
    * @category physics
    */
   mass: number;
+
   /**
-   * Controls object stickiness (0 = slippery, 1 = sticky)
+   * 控制物体的粘性（0 = 滑，1 = 粘）
    * @category physics
    */
   friction: number;
+
   /**
-   * Controls bouncy (0 = soft, 1 = bouncy)
+   * 控制弹跳性（0 = 软，1 = 弹）
    * @category physics
    */
   restitution: number;
+
   /**
-   * If false, object does not collide
+   * 如果为 false，物体不会发生碰撞
    * @category physics
    */
   collides: boolean;
+
   /**
-   * If false, object does not fall
+   * 如果为 false，物体不会受到重力影响
    * @category physics
    */
   gravity: boolean;
+
   /**
-   * If true, object does not move
+   * 如果为 true，物体不会移动
    * @category physics
    */
   fixed: boolean;
+
   /**
-   * Net contact force applied to this object
+   * 应用于此对象的净接触力
    * @category physics
    */
   contactForce: GameVector3;
+
   /**
-   * Returns a list of all active body contacts
+   * 返回所有活动的实体接触列表
    * @category physics
    */
   entityContacts: GameEntityContact[];
+
   /**
-   * Returns a list of all active voxel contacts
+   * 返回所有活动的方块接触列表
    * @category physics
    */
   voxelContacts: GameVoxelContact[];
+
   /**
-   * Returns a list of all active fluid contacts
+   * 返回所有活动的流体接触列表
    * @category physics
    */
   fluidContacts: GameFluidContact[];
+
   /**
-   * Hash of entity mesh.  If set to empty string/'' then entity does not have a mesh.
-   * Unless object is a player, if mesh is set then mesh is used to compute object bounds
+   * 实体网格的哈希值。如果设置为空字符串，则实体没有网格。
+   * 除非对象是玩家，否则如果设置了网格，则使用网格来计算对象的边界
    * @category mesh
    */
   mesh: string;
+
   /**
-   * Makes the mesh invisible
+   * 使网格不可见
    * @category mesh
    */
   meshInvisible: boolean;
+
   /**
+   * 网格缩放
    * @category mesh
    */
   meshScale: GameVector3;
+
   /**
+   * 网格方向
    * @category mesh
    */
   meshOrientation: GameQuaternion;
+
   /**
+   * 网格偏移
    * @category mesh
    */
   meshOffset: GameVector3;
+
   /**
+   * 网格颜色
    * @category mesh
    */
   meshColor: GameRGBAColor;
+
   /**
+   * 网格金属度
    * @category mesh
    */
   meshMetalness: number;
+
   /**
+   * 网格发光度
    * @category mesh
    */
   meshEmissive: number;
+
   /**
+   * 网格光泽度
    * @category mesh
    */
   meshShininess: number;
+
   /**
+   * 是否启用伤害
    * @category health
    */
   enableDamage: boolean;
+
   /**
+   * 是否显示生命条
    * @category health
    */
   showHealthBar: boolean;
+
   /**
+   * 当前生命值
    * @category health
    */
   hp: number;
+
   /**
+   * 最大生命值
    * @category health
    */
   maxHp: number;
+
   /**
-   * If true, then the entity is a player
+   * 如果为 true，则该实体是玩家
    * @category player
    */
   isPlayer: boolean;
+
   /**
-   * Reference to all player specific state and methods
+   * 所有特定于玩家的状态和方法的引用
    * @category player
    */
   player?: GamePlayer;
+
   /**
-   * Particle emission in rate in particles / second
+   * 粒子发射速率（每秒粒子数）
    * @category particle
    */
   particleRate: number;
+
   /**
-   * Variability in particle emission.
+   * 粒子发射的变化范围
    * @category particle
    */
   particleRateSpread: number;
+
   /**
-   * Maxmimum number of particles this entity can emit
+   * 该实体可以发射的最大粒子数
    * @category particle
    */
   particleLimit: number;
+
   /**
-   * Particle color spline.  Maximum 5 entries, particles interpolate colors along these 5 points over their lifetime.
-   * Colors are emissive values and can be any number between 0 and 256
+   * 粒子颜色样条曲线。最多 5 个条目，粒子在其生命周期内沿这 5 个点插值颜色。
+   * 颜色是发光值，可以在 0 到 256 之间取任何值
    * @category particle
    */
   particleColor: GameRGBColor[];
+
   /**
-   * Particle size spline.  Maximum 5 entries, particles interpolate size along these 5 points over their lifetime.
+   * 粒子大小样条曲线。最多 5 个条目，粒子在其生命周期内沿这 5 个点插值大小
    * @category particle
    */
   particleSize: number[];
+
   /**
-   * Particle size distribution
+   * 粒子大小分布
    * @category particle
    */
   particleSizeSpread: number;
+
   /**
-   * Controls how long each particle lives in seconds
+   * 控制每个粒子的生命周期（以秒为单位）
    * @category particle
    */
   particleLifetime: number;
+
   /**
-   * Variation in particle lifetime in seconds
+   * 粒子生命周期的变化范围（以秒为单位）
    * @category particle
    */
   particleLifetimeSpread: number;
+
   /**
-   * Particle velocity bias.  Units are voxels/tick
+   * 粒子速度偏置。单位是方块/滴答
    * @category particle
    */
   particleVelocity: GameVector3;
+
   /**
-   * Particle velocity randomization range.  Units are voxels/tick
+   * 粒子速度随机化范围。单位是方块/滴答
    * @category particle
    */
   particleVelocitySpread: GameVector3;
+
   /**
-   * Particle damping exponent.
-   * 0 = no damping
-   * positive values slow particles
-   * negative values accelerate particles
+   * 粒子阻尼指数。
+   * 0 = 无阻尼
+   * 正值减慢粒子
+   * 负值加速粒子
    * @category particle
    */
   particleDamping: number;
+
   /**
-   * Particle acceleration/gravity force vector
-   * Units are voxels/(tick^2)
+   * 粒子加速度/重力力矢量
+   * 单位是方块/(滴答^2)
    * @category particle
    */
   particleAcceleration: GameVector3;
+
   /**
-   * Particle noise amplitude.  Affects particle movement
+   * 粒子噪声幅度。影响粒子运动
    * @category particle
    */
   particleNoise: number;
+
   /**
-   * Particle noise frequency.  Increase rate of movement from noise bias
+   * 粒子噪声频率。增加噪声偏置的运动速率
    * @category particle
    */
   particleNoiseFrequency: number;
+
   /**
-   * Particle target entity
+   * 粒子目标实体
    * @category particle
    */
   particleTarget: GameEntity | null;
+
   /**
-   * Particle target weight
+   * 粒子目标权重
    * @category particle
    */
   particleTargetWeight: number;
+
   /**
-   * Enables interaction
+   * 启用交互
    * @category interact
    */
   enableInteract: boolean;
+
   /**
-   * Color of the interact hint text
+   * 交互提示文本的颜色
    * @category interact
    */
   interactColor: GameRGBColor;
+
   /**
-   * Hint text of interactive entity
+   * 交互实体的提示文本
    * @category interact
    */
   interactHint: string;
+
   /**
-   * Radius around entity for interactivity
+   * 交互的半径范围
    * @category interact
    */
   interactRadius: number;
+
   /**
-    * Show name of entity
-    * @category entityName
-    */
+   * 显示实体名称
+   * @category entityName
+   */
   showEntityName: boolean;
+
   /**
-    * Name of entity
-    * @category entityName
-    */
+   * 实体名称
+   * @category entityName
+   */
   customName: string;
+
   /**
-    * Radius around entity for show entity name
-    * @category entityName
-    */
+   * 显示实体名称的半径范围
+   * @category entityName
+   */
   nameRadius: number;
+
   /**
-    * Radius around entity for show entity name
-    * @category entityName
-    */
+   * 实体名称的颜色
+   * @category entityName
+   */
   nameColor: GameRGBColor;
+
   /**
-   * Plays when an entity chat
+   * 当实体聊天时播放的声音
    * @category sound
    */
   chatSound: GameSoundEffect;
+
   /**
-   * Plays when entity takes damage
+   * 当实体受到伤害时播放的声音
    * @category sound
    */
   hurtSound: GameSoundEffect;
+
   /**
-   * Plays when entity dies
+   * 当实体死亡时播放的声音
    * @category sound
    */
   dieSound: GameSoundEffect;
+
   /**
-   * Plays when entity is interacted with
+   * 当实体被交互时播放的声音
    * @category sound
    */
   interactSound: GameSoundEffect;
@@ -11168,135 +11871,204 @@ declare class GameEntity implements GameEntityConfig {
      */
     motion: GameMotionController<GameEntity>, lookAt: (targetPosition: GameVector3, facingDirection?: 'X' | 'Y' | 'Z', up?: GameVector3) => void);
 }
+/**
+ * 定义游戏动作配置接口
+ * 用于描述单个游戏动作的名称和迭代次数
+ */
 interface GameMotionConfig {
-  name: string;
-  iterations: number;
+  name: string; // 动作的名称
+  iterations: number; // 动作的迭代次数
 }
+
+/**
+ * 定义游戏动作集配置接口
+ * 用于描述一组游戏动作及其整体的迭代次数
+ */
 interface GameMotionClipConfig {
-  motions: GameMotionConfig[];
-  iterations: number;
+  motions: GameMotionConfig[]; // 动作集，包含多个GameMotionConfig
+  iterations: number; // 整组动作的迭代次数
 }
 declare class GameMotionController<TargetType> {
   /**
-   * Create motion handler by name (could be motion list)
+   * 通过名称（可以是动作列表）创建动作处理器
+   * @param config 动作配置，可以是字符串、动作配置数组或单个动作剪辑配置
+   * @returns 返回一个 `GameMotionHandler` 实例，用于处理指定的动作
    */
   loadByName: (config: string | GameMotionConfig[] | GameMotionClipConfig) => GameMotionHandler<TargetType>;
+
   /**
-   * Pause motion
+   * 暂停当前动作
    */
   pause: () => void;
+
   /**
-   * Resume motion
+   * 恢复暂停的动作
    */
   resume: () => void;
+
   /**
-   * Set default motion by name
+   * 通过名称设置默认动作
+   * @param motionName 动作名称，可选参数
    */
   setDefaultMotionByName: (motionName?: string) => void;
+
   /**
    * @ignore
    */
   constructor(
-    /**
-     * Create motion handler by name (could be motion list)
-     */
     loadByName: (config: string | GameMotionConfig[] | GameMotionClipConfig) => GameMotionHandler<TargetType>,
-    /**
-     * Pause motion
-     */
     pause: () => void,
-    /**
-     * Resume motion
-     */
     resume: () => void,
-    /**
-     * Set default motion by name
-     */
     setDefaultMotionByName: (motionName?: string) => void);
 }
+
 declare class GameMotionHandler<TargetType> {
   /**
-   * Motion target object (entity)
+   * 动作目标对象（实体）
    */
   readonly target: TargetType;
+
   /**
-   * Starts playback for the motion.
+   * 开始播放动作
    */
   play: () => void;
+
   /**
-   * Cancels current motion playback
+   * 取消当前动作播放
    */
   cancel: () => void;
+
   /**
-   * Fires when motion completes successfully
+   * 当动作成功完成时触发的事件
    */
   onFinish: GameEventChannel<GameMotionEvent<TargetType>>;
+
+  /**
+   * 下一次动作完成时的未来事件
+   */
   nextFinish: GameEventFuture<GameMotionEvent<TargetType>>;
+
   /**
    * @ignore
    */
   constructor(
-    /**
-     * Motion target object (entity)
-     */
     target: TargetType,
-    /**
-     * Starts playback for the motion.
-     */
     play: () => void,
-    /**
-     * Cancels current motion playback
-     */
     cancel: () => void,
-    /**
-     * Fires when motion completes successfully
-     */
-    onFinish: GameEventChannel<GameMotionEvent<TargetType>>, nextFinish: GameEventFuture<GameMotionEvent<TargetType>>);
+    onFinish: GameEventChannel<GameMotionEvent<TargetType>>,
+    nextFinish: GameEventFuture<GameMotionEvent<TargetType>>);
 }
+/**
+ * 表示与游戏动作相关的事件，携带有关目标和事件状态的信息
+ */
 declare class GameMotionEvent<TargetType> {
   /**
-   * Tick that click event occurred
+   * 发生点击事件的刻度
    */
   tick: number;
+  /**
+   * 只读属性，表示事件的目标对象
+   */
   readonly target: TargetType;
+  /**
+   * 动作事件处理程序，特定于目标对象
+   */
   motionHandler: GameMotionHandler<TargetType>;
+  /**
+   * 表示事件是否被取消
+   */
   cancelled: boolean;
   /**
-   * @ignore
+   * GameMotionEvent 的构造函数
+   * @param tick 发生点击事件的刻度
+   * @param target 事件的目标对象
+   * @param motionHandler 动作事件处理程序，特定于目标对象
+   * @param cancelled 表示事件是否被取消
    */
-  constructor(
-    /**
-     * Tick that click event occurred
-     */
-    tick: number, target: TargetType, motionHandler: GameMotionHandler<TargetType>, cancelled: boolean);
+  constructor(tick: number, target: TargetType, motionHandler: GameMotionHandler<TargetType>, cancelled: boolean);
 }
 /**
- * An active entity pair contact
+ * 活跃实体对接触
  */
 declare class GameEntityContact {
+  /**
+   * 接触的另一个实体
+   */
   other: GameEntity;
+  /**
+   * 接触力
+   */
   force: GameVector3;
+  /**
+   * 接触轴
+   */
   axis: GameVector3;
+  /**
+   * GameEntityContact 的构造函数
+   * @param other 接触的另一个实体
+   * @param force 接触力
+   * @param axis 接触轴
+   */
   constructor(other: GameEntity, force: GameVector3, axis: GameVector3);
 }
+
 /**
- * An active voxel contact state
+ * 活跃方块接触状态
  */
 declare class GameVoxelContact {
+  /**
+   * 方块的 X 坐标
+   */
   x: number;
+  /**
+   * 方块的 Y 坐标
+   */
   y: number;
+  /**
+   * 方块的 Z 坐标
+   */
   z: number;
+  /**
+   * 方块编号
+   */
   voxel: number;
+  /**
+   * 接触力
+   */
   force: GameVector3;
+  /**
+   * 接触轴
+   */
   axis: GameVector3;
+  /**
+   * GameVoxelContact 的构造函数
+   * @param x 方块的 X 坐标
+   * @param y 方块的 Y 坐标
+   * @param z 方块的 Z 坐标
+   * @param voxel 方块编号
+   * @param force 接触力
+   * @param axis 接触轴
+   */
   constructor(x: number, y: number, z: number, voxel: number, force: GameVector3, axis: GameVector3);
 }
+
 /**
- * An active fluid contact
+ * 活跃流体接触
  */
 declare class GameFluidContact {
+  /**
+   * 方块编号
+   */
   voxel: number;
+  /**
+   * 流体体积
+   */
   volume: number;
+  /**
+   * GameFluidContact 的构造函数
+   * @param voxel 方块编号
+   * @param volume 流体体积
+   */
   constructor(voxel: number, volume: number);
 }
 /**
@@ -11346,307 +12118,353 @@ declare type GameSkin = {
 declare type GameSkinInvisible = {
   [key in GameBodyPart]: boolean;
 };
+/**
+ * 定义游戏可穿戴物品的规格接口
+ * 该接口用于描述游戏中的可穿戴物品的各种属性，以便在游戏环境中准确地呈现这些物品
+ */
 interface GameWearableSpec {
+  // 身体部位，表示该可穿戴物品所对应的穿戴位置
   bodyPart: GameBodyPart;
+  // 网格模型路径，用于指定该物品的3D模型
   mesh: string;
+  // 颜色，表示该物品在游戏中的显示颜色
   color: GameRGBColor;
+  // 发光强度，用于控制物品的自发光效果，使其在特定条件下更加显眼
   emissive: number;
+  // 金属度，用于控制物品的金属质感，影响光照下的反射和折射效果
   metalness: number;
+  // 光泽度，用于控制物品表面的光滑程度，影响光线的反射效果
   shininess: number;
+  // 朝向，表示物品在空间中的旋转状态，用于确保物品正确地面向玩家或指定方向
   orientation: GameQuaternion;
+  // 缩放，用于控制物品的大小，允许在不同情境下调整物品的视觉大小
   scale: GameVector3;
+  // 偏移，表示物品相对于默认位置的移动距离，用于精确定位物品在游戏世界中的位置
   offset: GameVector3;
 }
 declare class GameWearable implements GameWearableSpec {
   /**
-   * The player this wearable is attached to
+   * 此可穿戴装备所附着的玩家
    */
   player: GamePlayer | null;
   /**
-   * Which body part this wearable is attached to
+   * 此可穿戴装备所附着的身体部位
    */
   bodyPart: GameBodyPart;
   /**
-   * The mesh of this wearable
+   * 此可穿戴装备的网格模型
    */
   mesh: string;
   /**
-   * Optional color tint of the wearable
+   * 可穿戴装备的可选颜色调整
    */
   color: GameRGBColor;
   /**
-   * Emissive modifier for wearable
+   * 可穿戴装备的发光度调整
    */
   emissive: number;
   /**
-   * Metalness modifier for wearable
+   * 可穿戴装备的金属度调整
    */
   metalness: number;
   /**
-   * Shininess modifier for wearable
+   * 可穿戴装备的光泽度调整
    */
   shininess: number;
   /**
-   * Orientation of wearable
+   * 可穿戴装备的方向
    */
   orientation: GameQuaternion;
   /**
-   * Scale of wearable along x/y/z
+   * 可穿戴装备在x/y/z轴上的缩放
    */
   scale: GameVector3;
   /**
-   * Offset of wearable
+   * 可穿戴装备的位置偏移
    */
   offset: GameVector3;
+  /**
+   * 移除此可穿戴装备
+   */
   remove(): void;
 }
 /**
- * Dialog stuff
+ * 定义游戏对话的类型。
+ * 
+ * GameDialogType 枚举列出了游戏中对话类型：
+ * - TEXT: 用于显示文本消息。
+ * - SELECT: 用于向用户呈现选择选项。
+ * - INPUT: 用于收集用户输入。
  */
 declare enum GameDialogType {
   TEXT = "text",
   SELECT = "select",
   INPUT = "input"
 }
+/**
+ * 表示游戏中对话框的选择响应。
+ */
 declare type GameDialogSelectResponse = {
+  // 选中选项的索引号。
   index: number;
+  // 选中选项的字符串值。
   value: string;
 };
 declare type GameDialogResponse = GameDialogSelectResponse | string | null;
 /**
- * Parameters for dialog
+ * 对话框参数类型定义
  */
 declare type GameDialogParams = {
   /**
-   * Type of dialog
+   * 对话框类型
    */
   type: GameDialogType;
   /**
-   * Title of dialog
+   * 对话框标题
    */
   title?: string;
   /**
-   * Message of dialog
+   * 对话框内容
    */
   content: string;
   /**
-   * Background color of dialog
+   * 对话框标题背景色
    */
   titleBackgroundColor?: GameRGBAColor;
   /**
-   * Color of dialog text
+   * 对话框标题文字颜色
    */
   titleTextColor?: GameRGBAColor;
   /**
-   * Color of dialog background
+   * 对话框背景色
    */
   contentBackgroundColor?: GameRGBAColor;
   /**
-   * Color of text
+   * 对话框文字颜色
    */
   contentTextColor?: GameRGBAColor;
   /**
-   * Show an arrow in text dialog
+   * 文本对话框是否显示箭头
    */
   hasArrow?: boolean;
   /**
-   * Options for select dialog
+   * 选择对话框的选项列表
    */
   options?: string[];
   /**
-   * Default input text
+   * 输入对话框的默认输入文本
    */
   placeholder?: string;
   /**
-   * Confirm text for input
+   * 输入对话框的确认按钮文本
    */
   confirmText?: string;
   /**
-   * Target for object
+   * 对象的目标点
    */
   lookTarget?: GameVector3 | GameEntity;
   /**
-   * If target entity is given, then offset from target entity
+   * 如果目标实体已给出，则为目标实体的偏移量
    */
   lookTargetOffset?: GameVector3;
   /**
-   * Camera up vector
+   * 相机上方向量
    */
   lookUp?: GameVector3;
   /**
-   * Camera eye position
+   * 相机眼位置
    */
   lookEye?: GameVector3 | GameEntity;
   /**
-   * If camera eye is entity, then offset from entity location
+   * 如果相机眼位置是实体，则为实体位置的偏移量
    */
   lookEyeOffset?: GameVector3;
 };
+/**
+ * 游戏文本对话框参数类型定义
+ */
 declare type GameTextDialogParams = {
   type: GameDialogType.TEXT;
   /**
-   * Title of dialog
+   * 对话框标题
    */
   title?: string;
   /**
-   * Message of dialog
+   * 对话框内容
    */
   content: string;
   /**
-   * Background color of dialog
+   * 对话框标题背景色
    */
   titleBackgroundColor?: GameRGBAColor;
   /**
-   * Color of dialog text
+   * 对话框标题文字颜色
    */
   titleTextColor?: GameRGBAColor;
   /**
-   * Color of dialog background
+   * 对话框背景色
    */
   contentBackgroundColor?: GameRGBAColor;
   /**
-   * Color of text
+   * 对话框文字颜色
    */
   contentTextColor?: GameRGBAColor;
   /**
-   * If set, draw an arrow
+   * 是否绘制箭头
    */
   hasArrow?: boolean;
   /**
-   * Target for object
+   * 对象的目标点
    */
   lookTarget?: GameVector3 | GameEntity;
   /**
-   * If target entity is given, then offset from target entity
+   * 如果目标实体已给出，则为目标实体的偏移量
    */
   lookTargetOffset?: GameVector3;
   /**
-   * Camera up vector
+   * 相机上方向量
    */
   lookUp?: GameVector3;
   /**
-   * Camera eye position
+   * 相机眼位置
    */
   lookEye?: GameVector3 | GameEntity;
   /**
-   * If camera eye is entity, then offset from entity location
+   * 如果相机眼位置是实体，则为实体位置的偏移量
    */
   lookEyeOffset?: GameVector3;
 };
+
+/**
+ * 游戏选择对话框参数类型定义
+ */
 declare type GameSelectDialogParams = {
   type: GameDialogType.SELECT;
   /**
-   * Title of dialog
+   * 对话框标题
    */
   title?: string;
   /**
-   * Message for dialog
+   * 对话框内容
    */
   content: string;
   /**
-   * Background color of dialog
+   * 对话框标题背景色
    */
   titleBackgroundColor?: GameRGBAColor;
   /**
-   * Color of dialog text
+   * 对话框标题文字颜色
    */
   titleTextColor?: GameRGBAColor;
   /**
-   * Color of dialog background
+   * 对话框背景色
    */
   contentBackgroundColor?: GameRGBAColor;
   /**
-   * Color of text
+   * 对话框文字颜色
    */
   contentTextColor?: GameRGBAColor;
   /**
-   * Option list
+   * 选项列表
    */
   options: string[];
   /**
-   * Target for object
+   * 对象的目标点
    */
   lookTarget?: GameVector3 | GameEntity;
   /**
-   * If target entity is given, then offset from target entity
+   * 如果目标实体已给出，则为目标实体的偏移量
    */
   lookTargetOffset?: GameVector3;
   /**
-   * Camera up vector
+   * 相机上方向量
    */
   lookUp?: GameVector3;
   /**
-   * Camera eye position
+   * 相机眼位置
    */
   lookEye?: GameVector3 | GameEntity;
   /**
-   * If camera eye is entity, then offset from entity location
+   * 如果相机眼位置是实体，则为实体位置的偏移量
    */
   lookEyeOffset?: GameVector3;
 };
+
+/**
+ * 游戏输入对话框参数类型定义
+ */
 declare type GameInputDialogParams = {
   type: GameDialogType.INPUT;
   /**
-   * Title of dialog
+   * 对话框标题
    */
   title?: string;
   /**
-   * Dialog message
+   * 对话框内容
    */
   content: string;
   /**
-   * Background color of dialog
+   * 对话框标题背景色
    */
   titleBackgroundColor?: GameRGBAColor;
   /**
-   * Color of dialog text
+   * 对话框标题文字颜色
    */
   titleTextColor?: GameRGBAColor;
   /**
-   * Color of dialog background
+   * 对话框背景色
    */
   contentBackgroundColor?: GameRGBAColor;
   /**
-   * Color of text
+   * 对话框文字颜色
    */
   contentTextColor?: GameRGBAColor;
   /**
-   * Default text for input
+   * 输入框默认文本
    */
   placeholder?: string;
   /**
-   * Confirmation text
+   * 确认按钮文本
    */
   confirmText?: string;
   /**
-   * Target for object
+   * 对象的目标点
    */
   lookTarget?: GameVector3 | GameEntity;
   /**
-   * If target entity is given, then offset from target entity
+   * 如果目标实体已给出，则为目标实体的偏移量
    */
   lookTargetOffset?: GameVector3;
   /**
-   * Camera up vector
+   * 相机上方向量
    */
   lookUp?: GameVector3;
   /**
-   * Camera eye position
+   * 相机眼位置
    */
   lookEye?: GameVector3 | GameEntity;
   /**
-   * If camera eye is entity, then offset from entity location
+   * 如果相机眼位置是实体，则为实体位置的偏移量
    */
   lookEyeOffset?: GameVector3;
 };
+/**
+ * 定义游戏对话框取消选项的类型
+ * 用于表示对话框取消操作的回调函数
+ */
 declare type GameDialogCancelOption = {
-  cancel: () => void;
+  cancel: () => void; // 取消对话框的操作
 };
+
+/**
+ * 定义游戏摄像头模式的枚举
+ * 包含游戏摄像头可以设置的不同模式
+ */
 declare enum GameCameraMode {
-  FOLLOW = "follow",
-  FPS = "fps",
-  FIXED = "fixed",
-  RELATIVE = "relative"
+  FOLLOW = "follow", // 摄像头跟随玩家移动
+  FPS = "fps", // 第一人称射击视角
+  FIXED = "fixed", // 固定视角
+  RELATIVE = "relative" // 相对视角
 }
 declare enum GameCameraFreezedAxis {
   NONE = "",
@@ -11664,541 +12482,780 @@ declare enum GameInputDirection {
   HORIZONTAL = "horizontal",
   BOTH = "both"
 }
+/**
+ * 游戏玩家关键帧接口，定义了玩家在游戏中的动画和视觉属性
+ */
 interface GamePlayerKeyframe {
+  // 关键帧持续时间，单位为毫秒
   duration: number;
+  // 加速曲线类型，用于控制动画开始时的速度变化
   easeIn: GameEasing;
+  // 减速曲线类型，用于控制动画结束时的速度变化
   easeOut: GameEasing;
+  // 玩家模型的缩放比例
   scale: number;
+  // 玩家模型的颜色，使用RGB格式
   color: GameRGBColor;
+  // 金属度属性，影响材质的反射和高光特性
   metalness: number;
+  // 自发光属性，使模型在黑暗中可见
   emissive: number;
+  // 光泽度属性，影响材质的反光强度
   shininess: number;
+  // 玩家模型是否不可见
   invisible: boolean;
+  // 玩家名称是否显示
   showName: boolean;
+  // 玩家指示器是否显示
   showIndicator: boolean;
+  // 颜色查找表，用于动态调整颜色
   colorLUT: string;
+  // 相机模式，决定相机的移动和旋转行为
   cameraMode: GameCameraMode;
+  // 相机实体，关联到场景中的具体对象
   cameraEntity: GameEntity | null;
+  // 相机目标点，相机试图对准的位置
   cameraTarget: GameVector3;
+  // 相机上方向量，定义相机的向上方向
   cameraUp: GameVector3;
+  // 相机位置，相机在世界空间中的坐标
   cameraPosition: GameVector3;
+  // 相机冻结轴，限制相机在特定轴上的移动
   cameraFreezedAxis: GameCameraFreezedAxis;
+  // 相机垂直视野角，影响投影矩阵的构建
   cameraFovY: number;
+  // 相机与目标点的距离
   cameraDistance: number;
 }
+
+/**
+ * 游戏虚拟手柄接口，定义了手柄上各个按钮和摇杆的映射
+ */
 interface Gamepad {
+  // 摇杆背景图片路径
   joystickBackground: string;
+  // 摇杆控制器图片路径
   joystickController: string;
+  // 飞行按钮图片路径
   flyButton: string;
+  // 飞行背景图片路径
   flyingBackground: string;
+  // 飞行控制器图片路径
   flyingController: string;
+  // 跳跃按钮图片路径
   jump: string;
+  // 蹲下按钮图片路径
   crouch: string;
+  // 动作A按钮图片路径
   actionA: string;
+  // 动作B按钮图片路径
   actionB: string;
 }
 /**
- * Players correspond to users which are connected to the game
+ * 玩家对应于连接到游戏的用户。
+ * 每个玩家对象代表一个已连接的用户，可以包含玩家的详细信息，如用户名、得分、角色等。
  */
 declare class GamePlayer {
   /**
-   * Sends a private message directly to player
-   * @category chat
-   */
+ * 向玩家发送私聊消息
+ * @category 聊天
+ */
   directMessage: (message: string) => void;
+
   /**
-   * Called whenever player initiates a chat event
-   * @category chat
+   * 当玩家发起聊天事件时调用
+   * @category 聊天
    */
   onChat: GameEventChannel<GameChatEvent>;
-  nextChat: GameEventFuture<GameChatEvent>;
+
   /**
-   * Called whenever player presses a button
-   * @category input
+   * 获取下一个聊天事件
+   * @category 聊天
+   */
+  nextChat: GameEventFuture<GameChatEvent>;
+
+  /**
+   * 当玩家按下按钮时调用
+   * @category 输入
    */
   onPress: GameEventChannel<GameInputEvent>;
-  nextPress: GameEventFuture<GameInputEvent>;
+
   /**
-   * Called whenever a player releases a buttin
-   * @category input
+   * 获取下一个按键按下事件
+   * @category 输入
+   */
+  nextPress: GameEventFuture<GameInputEvent>;
+
+  /**
+   * 当玩家释放按钮时调用
+   * @category 输入
    */
   onRelease: GameEventChannel<GameInputEvent>;
-  nextRelease: GameEventFuture<GameInputEvent>;
+
   /**
-   * @category health
+   * 获取下一个按键释放事件
+   * @category 输入
+   */
+  nextRelease: GameEventFuture<GameInputEvent>;
+
+  /**
+   * 当玩家重生时调用
+   * @category 生命值
    */
   onRespawn: GameEventChannel<GameRespawnEvent>;
-  nextRespawn: GameEventFuture<GameRespawnEvent>;
+
   /**
-   * @category health
+   * 获取下一个重生事件
+   * @category 生命值
+   */
+  nextRespawn: GameEventFuture<GameRespawnEvent>;
+
+  /**
+   * 强制玩家重生
+   * @category 生命值
    */
   forceRespawn: () => void;
+
   /**
-   * Opens a dialog for this player
-   * @category dialog
+   * 为玩家打开一个对话框
+   * @category 对话
+   * 
+   * 该函数是泛型函数，接受 GameInputDialogParams、GameTextDialogParams 或 GameSelectDialogParams 类型的参数。
+   * 根据参数类型，返回不同类型的结果：
+   * - 如果参数类型为 GameSelectDialogParams，则返回 GameDialogSelectResponse 或 null 的 Promise。
+   * - 否则，返回 string 或 null 的 Promise。
+   * 
+   * @param params 对话框参数，可以是 GameInputDialogParams、GameTextDialogParams 或 GameSelectDialogParams 中的一种。
+   * @returns 如果参数类型为 GameSelectDialogParams，则返回 GameDialogSelectResponse 或 null 的 Promise；
+   *          否则，返回 string 或 null 的 Promise。
    */
   dialog<T extends GameInputDialogParams | GameTextDialogParams | GameSelectDialogParams>(
     params: T
   ): T extends GameSelectDialogParams
     ? Promise<GameDialogSelectResponse | null>
     : Promise<string | null>;
+
   /**
-   * Cancels any open dialogs for this player
-   * @category dialog
+   * 取消玩家的所有打开的对话框
+   * @category 对话
    */
   cancelDialogs: () => void;
+
   /**
-   * Opens a hyperlink on the client
-   * @category web
+   * 在客户端打开一个超链接
+   * @category 网页
    */
   link: (href: string, options?: {
+    // 是否弹出确认的提醒？
     isConfirm?: boolean;
+
+    // 是否新标签页打开网页？
     isNewTab?: boolean;
   }) => void;
+
   /**
-   * List all wearable objects attached to the player
-   * @param bodyPart is an optional filter to show only wearables attached to a specific body part
-   * @category display
+   * 列出玩家身上所有可穿戴物品
+   * @param bodyPart 是一个可选过滤器，用于显示特定身体部位上的可穿戴物品
+   * @category 显示
    */
   wearables: (bodyPart?: GameBodyPart) => GameWearable[];
+
   /**
-   * Attach a new wearable object to the player
-   * @category display
+   * 为玩家添加一个新的可穿戴物品
+   * @category 显示
    */
   addWearable: (spec: Partial<GameWearable>) => GameWearable;
+
   /**
-   * Remove a wearable object from a player
-   * @param wearable is the wearable to remove
-   * @category display
+   * 从玩家身上移除一个可穿戴物品
+   * @param wearable 要移除的可穿戴物品
+   * @category 显示
    */
   removeWearable: (wearable: GameWearable) => void;
+
   /**
-   * Set player skin by skin name
-   * @category display
+   * 通过皮肤名称设置玩家皮肤
+   * @category 显示
    */
   setSkinByName: (skinName: string) => void;
+
   /**
-   * Reset player to default skin
-   * @category display
+   * 将玩家重置为默认皮肤
+   * @category 显示
    */
   resetToDefaultSkin: () => void;
+
   /**
-   * Clear player custom skin and restore to avatar skin
-   * @category display
+   * 清除玩家自定义皮肤并恢复到角色皮肤
+   * @category 显示
    */
   clearSkin: () => void;
+
   /**
-   * Play sound for player
-   * @category sound
+   * 为玩家播放声音
+   * @category 声音
    */
   sound: (spec: {
+    // 用于表示样本或示例数据
     sample: string;
+
+    // 用于表示增益或音量调整
     gain?: number;
+
+    // 用于表示音高或频率调整
     pitch?: number;
   } | string) => Sound;
+
   /**
-   * Play an animation
+   * 播放动画
+   * @category 动画
    */
   animate: (keyframes: Partial<GamePlayerKeyframe>[], playbackConfig?: GameAnimationPlaybackConfig) => GameAnimation<GamePlayerKeyframe, GamePlayer>;
-  getAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[];
+
   /**
-   * Kick the user off the server
+   * 获取当前播放的所有动画
+   * @category 动画
+   */
+  getAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[];
+
+  /**
+   * 将用户踢出服务器
+   * @category 管理
    */
   kick: () => void;
+
   /**
-   * Reset camera pitch
+   * 设置摄像机的垂直旋转角度
+   * @category 摄像机
    */
   setCameraPitch: (value: number) => void;
+
   /**
-   * Reset camera pitch
+   * 设置摄像机的水平旋转角度
+   * @category 摄像机
    */
   setCameraYaw: (value: number) => void;
+
   /**
-   * open product purchase dialog
-   * @category web
+   * 打开商品购买对话框
+   * @category 网页
    */
   openMarketplace: (productIds: number[]) => void;
-  getMiaoShells: () => Promise<number>;
+
   /**
-   * open share modal
-   * @category web
+   * 获取玩家的喵币数量
+   * @category 经济
+   */
+  getMiaoShells: () => Promise<number>;
+
+  /**
+   * 打开分享模态框
+   * @category 网页
    */
   share: (content: string) => void;
-  openUserProfileDialog: (userId: number) => void;
-  querySocial: (socialType: SocialType) => Promise<number[]>;
+
   /**
-   * Called whenever player press down or up
-   * @category input
+   * 打开用户个人资料对话框
+   * @category 社交
+   */
+  openUserProfileDialog: (userId: number) => void;
+
+  /**
+   * 查询社交关系
+   * @category 社交
+   */
+  querySocial: (socialType: SocialType) => Promise<number[]>;
+
+  /**
+   * 当玩家按下或释放键盘键时调用
+   * @category 输入
    */
   onKeyDown: GameEventChannel<GameKeyBoardEvent>;
-  onKeyUp: GameEventChannel<GameKeyBoardEvent>;
-  gamepad: Gamepad;
+
   /**
-   * Name of the player.  Constant.
+   * 当玩家释放键盘键时调用
+   * @category 输入
+   */
+  onKeyUp: GameEventChannel<GameKeyBoardEvent>;
+  /**
+   * 设置虚拟按键图片
+   */
+  gamepad: Gamepad;
+
+  /**
+   * 玩家名称。常量。
    */
   name: string;
+
   /**
-   * user id for login player
+   * 登录玩家的用户ID
    */
   userId: string;
+
   /**
-   * Unique user key for this player.  Can be used to save their info into the database.
+   * 此玩家的唯一用户密钥。可用于将他们的信息保存到数据库中。
    */
   userKey: string;
+
   /**
-   * User id of player if logged in.
+   * 如果已登录，则为玩家的用户ID。
    */
   boxId: string;
+
   /**
-   * User avatar player if logged in.
+   * 如果已登录，则为玩家的头像。
    */
   avatar: string;
+
   /**
-   * Player URL
+   * 玩家URL
    */
   url: URL;
+
   /**
-   * Initial spawn point of player
-   * @category spawn
+   * 玩家的初始生成点
+   * @category 生成
    */
   spawnPoint: GameVector3;
+
   /**
-   * Movement bounds
-   * @category spawn
+   * 移动边界
+   * @category 生成
    */
   movementBounds: GameBounds3;
+
   /**
-   * @category display
+   * 缩放比例
+   * @category 显示
    */
   scale: number;
+
   /**
-   * @category dipsplay
+   * 颜色
+   * @category 显示
    */
   color: GameRGBColor;
+
   /**
-   * @category display
+   * 金属度
+   * @category 显示
    */
   metalness: number;
+
   /**
-   * @category display
+   * 发光强度
+   * @category 显示
    */
   emissive: number;
+
   /**
-   * @category display
+   * 光泽度
+   * @category 显示
    */
   shininess: number;
+
   /**
-   * @category display
+   * 是否隐身
+   * @category 显示
    */
   invisible: boolean;
+
   /**
-   * @category display
+   * 是否显示名称
+   * @category 显示
    */
   showName: boolean;
+
   /**
-   * @category display
+   * 是否显示指示器
+   * @category 显示
    */
   showIndicator: boolean;
+
   /**
-   * @category health
+   * 是否死亡
+   * @category 生命值
    */
   dead: boolean;
+
   /**
-   * Color grading look up table, applied to player to tint game state
+   * 颜色分级查找表，应用于玩家以调整游戏状态的颜色
    */
   colorLUT: string;
+
   /**
-   * Camera behavior mode.
-   *  + `"FPS"` - First person camera
-   *  + `"FOLLOW"` - Third person follow camera (default)
-   *  + `"FIXED"` - Third person fixed camera
-   *  + `"RELATIVE"` - Third person camera relative to player position
-   * @category camera
+   * 摄像机行为模式。
+   *  + `"FPS"` - 第一人称摄像机
+   *  + `"FOLLOW"` - 第三人称跟随摄像机（默认）
+   *  + `"FIXED"` - 第三人称固定摄像机
+   *  + `"RELATIVE"` - 相对玩家位置的第三人称摄像机
+   * @category 摄像机
    */
   cameraMode: GameCameraMode;
+
   /**
-   * In FPS or FOLLOW mode, the entity which the player's camera follows
-   * @category camera
+   * 在FPS或FOLLOW模式下，玩家摄像机跟随的实体
+   * @category 摄像机
    */
   cameraEntity: GameEntity | null;
+
   /**
-   * Target point for the camera in FIXED mode
-   * @category camera
+   * 在FIXED模式下的摄像机目标点
+   * @category 摄像机
    */
   cameraTarget: GameVector3;
+
   /**
-   * Up vector for camera in FIXED mode
-   * @category camera
+   * 在FIXED模式下的摄像机上向量
+   * @category 摄像机
    */
   cameraUp: GameVector3;
+
   /**
-   * Eye position of camera in FIXED mode
-   * @category camera
+   * 在FIXED模式下的摄像机眼睛位置
+   * @category 摄像机
    */
   cameraPosition: GameVector3;
+
   /**
-   * Freeze camera axis in RELATIVE mode
-   * @category camera
+   * 在RELATIVE模式下冻结的摄像机轴
+   * @category 摄像机
    */
   cameraFreezedAxis: GameCameraFreezedAxis;
+
   /**
-   * Camera fov y
-   * @category camera
+   * 摄像机视场角Y
+   * @category 摄像机
    */
   cameraFovY: number;
+
   /**
-   * Camera distance
-   * @category camera
+   * 摄像机距离
+   * @category 摄像机
    */
   cameraDistance: number;
+
   /**
-   * If true, player is allowed to fly
-   * @category movement
+   * 如果为true，允许玩家飞行
+   * @category 移动
    */
   canFly: boolean;
+
   /**
-   * If true, player is a ghost and can pass through walls
-   * @category movement
+   * 如果为true，玩家是幽灵，可以穿过墙壁
+   * @category 移动
    */
   spectator: boolean;
+
   /**
-   * Maximum walking speed
-   * @category movement
+   * 最大步行速度
+   * @category 移动
    */
   walkSpeed: number;
+
   /**
-   * Walking acceleration
-   * @category movement
+   * 步行加速度
+   * @category 移动
    */
   walkAcceleration: number;
+
   /**
-   * Maximum running speed
-   * @category movement
+   * 最大跑步速度
+   * @category 移动
    */
   runSpeed: number;
+
   /**
-   * Running acceleration
-   * @category movement
+   * 跑步加速度
+   * @category 移动
    */
   runAcceleration: number;
+
   /**
-   * Crouching walk speed
-   * @category movement
+   * 蹲下行走速度
+   * @category 移动
    */
   crouchSpeed: number;
+
   /**
-   * Crouching walk acceleration
-   * @category movement
+   * 蹲下行走加速度
+   * @category 移动
    */
   crouchAcceleration: number;
+
   /**
-   * Maximum swim speed
-   * @category movement
+   * 最大游泳速度
+   * @category 移动
    */
   swimSpeed: number;
+
   /**
-   * Swim acceleration
-   * @category movement
+   * 游泳加速度
+   * @category 移动
    */
   swimAcceleration: number;
+
   /**
-   * Maximum flying speed
-   * @category movement
+   * 最大飞行速度
+   * @category 移动
    */
   flySpeed: number;
+
   /**
-   * Flying acceleration
-   * @category movement
+   * 飞行加速度
+   * @category 移动
    */
   flyAcceleration: number;
+
   /**
-   * Jump speed
-   * @category movement
+   * 跳跃速度因子
+   * @category 移动
    */
   jumpSpeedFactor: number;
+
   /**
-   * Jump acceleration rate
-   * @category movement
+   * 跳跃加速度率
+   * @category 移动
    */
   jumpAccelerationFactor: number;
+
   /**
-   * Jump velocity impulse
-   * @category movement
+   * 跳跃速度冲量
+   * @category 移动
    */
   jumpPower: number;
+
   /**
-   * Double jump velocity impulse
-   * @category movement
+   * 双重跳跃速度冲量
+   * @category 移动
    */
   doubleJumpPower: number;
+
   /**
-   * @category movement
+   * 在RELATIVE模式下冻结的前向方向
+   * @category 移动
    */
   freezedForwardDirection: GameVector3 | null;
+
   /**
-   * @category state
+   * 移动状态
+   * @category 状态
    */
   moveState: GamePlayerMoveState;
+
   /**
-   * @category state
+   * 行走状态
+   * @category 状态
    */
   walkState: GamePlayerWalkState;
+
   /**
-   * @category input
+   * 是否交换输入方向
+   * @category 输入
    */
   swapInputDirection: boolean;
+
   /**
-   * @category input
+   * 反转输入方向
+   * @category 输入
    */
   reverseInputDirection: GameInputDirection;
+
   /**
-   * @category input
+   * 禁用的输入方向
+   * @category 输入
    */
   disableInputDirection: GameInputDirection;
+
   /**
-   * @category input
+   * 是否按下了行走按钮
+   * @category 输入
    */
   walkButton: boolean;
+
   /**
-   * @category input
+   * 是否按下了蹲下按钮
+   * @category 输入
    */
   crouchButton: boolean;
+
   /**
-   * @category input
+   * 是否按下了跳跃按钮
+   * @category 输入
    */
   jumpButton: boolean;
+
   /**
-   * If true, player input button action 0 is enabled
-   * @category input
+   * 如果为true，启用玩家输入按钮动作0
+   * @category 输入
    */
   enableAction0: boolean;
+
   /**
-   * If true, player input button action 1 is enabled
-   * @category input
+   * 如果为true，启用玩家输入按钮动作1
+   * @category 输入
    */
   enableAction1: boolean;
+
   /**
-   * @category input
+   * 是否按下了动作0按钮
+   * @category 输入
    */
   action0Button: boolean;
+
   /**
-   * @category input
+   * 是否按下了动作1按钮
+   * @category 输入
    */
   action1Button: boolean;
+
   /**
-   * @category input
+   * 是否启用跳跃
+   * @category 输入
    */
   enableJump: boolean;
+
   /**
-   * @category input
+   * 是否启用双重跳跃
+   * @category 输入
    */
   enableDoubleJump: boolean;
+
   /**
-   * @category input
+   * 是否启用蹲下
+   * @category 输入
    */
   enableCrouch: boolean;
+
   /**
-   * @category input
+   * 是否启用3D光标
+   * @category 输入
    */
   enable3DCursor: boolean;
+
   /**
-   * @category input
+   * 面向方向
+   * @category 输入
    */
   facingDirection: GameVector3;
+
   /**
-   * @category input
+   * 摄像机水平旋转角度
+   * @category 输入
    */
   cameraYaw: number;
+
   /**
-   * @category input
+   * 摄像机垂直旋转角度
+   * @category 输入
    */
   cameraPitch: number;
+
   /**
-   * Plays when player respawns
-   * @category sound
+   * 玩家重生时播放的声音
+   * @category 声音
    */
   spawnSound: GameSoundEffect;
+
   /**
-   * Plays when player jumps
-   * @category sound
+   * 玩家跳跃时播放的声音
+   * @category 声音
    */
   jumpSound: GameSoundEffect;
+
   /**
-   * Plays when player double jumps
-   * @category sound
+   * 玩家双重跳跃时播放的声音
+   * @category 声音
    */
   doubleJumpSound: GameSoundEffect;
+
   /**
-   * Plays when player lands
-   * @category sound
+   * 玩家落地时播放的声音
+   * @category 声音
    */
   landSound: GameSoundEffect;
+
   /**
-   * Plays when player crouches
-   * @category sound
+   * 玩家蹲下时播放的声音
+   * @category 声音
    */
   crouchSound: GameSoundEffect;
+
   /**
-   * Plays when player takes a step
-   * @category sound
+   * 玩家行走时播放的脚步声
+   * @category 声音
    */
   stepSound: GameSoundEffect;
+
   /**
-   * Plays when player takes a single swim stroke
-   * @category sound
+   * 玩家游泳时播放的声音
+   * @category 声音
    */
   swimSound: GameSoundEffect;
+
   /**
-   * Plays when player presses action 0
-   * @category sound
-   */
+   * 玩家按下动作0按钮时播放的声音
+   * @category 声音
+  */
   action0Sound: GameSoundEffect;
   /**
-   * Plays when player presses action 1
-   * @category sound
-   */
+ * 玩家按下动作1按钮时播放的声音
+ * @category 声音
+ */
   action1Sound: GameSoundEffect;
+
   /**
-   * Plays when entity enters water
-   * @category sound
+   * 实体进入水中时播放的声音
+   * @category 声音
    */
   enterWaterSound: GameSoundEffect;
+
   /**
-   * Plays when entity leaves water
-   * @category sound
+   * 实体离开水中时播放的声音
+   * @category 声音
    */
   leaveWaterSound: GameSoundEffect;
+
   /**
-   * Sound for player start flying
-   * @category sound
+   * 玩家开始飞行时播放的声音
+   * @category 声音
    */
   startFlySound: GameSoundEffect;
+
   /**
-   * Sound for player stop flying
-   * @category sound
+   * 玩家停止飞行时播放的声音
+   * @category 声音
    */
   stopFlySound: GameSoundEffect;
+
   /**
-   * Background music for this player
-   * @category sound
+   * 玩家的背景音乐
+   * @category 声音
    */
   music: GameSoundEffect;
+
   /**
-   * If true, then player can't chat
-   * @category chat
-   * @deprecated currently not in use
+   * 如果为true，则玩家不能聊天
+   * @category 聊天
+   * @deprecated 当前未使用
    */
   muted: boolean;
+
   /**
-   * Skin parts
-   * @category display
+   * 皮肤部件
+   * @category 显示
    */
   skin: GameSkin;
+
   /**
-   * Skin parts invisible
-   * @category display
+   * 皮肤部件是否不可见
+   * @category 显示
    */
   skinInvisible: GameSkinInvisible;
+
+  /**
+   * 导航器
+   */
   navigator: PlayerNavigator;
   /**
    * @ignore
@@ -12354,677 +13411,666 @@ declare class PlayerNavigator {
 }
 declare type NavigatorEventType = 'message';
 /**
- * Result of performing a raycast.  Contains information about the raycast and what it hit.
+ * 执行射线检测的结果。包含关于射线检测及其命中的对象的信息。
  */
 declare class GameRaycastResult {
   /**
-   * If true, raycast hit an object
+   * 如果为 true，射线检测命中了对象。
    */
   hit: boolean;
+
   /**
-   * The entity hit by the raycast
+   * 被射线检测命中的实体。
    */
   hitEntity: GameEntity | null;
+
   /**
-   * The voxel id hit by the raycast (0 if no voxel was hit)
+   * 被射线检测命中的方块 ID（如果没有命中方块则为 0）。
    */
   hitVoxel: number;
+
   /**
-   * Start point of the ray cast
+   * 射线检测的起点。
    */
   origin: GameVector3;
+
   /**
-   * Direction of the raycast
+   * 射线检测的方向。
    */
   direction: GameVector3;
+
   /**
-   * Distance traveled along the ray
+   * 沿射线行进的距离。
    */
   distance: number;
+
   /**
-   * Position of the ray intersection
+   * 射线交点的位置。
    */
   hitPosition: GameVector3;
+
   /**
-   * Normal vector on surface at point of intersection
+   * 交点处表面的法向量。
    */
   normal: GameVector3;
+
   /**
-   * If a voxel was hit, the grid coordinates of the hit voxel
+   * 如果命中了方块，该方块的网格坐标。
    */
   voxelIndex: GameVector3;
+
   /**
    * @ignore
+   * 构造函数，初始化射线检测结果。
+   * @param hit 如果为 true，射线检测命中了对象。
+   * @param hitEntity 被射线检测命中的实体。
+   * @param hitVoxel 被射线检测命中的方块 ID（如果没有命中方块则为 0）。
+   * @param origin 射线检测的起点。
+   * @param direction 射线检测的方向。
+   * @param distance 沿射线行进的距离。
+   * @param hitPosition 射线交点的位置。
+   * @param normal 交点处表面的法向量。
+   * @param voxelIndex 如果命中了方块，该方块的网格坐标。
    */
   constructor(
-    /**
-     * If true, raycast hit an object
-     */
     hit: boolean,
-    /**
-     * The entity hit by the raycast
-     */
     hitEntity: GameEntity | null,
-    /**
-     * The voxel id hit by the raycast (0 if no voxel was hit)
-     */
     hitVoxel: number,
-    /**
-     * Start point of the ray cast
-     */
     origin: GameVector3,
-    /**
-     * Direction of the raycast
-     */
     direction: GameVector3,
-    /**
-     * Distance traveled along the ray
-     */
     distance: number,
-    /**
-     * Position of the ray intersection
-     */
     hitPosition: GameVector3,
-    /**
-     * Normal vector on surface at point of intersection
-     */
     normal: GameVector3,
-    /**
-     * If a voxel was hit, the grid coordinates of the hit voxel
-     */
-    voxelIndex: GameVector3);
+    voxelIndex: GameVector3
+  );
 }
 /**
- * Configuration parameters passed into a raycast method
+ * 传递给射线检测方法的配置参数。
  */
 interface GameRaycastOptions {
   /**
-   * Maximum distance allowed for ray to travel
+   * 射线允许的最大距离。
    */
   maxDistance: number;
+
   /**
-   * If true, ignore fluid voxels
+   * 如果为 true，则忽略流体方块。
    */
   ignoreFluid: boolean;
+
   /**
-   * If true, don't test intersection against voxels
+   * 如果为 true，则不检测与方块的交点。
    */
   ignoreVoxel: boolean;
+
   /**
-   * If true, don't test intersection against entities
+   * 如果为 true，则不检测与实体的交点。
    */
   ignoreEntities: boolean;
+
   /**
-   * Ignore selected entities
+   * 忽略选定的实体。
    */
   ignoreSelector: GameSelectorString;
 }
+
 /**
- * You can subscribe to events coming from some object using an EventChannel.
+ * 使用 EventChannel 可以订阅来自某些对象的事件。
  *
- * Event channels take an event handler as input and return a token which can be used to cancel the handler.
+ * 事件通道接受一个事件处理程序作为输入，并返回一个可以用于取消处理程序的令牌。
  *
- * **Example:**
+ * **示例:**
  * ```typescript
  * const token = world.onTick(() => console.log("tick !"));
  * setTimeout(() => {
- *      console.log('cancel tick handler');
+ *      console.log('取消 tick 处理程序');
  *      token.cancel();
- *      // no more tick events will be logged
+ *      // 不再记录 tick 事件
  * }, 1000);
  * ```
  *
- * @param handler The handler callback which is invoked whenever the event is fired
- * @typeparam EventType The type of the event which is emitted by the channel
- * @returns An event handler token which can be used to cancel the event handler
- * @category events
+ * @param handler 每当事件触发时调用的处理程序回调。
+ * @typeparam EventType 通道发出的事件类型。
+ * @returns 一个事件处理程序令牌，可以用于取消事件处理程序。
+ * @category 事件
  */
 declare type GameEventChannel<EventType> = (handler: (event: EventType) => void) => GameEventHandlerToken;
+
 /**
- * Promises give another way to work with events. You can use promises to organize long sequences of events
- * with structured programming.  In some cases this can lead to much simpler and cleaner code, but you must
- * use caution.  Asynchronous code can be interrupted when it is waiting, which means things in the world
- * can change outside your code.  Also errors generated in asynchronous code do not get stack traces,
- * which can complicate debugging.  Consider these things and use promises carefully
+ * Promise 提供了另一种处理事件的方式。你可以使用 Promise 来组织长序列的事件，
+ * 通过结构化编程来简化代码。在某些情况下，这可以使代码更简单和清晰，但必须谨慎使用。
+ * 异步代码在等待时可能会被中断，这意味着世界中的事物可能会在你的代码之外发生变化。
+ * 此外，异步代码中生成的错误不会带有堆栈跟踪，这会使调试变得复杂。考虑这些因素并谨慎使用 Promise。
  *
- * **Example:**
+ * **示例:**
  * ```typescript
- * // Wait for 2 players to enter the world
- * async function waitForPlayers (count) {
- *      while (world.querySelectorAll('player').length < 2) {
+ * // 等待 2 名玩家进入世界
+ * async function waitForPlayers(count) {
+ *      while (world.querySelectorAll('player').length < count) {
  *          const { entity } = await world.nextPlayerJoin();
- *          world.say(entity.player.name + ' joined');
+ *          world.say(entity.player.name + ' 加入了');
  *      }
  * }
  *
- * waitForPlayers.then(() => world.say('game ready'));
+ * waitForPlayers(2).then(() => world.say('游戏准备就绪'));
  * ```
  *
- * @param filter An optional function which checks the type of event.  If the filter is not true, then the event is not dispatched.  If no filter is supplied, then the future will fire on the next event.
- * @typeparam EventType The type of the event which is emitted by the channel
- * @returns A promise which resolves once an event which matches the filter fires
- * @category events
+ * @param filter 一个可选的函数，用于检查事件类型。如果过滤器不为真，则事件不会被分发。如果没有提供过滤器，则未来会在下一个事件上触发。
+ * @typeparam EventType 通道发出的事件类型。
+ * @returns 一个 Promise，在匹配过滤器的事件触发时解析。
+ * @category 事件
  */
 declare type GameEventFuture<EventType> = (filter?: (event: EventType) => boolean) => Promise<EventType>;
 /**
- * Returned by a {@link Game.GameEventChannel} whenever a handler is registered.  Can be used to cancel the handler.
- * @category events
+ * 当注册处理程序时由 {@link Game.GameEventChannel} 返回。可以用于取消处理程序。
+ * @category 事件
  */
 declare class GameEventHandlerToken {
   /**
-   * Cancels the event handler
+   * 取消事件处理程序。
    */
   cancel: () => void;
+
   /**
-   * Resumes listening with the event handler
+   * 恢复监听事件处理程序。
    */
   resume: () => void;
+
   /**
-   * Checks if the handler is active
+   * 检查处理程序是否处于活动状态。
    */
   active: () => boolean;
+
   /**
    * @ignore
+   * 构造函数，初始化事件处理程序令牌。
+   * @param cancel 取消事件处理程序的函数。
+   * @param resume 恢复监听事件处理程序的函数。
+   * @param active 检查处理程序是否处于活动状态的函数。
    */
   constructor(
-    /**
-     * Cancels the event handler
-     */
     cancel: () => void,
-    /**
-     * Resumes listening with the event handler
-     */
     resume: () => void,
-    /**
-     * Checks if the handler is active
-     */
-    active: () => boolean);
+    active: () => boolean
+  );
 }
+
 /**
- * An event which is fired each tick by {@link Game.GameWorld.onTick}.
- * @category events
+ * 每个游戏帧由 {@link Game.GameWorld.onTick} 触发的事件。
+ * @category 事件
  */
 declare class GameTickEvent {
   /**
-   * Tick at which the event was fired
+   * 事件触发的帧数。
    */
   tick: number;
+
   /**
-   * Last tick which was handled
+   * 上一次处理的帧数。
    */
   prevTick: number;
+
   /**
-   * If we had to skip any ticks due to the scripts lagging
+   * 是否由于脚本延迟而跳过了任何帧。
    */
   skip: boolean;
+
   /**
-   * Wall clock time between ticks
+   * 帧之间的时间间隔（毫秒）。
    */
   elapsedTimeMS: number;
+
   /**
    * @ignore
+   * 构造函数，初始化游戏帧事件。
+   * @param tick 事件触发的帧数。
+   * @param prevTick 上一次处理的帧数。
+   * @param skip 是否由于脚本延迟而跳过了任何帧。
+   * @param elapsedTimeMS 帧之间的时间间隔（毫秒）。
    */
   constructor(
-    /**
-     * Tick at which the event was fired
-     */
     tick: number,
-    /**
-     * Last tick which was handled
-     */
     prevTick: number,
-    /**
-     * If we had to skip any ticks due to the scripts lagging
-     */
     skip: boolean,
-    /**
-     * Wall clock time between ticks
-     */
-    elapsedTimeMS: number);
+    elapsedTimeMS: number
+  );
 }
 /**
- * An event which is fired whenever some entity is created or destroyed.
- * Triggered by {@link Game.GameWorld.onPlayerJoin}, {@link Game.GameWorld.onPlayerLeave}, {@link Game.GameWorld.onEntityCreate}, {@link Game.GameWorld.onEntityDestroy} and {@link Game.GameEntity.onDestroy}
- * @category events
+ * 当某个实体被创建或销毁时触发的事件。
+ * 由 {@link Game.GameWorld.onPlayerJoin}, {@link Game.GameWorld.onPlayerLeave}, {@link Game.GameWorld.onEntityCreate}, {@link Game.GameWorld.onEntityDestroy} 和 {@link Game.GameEntity.onDestroy} 触发。
+ * @category 事件
  */
 declare class GameEntityEvent {
   /**
-   * The time the event occured
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * The entity that was created/destroyed
+   * 被创建或销毁的实体。
    */
   entity: GameEntity;
+
   /**
    * @ignore
+   * 构造函数，初始化实体事件。
+   * @param tick 事件发生的时间。
+   * @param entity 被创建或销毁的实体。
    */
   constructor(
-    /**
-     * The time the event occured
-     */
     tick: number,
-    /**
-     * The entity that was created/destroyed
-     */
-    entity: GameEntity);
+    entity: GameEntity
+  );
 }
+
 /**
- * Fired whenever an entity activates or deactivates a trigger
- * @category events
+ * 当实体激活或取消激活触发器时触发的事件。
+ * @category 事件
  */
 declare class GameTriggerEvent {
   /**
-   * Time event occured
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which triggered event
+   * 触发事件的实体。
    */
   entity: GameEntity;
+
   /**
    * @ignore
+   * 构造函数，初始化触发器事件。
+   * @param tick 事件发生的时间。
+   * @param entity 触发事件的实体。
    */
   constructor(
-    /**
-     * Time event occured
-     */
     tick: number,
-    /**
-     * Entity which triggered event
-     */
-    entity: GameEntity);
+    entity: GameEntity
+  );
 }
+
 /**
- * Fired whenever an entity takes damage
- * Triggered by {@link Game.GameWorld.onTakeDamage} {@link Game.GameEntity.onTakeDamage}
- * @category events
+ * 当实体受到伤害时触发的事件。
+ * 由 {@link Game.GameWorld.onTakeDamage} 和 {@link Game.GameEntity.onTakeDamage} 触发。
+ * @category 事件
  */
 declare class GameDamageEvent {
   /**
-   * Time event occured
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which received damage
+   * 受到伤害的实体。
    */
   entity: GameEntity;
+
   /**
-   * Amount of damage
+   * 伤害量。
    */
   damage: number;
+
   /**
-   * Entity attacker
+   * 攻击者实体。
    */
   attacker: GameEntity | null;
+
   /**
-   * Damage type
+   * 伤害类型。
    */
   damageType: string;
+
   /**
    * @ignore
+   * 构造函数，初始化伤害事件。
+   * @param tick 事件发生的时间。
+   * @param entity 受到伤害的实体。
+   * @param damage 伤害量。
+   * @param attacker 攻击者实体。
+   * @param damageType 伤害类型。
    */
   constructor(
-    /**
-     * Time event occured
-     */
     tick: number,
-    /**
-     * Entity which received damage
-     */
     entity: GameEntity,
-    /**
-     * Amount of damage
-     */
     damage: number,
-    /**
-     * Entity attacker
-     */
     attacker: GameEntity | null,
-    /**
-     * Damage type
-     */
-    damageType: string);
+    damageType: string
+  );
 }
+
 /**
- * Fired whenever an entity takes dies.
- * Triggered by {@link Game.GameWorld.onTakeDamage} {@link Game.GameEntity.onTakeDamage}
- * @category events
+ * 当实体死亡时触发的事件。
+ * 由 {@link Game.GameWorld.onTakeDamage} 和 {@link Game.GameEntity.onTakeDamage} 触发。
+ * @category 事件
  */
 declare class GameDieEvent {
   /**
-   * Time event occured
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which received damage
+   * 受到伤害的实体。
    */
   entity: GameEntity;
+
   /**
-   * Entity attacker
+   * 攻击者实体。
    */
   attacker: GameEntity | null;
+
   /**
-   * Damage type
+   * 伤害类型。
    */
   damageType: string;
+
   /**
    * @ignore
+   * 构造函数，初始化死亡事件。
+   * @param tick 事件发生的时间。
+   * @param entity 受到伤害的实体。
+   * @param attacker 攻击者实体。
+   * @param damageType 伤害类型。
    */
   constructor(
-    /**
-     * Time event occured
-     */
     tick: number,
-    /**
-     * Entity which received damage
-     */
     entity: GameEntity,
-    /**
-     * Entity attacker
-     */
     attacker: GameEntity | null,
-    /**
-     * Damage type
-     */
-    damageType: string);
+    damageType: string
+  );
 }
+
 /**
- * Triggered whenever a player respawns
- * @category events
+ * 当玩家重生时触发的事件。
+ * @category 事件
  */
 declare class GameRespawnEvent {
   /**
-   * Time event occured
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which received damage
+   * 重生的玩家实体。
    */
   entity: GamePlayerEntity;
+
   /**
    * @ignore
+   * 构造函数，初始化重生事件。
+   * @param tick 事件发生的时间。
+   * @param entity 重生的玩家实体。
    */
   constructor(
-    /**
-     * Time event occured
-     */
     tick: number,
-    /**
-     * Entity which received damage
-     */
-    entity: GamePlayerEntity);
+    entity: GamePlayerEntity
+  );
 }
+
 /**
- * An event which is fired whenever two entities collide
- * Triggered by {@link Game.GameWorld.onEntityContact}, {@link Game.GameWorld.onEntitySeparate}, {@link Game.GameEntity.onEntityContact}, {@link Game.GameEntity.onEntitySeparate}
- * @category events
+ * 当两个实体发生碰撞时触发的事件。
+ * 由 {@link Game.GameWorld.onEntityContact}, {@link Game.GameWorld.onEntitySeparate}, {@link Game.GameEntity.onEntityContact}, {@link Game.GameEntity.onEntitySeparate} 触发。
+ * @category 事件
  */
 declare class GameEntityContactEvent {
   /**
-   * Time at which the entities collided
+   * 实体发生碰撞的时间。
    */
   tick: number;
+
   /**
-   * The first entity in the pair
+   * 第一个实体。
    */
   entity: GameEntity;
+
   /**
-   * The second entity in the pair
+   * 第二个实体。
    */
   other: GameEntity;
+
   /**
-   * The separating axis of the collision
+   * 碰撞的分离轴。
    */
   axis: GameVector3;
+
   /**
-   * The amount of force imparted by the collision
+   * 碰撞产生的力。
    */
   force: GameVector3;
+
   /**
    * @ignore
+   * 构造函数，初始化实体碰撞事件。
+   * @param tick 实体发生碰撞的时间。
+   * @param entity 第一个实体。
+   * @param other 第二个实体。
+   * @param axis 碰撞的分离轴。
+   * @param force 碰撞产生的力。
    */
   constructor(
-    /**
-     * Time at which the entities collided
-     */
     tick: number,
-    /**
-     * The first entity in the pair
-     */
     entity: GameEntity,
-    /**
-     * The second entity in the pair
-     */
     other: GameEntity,
-    /**
-     * The separating axis of the collision
-     */
     axis: GameVector3,
-    /**
-     * The amount of force imparted by the collision
-     */
-    force: GameVector3);
+    force: GameVector3
+  );
 }
+
 /**
- * An event which is fired whenever an entity comes into contact with terrain
- * Triggered by {@link Game.GameWorld.onVoxelContact}, {@link Game.GameWorld.onVoxelSeparate}, {@link Game.GameEntity.onVoxelContact}, {@link Game.GameEntity.onVoxelSeparate}
- * @category events
+ * 当实体与地形接触时触发的事件。
+ * 由 {@link Game.GameWorld.onVoxelContact}, {@link Game.GameWorld.onVoxelSeparate}, {@link Game.GameEntity.onVoxelContact}, {@link Game.GameEntity.onVoxelSeparate} 触发。
+ * @category 事件
  */
 declare class GameVoxelContactEvent {
   /**
-   * The time of the contact event
+   * 接触事件发生的时间。
    */
   tick: number;
+
   /**
-   * The entity which touched the terrain
+   * 与地形接触的实体。
    */
   entity: GameEntity;
+
   /**
-   * x coordinate of voxel which was touched
+   * 接触方块的 x 坐标。
    */
   x: number;
+
   /**
-   * y coordinate of voxel which was touched
+   * 接触方块的 y 坐标。
    */
   y: number;
+
   /**
-   * z coordinate of voxel which was touched
+   * 接触方块的 z 坐标。
    */
   z: number;
+
   /**
-   * id of voxel
+   * 方块的 ID。
    */
   voxel: number;
+
   /**
-   * Separating axis
+   * 分离轴。
    */
   axis: GameVector3;
+
   /**
-   * Collision force
+   * 碰撞力。
    */
   force: GameVector3;
+
   /**
    * @ignore
+   * 构造函数，初始化方块接触事件。
+   * @param tick 接触事件发生的时间。
+   * @param entity 与地形接触的实体。
+   * @param x 接触方块的 x 坐标。
+   * @param y 接触方块的 y 坐标。
+   * @param z 接触方块的 z 坐标。
+   * @param voxel 方块的 ID。
+   * @param axis 分离轴。
+   * @param force 碰撞力。
    */
   constructor(
-    /**
-     * The time of the contact event
-     */
     tick: number,
-    /**
-     * The entity which touched the terrain
-     */
     entity: GameEntity,
-    /**
-     * x coordinate of voxel which was touched
-     */
     x: number,
-    /**
-     * y coordinate of voxel which was touched
-     */
     y: number,
-    /**
-     * z coordinate of voxel which was touched
-     */
     z: number,
-    /**
-     * id of voxel
-     */
     voxel: number,
-    /**
-     * Separating axis
-     */
     axis: GameVector3,
-    /**
-     * Collision force
-     */
-    force: GameVector3);
+    force: GameVector3
+  );
 }
 /**
- * An event which is fired whenever an entity enters or leaves a fluid
- * Triggered by {@link Game.GameWorld.onFluidEnter}, {@link Game.GameWorld.onFluidLeave}, {@link Game.GameEntity.onFluidEnter}, {@link Game.GameEntity.onFluidLeave}
- * @category events
+ * 当实体进入或离开流体时触发的事件。
+ * 由 {@link Game.GameWorld.onFluidEnter}, {@link Game.GameWorld.onFluidLeave}, {@link Game.GameEntity.onFluidEnter}, {@link Game.GameEntity.onFluidLeave} 触发。
+ * @category 事件
  */
 declare class GameFluidContactEvent {
   /**
-   * Time event occured
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which modified
+   * 被修改的实体。
    */
   entity: GameEntity;
+
   /**
-   * The id of the fluid voxel
+   * 流体方块的 ID。
    */
   voxel: number;
+
   /**
    * @ignore
+   * 构造函数，初始化流体接触事件。
+   * @param tick 事件发生的时间。
+   * @param entity 被修改的实体。
+   * @param voxel 流体方块的 ID。
    */
   constructor(
-    /**
-     * Time event occured
-     */
     tick: number,
-    /**
-     * Entity which modified
-     */
     entity: GameEntity,
-    /**
-     * The id of the fluid voxel
-     */
-    voxel: number);
+    voxel: number
+  );
 }
+
 /**
- * Triggered by {@link Game.GameWorld.onChat} and {@link Game.GameEntity.onChat}
- * @category events
+ * 当实体发起聊天事件时触发。
+ * 由 {@link Game.GameWorld.onChat} 和 {@link Game.GameEntity.onChat} 触发。
+ * @category 事件
  */
 declare class GameChatEvent {
   /**
-   * Time chat event occured
+   * 聊天事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which initiated chat event
+   * 发起聊天事件的实体。
    */
   entity: GameEntity;
+
   /**
-   * What the entity said in the chat event
+   * 实体在聊天事件中说的话。
    */
   message: string;
+
   /**
    * @ignore
+   * 构造函数，初始化聊天事件。
+   * @param tick 聊天事件发生的时间。
+   * @param entity 发起聊天事件的实体。
+   * @param message 实体在聊天事件中说的话。
    */
   constructor(
-    /**
-     * Time chat event occured
-     */
     tick: number,
-    /**
-     * Entity which initiated chat event
-     */
     entity: GameEntity,
-    /**
-     * What the entity said in the chat event
-     */
-    message: string);
+    message: string
+  );
 }
+
 /**
- * Triggered by {@link Game.GameWorld.onPlayerPurchaseSuccess}
- * @category events
+ * 当玩家购买成功时触发的事件。
+ * 由 {@link Game.GameWorld.onPlayerPurchaseSuccess} 触发。
+ * @category 事件
  */
 declare class GamePurchaseSuccessEvent {
   /**
-   * Time purchase success event occured
+   * 购买成功事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity which trigger purchase event
+   * 触发购买事件的实体。
    */
   userId: string;
+
   /**
-   * purchase product id
+   * 购买的商品 ID。
    */
   productId: number;
+
   /**
-   * purchase success order number
+   * 购买成功的订单号。
    */
   orderId: number;
+
   /**
    * @ignore
+   * 构造函数，初始化购买成功事件。
+   * @param tick 购买成功事件发生的时间。
+   * @param userId 触发购买事件的实体。
+   * @param productId 购买的商品 ID。
+   * @param orderId 购买成功的订单号。
    */
   constructor(
-    /**
-     * Time purchase success event occured
-     */
     tick: number,
-    /**
-     * Entity which trigger purchase event
-     */
     userId: string,
-    /**
-     * purchase product id
-     */
     productId: number,
-    /**
-     * purchase success order number
-     */
-    orderId: number);
+    orderId: number
+  );
 }
+
 /**
- * Triggered by {@link Game.GameWorld.onInteract} and {@link Game.GameEntity.onInteract}
- * @category events
+ * 当实体进行交互时触发的事件。
+ * 由 {@link Game.GameWorld.onInteract} 和 {@link Game.GameEntity.onInteract} 触发。
+ * @category 事件
  */
 declare class GameInteractEvent {
   /**
-   * Time of event
+   * 事件发生的时间。
    */
   tick: number;
+
   /**
-   * Entity initiating interaction
+   * 发起交互的实体。
    */
   entity: GamePlayerEntity;
+
   /**
-   * Entity which received interaction
+   * 接收交互的实体。
    */
   targetEntity: GameEntity;
+
   /**
    * @ignore
+   * 构造函数，初始化交互事件。
+   * @param tick 事件发生的时间。
+   * @param entity 发起交互的实体。
+   * @param targetEntity 接收交互的实体。
    */
   constructor(
-    /**
-     * Time of event
-     */
     tick: number,
-    /**
-     * Entity initiating interaction
-     */
     entity: GamePlayerEntity,
-    /**
-     * Entity which received interaction
-     */
-    targetEntity: GameEntity);
+    targetEntity: GameEntity
+  );
 }
 /**
  * Type of a button pressed by a player
@@ -13041,158 +14087,180 @@ declare enum GameButtonType {
   ACTION1 = "action1"
 }
 /**
- * Input events are generated whenever a player presses a button.
- * The tick of an event occurs at the exact instant the button was pressed by the player.
- * Triggered by {@link Game.GameWorld.onPress}, {@link Game.GameWorld.onRelease}, {@link Game.GamePlayer.onPress}, {@link Game.GamePlayer.onRelease}
- * @category events
+ * 当玩家按下按钮时生成输入事件。
+ * 事件的时间戳表示玩家按下按钮的确切时刻。
+ * 由 {@link Game.GameWorld.onPress}, {@link Game.GameWorld.onRelease}, {@link Game.GamePlayer.onPress}, {@link Game.GamePlayer.onRelease} 触发。
+ * @category 事件
  */
 declare class GameInputEvent {
   /**
-   * The time the button was pressed
+   * 按钮被按下的时间。
    */
   tick: number;
+
   /**
-   * A reference to the player which pressed the button
+   * 按下按钮的玩家引用。
    */
   entity: GamePlayerEntity;
+
   /**
-   * The position of the entity at the time the pressed the button
+   * 按下按钮时玩家的位置。
    */
   position: GameVector3;
+
   /**
-   * The button which was input by the player
+   * 玩家输入的按钮。
    */
   button: GameButtonType;
+
   /**
-   * If true, then this is a press event.  Otherwise if false this is a release event
+   * 如果为 true，则这是一个按下事件。否则为 false，表示这是一个释放事件。
    */
   pressed: boolean;
+
   /**
-   * The result of a raycast query initiated by the player at the exact instant they pressed the button from the perspective of their camera.
+   * 玩家在按下按钮的确切时刻从其摄像机视角发起的射线检测结果。
    */
   raycast: GameRaycastResult;
+
   /**
    * @ignore
+   * 构造函数，初始化游戏输入事件。
+   * @param tick 按钮被按下的时间。
+   * @param entity 按下按钮的玩家引用。
+   * @param position 按下按钮时玩家的位置。
+   * @param button 玩家输入的按钮。
+   * @param pressed 如果为 true，则这是一个按下事件。否则为 false，表示这是一个释放事件。
+   * @param raycast 玩家在按下按钮的确切时刻从其摄像机视角发起的射线检测结果。
    */
   constructor(
-    /**
-     * The time the button was pressed
-     */
     tick: number,
-    /**
-     * A reference to the player which pressed the button
-     */
     entity: GamePlayerEntity,
-    /**
-     * The position of the entity at the time the pressed the button
-     */
     position: GameVector3,
-    /**
-     * The button which was input by the player
-     */
     button: GameButtonType,
-    /**
-     * If true, then this is a press event.  Otherwise if false this is a release event
-     */
     pressed: boolean,
-    /**
-     * The result of a raycast query initiated by the player at the exact instant they pressed the button from the perspective of their camera.
-     */
-    raycast: GameRaycastResult);
+    raycast: GameRaycastResult
+  );
 }
+/**
+ * 游戏点击事件类，用于封装游戏中的点击事件信息。
+ */
 declare class GameClickEvent {
   /**
-   * Tick that click event occurred
+   * 发生点击事件的游戏刻。
    */
   tick: number;
+
   /**
-   * Entity that got clicked
+   * 被点击的游戏实体。
    */
   entity: GameEntity;
+
   /**
-   * Entity which initiated the click event
+   * 发起点击事件的玩家实体。
    */
   clicker: GamePlayerEntity;
+
   /**
-   * Button which was pressed ACTION0 = LeftClick, ACTION1 = RightClick
+   * 被按下的按钮，ACTION0 表示左键，ACTION1 表示右键。
    */
   button: GameButtonType.ACTION0 | GameButtonType.ACTION1;
+
   /**
-   * Distance from clicker to entity
+   * 点击者与被点击实体之间的距离。
    */
   distance: number;
+
   /**
-   * Position of clicker at time of click
+   * 点击发生时点击者的位置。
    */
   clickerPosition: GameVector3;
+
   /**
-   * Raycast from clicker -> entity
+   * 从点击者到被点击实体的射线检测结果。
    */
   raycast: GameRaycastResult;
+
   /**
    * @ignore
+   * 构造函数，初始化游戏点击事件。
+   * @param tick 发生点击事件的游戏刻。
+   * @param entity 被点击的游戏实体。
+   * @param clicker 发起点击事件的玩家实体。
+   * @param button 被按下的按钮，ACTION0 表示左键，ACTION1 表示右键。
+   * @param distance 点击者与被点击实体之间的距离。
+   * @param clickerPosition 点击发生时点击者的位置。
+   * @param raycast 从点击者到被点击实体的射线检测结果。
    */
   constructor(
-    /**
-     * Tick that click event occurred
-     */
     tick: number,
-    /**
-     * Entity that got clicked
-     */
     entity: GameEntity,
-    /**
-     * Entity which initiated the click event
-     */
     clicker: GamePlayerEntity,
-    /**
-     * Button which was pressed ACTION0 = LeftClick, ACTION1 = RightClick
-     */
     button: GameButtonType.ACTION0 | GameButtonType.ACTION1,
-    /**
-     * Distance from clicker to entity
-     */
     distance: number,
-    /**
-     * Position of clicker at time of click
-     */
     clickerPosition: GameVector3,
-    /**
-     * Raycast from clicker -> entity
-     */
-    raycast: GameRaycastResult);
+    raycast: GameRaycastResult
+  );
 }
+
+/**
+ * 游戏键盘事件类，用于封装游戏中的键盘事件信息。
+ */
 declare class GameKeyBoardEvent {
   /**
-   * Tick that click event occurred
+   * 发生键盘事件的游戏刻。
    */
   tick: number;
-  keyCode: number;
-  constructor(
-    /**
-     * Tick that click event occurred
-     */
-    tick: number, keyCode: number);
-}
-declare class GameAnimationEvent<KeyframeType, TargetType> {
-  tick: number;
-  target: TargetType;
-  animation: GameAnimation<KeyframeType, TargetType>;
-  cancelled: boolean;
+
   /**
-   * @ignore
+   * 按下的键码。
+   */
+  keyCode: number;
+
+  /**
+   * 构造函数，初始化游戏键盘事件。
+   * @param tick 发生键盘事件的游戏刻。
+   * @param keyCode 按下的键码。
+   */
+  constructor(
+    tick: number,
+    keyCode: number
+  );
+}
+/**
+ * 表示游戏动画中的一个事件，封装了当前帧数、目标对象、动画详情和取消状态等信息。
+ * @template KeyframeType 动画关键帧的类型。
+ * @template TargetType 动画应用的目标对象的类型。
+ */
+declare class GameAnimationEvent<KeyframeType, TargetType> {
+  // 当前动画的帧数。
+  tick: number;
+  // 动画应用的目标对象。
+  target: TargetType;
+  // 此事件所属的动画实例。
+  animation: GameAnimation<KeyframeType, TargetType>;
+  // 标记事件是否已被取消。
+  cancelled: boolean;
+
+  /**
+   * 构造一个新的 GameAnimationEvent 实例。
+   * @param tick 当前动画的帧数。
+   * @param target 动画应用的目标对象。
+   * @param animation 此事件所属的动画实例。
+   * @param cancelled 标记事件是否已被取消。
    */
   constructor(tick: number, target: TargetType, animation: GameAnimation<KeyframeType, TargetType>, cancelled: boolean);
 }
 /**
- * Selectors are a powerful syntax for searching all of the objects in a game.  The interface for selectors in game is modeled after the DOM APIs.
+ * Selectors 是一种强大的语法，用于搜索游戏中的所有对象。游戏中的选择器接口借鉴了 DOM API 的设计。
  *
- * * ```javascript
- * const entities = world.querySelector('*');           // all entities in the world
- * const players = world.querySelectorAll('player');    // all players in the game
- * const theChair = world.querySelector('#chair');      // the first entity whose id is "chair"
- * const boxes = world.querySelectorAll('.box');        // all entities tagged with "box"
- * const boxChair = world.querySelector('.box .red');
+ * 示例：
+ * ```javascript
+ * const entities = world.querySelector('*');           // 世界中的所有实体
+ * const players = world.querySelectorAll('player');    // 游戏中的所有玩家
+ * const theChair = world.querySelector('#chair');      // ID 为 "chair" 的第一个实体
+ * const boxes = world.querySelectorAll('.box');        // 标记为 "box" 的所有实体
+ * const boxChair = world.querySelector('.box .red');   // 标记为 "box" 并且颜色为红色的实体
  * ```
  */
 declare type GameSelectorString = string;
@@ -13204,7 +14272,7 @@ declare class GameResourceSystem {
   constructor(ls: (path?: string) => GameAssetListEntry[]);
 }
 /**
- * Describes the type of an asset
+ * 描述资产的类型
  */
 declare enum GameAssetType {
   VOXEL_MESH = "mesh",
@@ -13219,11 +14287,11 @@ declare enum GameAssetType {
 
 declare class GameAssetListEntry {
   /**
-   * Fully qualified path of asset, split by directory
+   * 资产的完全限定路径，按目录分割
    */
   path: string;
   /**
-   * Type of asset
+   * 资产的类型
    */
   type: GameAssetType;
   /**
@@ -13393,165 +14461,759 @@ declare class GameHttpAPI {
   fetch: (url: string, options?: GameHttpFetchRequestOptions) => Promise<GameHttpFetchResponse>;
   constructor(fetch: (url: string, options?: GameHttpFetchRequestOptions) => Promise<GameHttpFetchResponse>);
 }
+/**
+ * 表示一个四元数，用于游戏中的旋转计算
+ */
 declare class GameQuaternion {
   w: number;
   x: number;
   y: number;
   z: number;
+
+  /**
+   * 构造一个新的四元数实例
+   * @param w 四元数的w分量
+   * @param x 四元数的x分量
+   * @param y 四元数的y分量
+   * @param z 四元数的z分量
+   */
   constructor(w: number, x: number, y: number, z: number);
+
+  /**
+   * 计算两个三维向量之间的旋转四元数
+   * @param a 起始向量
+   * @param b 目标向量
+   * @returns 代表从向量a旋转到向量b的四元数
+   */
   static rotationBetween(a: GameVector3, b: GameVector3): GameQuaternion;
+
+  /**
+   * 从轴角表示转换到四元数表示
+   * @param axis 旋转轴
+   * @param rad 旋转角度（弧度）
+   * @returns 对应轴角表示的四元数
+   */
   static fromAxisAngle(axis: GameVector3, rad: number): GameQuaternion;
+
+  /**
+   * 从欧拉角转换到四元数
+   * @param x 绕x轴的旋转角度
+   * @param y 绕y轴的旋转角度
+   * @param z 绕z轴的旋转角度
+   * @returns 对应欧拉角的四元数
+   */
   static fromEuler(x: number, y: number, z: number): GameQuaternion;
+
+  /**
+   * 设置四元数的分量值
+   * @param w 四元数的w分量
+   * @param x 四元数的x分量
+   * @param y 四元数的y分量
+   * @param z 四元数的z分量
+   * @returns 当前四元数实例
+   */
   set(w: number, x: number, y: number, z: number): GameQuaternion;
+
+  /**
+   * 复制另一个四元数的值
+   * @param q 要复制的四元数
+   * @returns 当前四元数实例
+   */
   copy(q: GameQuaternion): GameQuaternion;
+
+  /**
+   * 获取四元数的轴角表示
+   * @param _q 另一个四元数（未使用）
+   * @returns 包含旋转轴和旋转角度的对象
+   */
   getAxisAngle(_q: GameQuaternion): {
     axis: GameVector3;
     angle: number;
   };
+
+  /**
+   * 绕x轴旋转四元数
+   * @param _rad 旋转角度（弧度）
+   * @returns 当前四元数实例
+   */
   rotateX(_rad: number): GameQuaternion;
+
+  /**
+   * 绕y轴旋转四元数
+   * @param _rad 旋转角度（弧度）
+   * @returns 当前四元数实例
+   */
   rotateY(_rad: number): GameQuaternion;
+
+  /**
+   * 绕z轴旋转四元数
+   * @param _rad 旋转角度（弧度）
+   * @returns 当前四元数实例
+   */
   rotateZ(_rad: number): GameQuaternion;
+
+  /**
+   * 计算当前四元数与另一个四元数的点积
+   * @param q 另一个四元数
+   * @returns 点积结果
+   */
   dot(q: GameQuaternion): number;
+
+  /**
+   * 将另一个四元数加到当前四元数上
+   * @param v 另一个四元数
+   * @returns 当前四元数实例
+   */
   add(v: GameQuaternion): GameQuaternion;
+
+  /**
+   * 从当前四元数减去另一个四元数
+   * @param v 另一个四元数
+   * @returns 当前四元数实例
+   */
   sub(v: GameQuaternion): GameQuaternion;
+
+  /**
+   * 计算当前四元数与另一个四元数之间的角度
+   * @param q 另一个四元数
+   * @returns 角度结果（弧度）
+   */
   angle(q: GameQuaternion): number;
+
+  /**
+   * 将当前四元数与另一个四元数相乘
+   * @param q 另一个四元数
+   * @returns 当前四元数实例
+   */
   mul(q: GameQuaternion): GameQuaternion;
+
+  /**
+   * 计算当前四元数的逆四元数
+   * @returns 当前四元数实例
+   */
   inv(): GameQuaternion;
+
+  /**
+   * 将当前四元数除以另一个四元数
+   * @param q 另一个四元数
+   * @returns 当前四元数实例
+   */
   div(q: GameQuaternion): GameQuaternion;
+
+  /**
+   * 使用球面线性插值计算两个四元数之间的中间四元数
+   * @param q 另一个四元数
+   * @param n 插值参数，范围在0到1之间
+   * @returns 插值结果四元数
+   */
   slerp(q: GameQuaternion, n: number): GameQuaternion;
+
+  /**
+   * 计算四元数的模长
+   * @returns 模长结果
+   */
   mag(): number;
+
+  /**
+   * 计算四元数的模长的平方
+   * @returns 模长平方结果
+   */
   sqrMag(): number;
+
+  /**
+   * 将四元数归一化，使其模长为1
+   * @returns 当前四元数实例
+   */
   normalize(): GameQuaternion;
+
+  /**
+   * 检查当前四元数是否与另一个四元数近似（误差值：0.000001）相等
+   * @param q 另一个四元数
+   * @returns 如果相等返回true，否则返回false
+   */
   equals(q: GameQuaternion): boolean;
+
+  /**
+   * 克隆当前四元数实例
+   * @returns 新的四元数实例，值与当前实例相同
+   */
   clone(): GameQuaternion;
+
+  /**
+   * 将四元数转换为字符串表示
+   * @returns 四元数的字符串表示
+   */
   toString(): string;
 }
+/**
+ * 表示用于游戏开发的三维向量。
+ * 该类提供了多种3D向量数学运算，包括加法、减法、乘法、除法、点积、叉积和向量插值。
+ */
 declare class GameVector3 {
   x: number;
   y: number;
   z: number;
+
+  /**
+   * 创建一个新的GameVector3实例。
+   * @param x 向量的x分量。
+   * @param y 向量的y分量。
+   * @param z 向量的z分量。
+   */
   constructor(x: number, y: number, z: number);
+
+  /**
+   * 从极坐标创建一个新的GameVector3对象。
+   * @param mag 向量的模长。
+   * @param phi xy平面上的角度（方位角）。
+   * @param theta z轴上的角度（极角）。
+   * @returns 新的GameVector3对象。
+   */
   static fromPolar(mag: number, phi: number, theta: number): GameVector3;
+
+  /**
+   * 设置此向量的分量。
+   * @param x 新的x分量。
+   * @param y 新的y分量。
+   * @param z 新的z分量。
+   * @returns 本向量，用于链式操作。
+   */
   set(x: number, y: number, z: number): GameVector3;
+
+  /**
+   * 将另一个向量的分量复制到此向量。
+   * @param v 要复制的向量。
+   * @returns 本向量，用于链式操作。
+   */
   copy(v: GameVector3): GameVector3;
+
+  /**
+   * 将另一个向量加到此向量上。
+   * @param v 要相加的向量。
+   * @returns 本向量，用于链式操作。
+   */
   add(v: GameVector3): GameVector3;
+
+  /**
+   * 从此向量中减去另一个向量。
+   * @param v 要相减的向量。
+   * @returns 本向量，用于链式操作。
+   */
   sub(v: GameVector3): GameVector3;
+
+  /**
+   * 按分量将此向量与另一个向量相乘。
+   * @param v 要相乘的向量。
+   * @returns 本向量，用于链式操作。
+   */
   mul(v: GameVector3): GameVector3;
+
+  /**
+   * 按分量将此向量与另一个向量相除。
+   * @param v 要相除的向量。
+   * @returns 本向量，用于链式操作。
+   */
   div(v: GameVector3): GameVector3;
+
+  /**
+   * 将另一个向量加到此向量上并更新此向量。
+   * @param v 要相加的向量。
+   * @returns 本向量，用于链式操作。
+   */
   addEq(v: GameVector3): GameVector3;
+
+  /**
+   * 从此向量中减去另一个向量并更新此向量。
+   * @param v 要相减的向量。
+   * @returns 本向量，用于链式操作。
+   */
   subEq(v: GameVector3): GameVector3;
+
+  /**
+   * 按分量将此向量与另一个向量相乘并更新此向量。
+   * @param v 要相乘的向量。
+   * @returns 本向量，用于链式操作。
+   */
   mulEq(v: GameVector3): GameVector3;
+
+  /**
+   * 按分量将此向量与另一个向量相除并更新此向量。
+   * @param v 要相除的向量。
+   * @returns 本向量，用于链式操作。
+   */
   divEq(v: GameVector3): GameVector3;
+
+  /**
+   * 计算此向量与另一个向量的点积。
+   * @param v 另一个向量。
+   * @returns 点积。
+   */
   dot(v: GameVector3): number;
+
+  /**
+   * 计算此向量与另一个向量的叉积。
+   * @param v 另一个向量。
+   * @returns 叉积。
+   */
   cross(v: GameVector3): GameVector3;
+
+  /**
+   * 按标量缩放此向量。
+   * @param n 标量。
+   * @returns 本向量，用于链式操作。
+   */
   scale(n: number): GameVector3;
+
+  /**
+   * 创建此向量的副本。
+   * @returns 新的GameVector3对象。
+   */
   clone(): GameVector3;
+
+  /**
+   * 线性插值此向量朝向另一个向量。
+   * @param v 目标向量。
+   * @param n 插值因子。
+   * @returns 本向量，用于链式操作。
+   */
   lerp(v: GameVector3, n: number): GameVector3;
+
+  /**
+   * 计算此向量的模长。
+   * @returns 模长。
+   */
   mag(): number;
+
+  /**
+   * 计算此向量的模长平方。
+   * @returns 模长平方。
+   */
   sqrMag(): number;
+
+  /**
+   * 将此向量归一化朝向另一个向量。
+   * @param v 目标向量。
+   * @returns 本向量，用于链式操作。
+   */
   towards(v: GameVector3): GameVector3;
+
+  /**
+   * 计算此向量与另一个向量之间的距离。
+   * @param v 另一个向量。
+   * @returns 距离。
+   */
   distance(v: GameVector3): number;
+
+  /**
+   * 归一化此向量。
+   * @returns 本向量，用于链式操作。
+   */
   normalize(): GameVector3;
+
+  /**
+   * 计算此向量与另一个向量之间的夹角。
+   * @param v 另一个向量。
+   * @returns 夹角（弧度）。
+   */
   angle(v: GameVector3): number;
+
+  /**
+   * 计算此向量与另一个向量的按分量最大值。
+   * @param v 另一个向量。
+   * @returns 本向量，用于链式操作。
+   */
   max(v: GameVector3): GameVector3;
+
+  /**
+   * 计算此向量与另一个向量的按分量最小值。
+   * @param v 另一个向量。
+   * @returns 本向量，用于链式操作。
+   */
   min(v: GameVector3): GameVector3;
+
+  /**
+   * 检查此向量是否完全等于另一个向量。
+   * @param v 另一个向量。
+   * @returns 如果向量完全相等则返回true，否则返回false。
+   */
   exactEquals(v: GameVector3): boolean;
+
+  /**
+   * 检查此向量是否近似（误差值：0.000001）等于另一个向量。
+   * @param v 另一个向量。
+   * @returns 如果向量近似相等则返回true，否则返回false。
+   */
   equals(v: GameVector3): boolean;
+
+  /**
+   * 将此向量转换为字符串。
+   * @returns 此向量的字符串表示形式。
+   */
   toString(): string;
 }
+/**
+ * 表示一个三维游戏区域的边界
+ */
 declare class GameBounds3 {
   /**
    * 区域的低处顶点
    */
   lo: GameVector3;
+
   /**
    * 区域的高处顶点
    */
   hi: GameVector3;
+
+  /**
+   * 构造一个新的三维游戏区域边界对象
+   * @param lo 区域的低处顶点
+   * @param hi 区域的高处顶点
+   */
   constructor(lo: GameVector3, hi: GameVector3);
+
+  /**
+   * 根据多个点创建一个三维游戏区域边界对象
+   * @param points 用于定义边界的点数组
+   * @returns 一个新的三维游戏区域边界对象
+   */
   static fromPoints(...points: GameVector3[]): GameBounds3;
+
+  /**
+   * 计算当前边界与另一个边界的交集
+   * @param b 另一个边界对象
+   * @returns 交集边界对象
+   */
   intersect(b: GameBounds3): GameBounds3;
+
+  /**
+   * 检查当前边界是否包含给定点
+   * @param b 要检查的点
+   * @returns 如果当前边界包含该点，则返回true；否则返回false
+   */
   contains(b: GameVector3): boolean;
+
+  /**
+   * 检查当前边界是否完全包含另一个边界
+   * @param b 要检查的边界对象
+   * @returns 如果当前边界完全包含另一个边界，则返回true；否则返回false
+   */
   containsBounds(b: GameBounds3): boolean;
+
+  /**
+   * 检查当前边界是否与另一个边界相交
+   * @param b 另一个边界对象
+   * @returns 如果当前边界与另一个边界相交，则返回true；否则返回false
+   */
   intersects(b: GameBounds3): boolean;
+
+  /**
+   * 设置当前边界的低处和高处顶点坐标
+   * @param lox 低处顶点的x坐标
+   * @param loy 低处顶点的y坐标
+   * @param loz 低处顶点的z坐标
+   * @param hix 高处顶点的x坐标
+   * @param hiy 高处顶点的y坐标
+   * @param hiz 高处顶点的z坐标
+   * @returns 当前的三维游戏区域边界对象
+   */
   set(lox: number, loy: number, loz: number, hix: number, hiy: number, hiz: number): GameBounds3;
+
+  /**
+   * 复制另一个边界对象的属性到当前边界对象
+   * @param b 要复制的边界对象
+   * @returns 当前的三维游戏区域边界对象
+   */
   copy(b: GameBounds3): GameBounds3;
+
+  /**
+   * 返回当前边界对象的字符串表示
+   * @returns 当前边界对象的字符串表示
+   */
   toString(): string;
 }
+/**
+ * GameRGBAColor 类用于表示和操作具有红（r）、绿（g）、蓝（b）和透明度（a）分量的颜色值。
+ * 它提供了一系列方法来设置、复制、比较颜色值，以及进行颜色间的数学运算。
+ */
 declare class GameRGBAColor {
   r: number;
   g: number;
   b: number;
   a: number;
+
+  /**
+   * 构造一个 GameRGBAColor 实例。
+   * @param r 红色分量，取值范围为 0 到 1。
+   * @param g 绿色分量，取值范围为 0 到 1。
+   * @param b 蓝色分量，取值范围为 0 到 1。
+   * @param a 透明度分量，取值范围为 0 到 1，其中 0 表示完全透明，1 表示完全不透明。
+   */
   constructor(r: number, g: number, b: number, a: number);
+
+  /**
+   * 设置颜色的红、绿、蓝和透明度分量。
+   * @param r 红色分量。
+   * @param g 绿色分量。
+   * @param b 蓝色分量。
+   * @param a 透明度分量。
+   * @returns 返回当前 GameRGBAColor 实例，支持链式调用。
+   */
   set(r: number, g: number, b: number, a: number): GameRGBAColor;
+
+  /**
+   * 复制一个颜色值到当前颜色实例。
+   * @param c 要复制的颜色值。
+   * @returns 返回当前 GameRGBAColor 实例，支持链式调用。
+   */
   copy(c: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 将另一个颜色值与当前颜色相加。
+   * @param rgba 要相加的颜色值。
+   * @returns 返回一个新的 GameRGBAColor 实例，表示相加后的颜色。
+   */
   add(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 从当前颜色中减去另一个颜色值。
+   * @param rgba 要减去的颜色值。
+   * @returns 返回一个新的 GameRGBAColor 实例，表示相减后的颜色。
+   */
   sub(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 将当前颜色与另一个颜色值相乘。
+   * @param rgba 要相乘的颜色值。
+   * @returns 返回一个新的 GameRGBAColor 实例，表示相乘后的颜色。
+   */
   mul(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 将当前颜色除以另一个颜色值。
+   * @param rgba 要除以的颜色值。
+   * @returns 返回一个新的 GameRGBAColor 实例，表示相除后的颜色。
+   */
   div(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 将另一个颜色值与当前颜色相加，并更新当前颜色值。
+   * @param rgba 要相加的颜色值。
+   * @returns 返回当前 GameRGBAColor 实例，支持链式调用。
+   */
   addEq(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 从当前颜色中减去另一个颜色值，并更新当前颜色值。
+   * @param rgba 要减去的颜色值。
+   * @returns 返回当前 GameRGBAColor 实例，支持链式调用。
+   */
   subEq(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 将当前颜色与另一个颜色值相乘，并更新当前颜色值。
+   * @param rgba 要相乘的颜色值。
+   * @returns 返回当前 GameRGBAColor 实例，支持链式调用。
+   */
   mulEq(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 将当前颜色除以另一个颜色值，并更新当前颜色值。
+   * @param rgba 要除以的颜色值。
+   * @returns 返回当前 GameRGBAColor 实例，支持链式调用。
+   */
   divEq(rgba: GameRGBAColor): GameRGBAColor;
+
+  /**
+   * 对当前颜色与另一个颜色值进行线性插值。
+   * @param rgba 要进行线性插值的颜色值。
+   * @param n 插值因子，决定了结果颜色中当前颜色和目标颜色的权重。
+   * @returns 返回一个新的 GameRGBAColor 实例，表示插值后的颜色。
+   */
   lerp(rgba: GameRGBAColor, n: number): GameRGBAColor;
+
+  /**
+   * 将当前颜色与一个 RGB 颜色进行混合，并更新当前颜色值。
+   * @param rgb 要混合的 RGB 颜色。
+   * @returns 返回一个新的 GameRGBColor 实例，表示混合后的颜色。
+   */
   blendEq(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 比较当前颜色是否与近似（误差值：0.000001）等于另一个颜色。
+   * @param rgba 要比较的颜色。
+   * @returns 如果两个颜色相等，则返回 true；否则返回 false。
+   */
   equals(rgba: GameRGBAColor): boolean;
+
+  /**
+   * 克隆当前颜色实例。
+   * @returns 返回一个新的 GameRGBAColor 实例，具有与当前颜色相同的值。
+   */
   clone(): GameRGBAColor;
+
+  /**
+   * 将当前颜色转换为字符串表示。
+   * @returns 返回当前颜色的字符串表示。
+   */
   toString(): string;
 }
+/**
+ * GameRGBColor 类用于表示和操作 RGB 颜色值。
+ * 它提供了设置、复制、运算、插值和比较颜色的功能。
+ */
 declare class GameRGBColor {
   r: number;
   g: number;
   b: number;
+
+  /**
+   * 生成一个随机的 GameRGBColor 实例。
+   * @returns {GameRGBColor} 一个随机的 GameRGBColor 实例。
+   */
   static random(): GameRGBColor;
+
+  /**
+   * 创建一个 GameRGBColor 实例。
+   * @param {number} r 红色分量值，取值范围为 0 到 1。
+   * @param {number} g 绿色分量值，取值范围为 0 到 1。
+   * @param {number} b 蓝色分量值，取值范围为 0 到 1。
+   */
   constructor(r: number, g: number, b: number);
+
+  /**
+   * 设置颜色的 RGB 分量值。
+   * @param {number} r 红色分量值。
+   * @param {number} g 绿色分量值。
+   * @param {number} b 蓝色分量值。
+   * @returns {GameRGBColor} 当前的 GameRGBColor 实例。
+   */
   set(r: number, g: number, b: number): GameRGBColor;
+
+  /**
+   * 复制一个颜色到当前颜色实例。
+   * @param {GameRGBColor} c 要复制的颜色。
+   * @returns {GameRGBColor} 当前的 GameRGBColor 实例。
+   */
   copy(c: GameRGBColor): GameRGBColor;
+
+  /**
+   * 将当前颜色与另一个颜色相加。
+   * @param {GameRGBColor} rgb 要相加的颜色。
+   * @returns {GameRGBColor} 两个颜色相加的结果。
+   */
   add(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 从当前颜色中减去另一个颜色。
+   * @param {GameRGBColor} rgb 要减去的颜色。
+   * @returns {GameRGBColor} 两个颜色相减的结果。
+   */
   sub(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 将当前颜色与另一个颜色相乘。
+   * @param {GameRGBColor} rgb 要相乘的颜色。
+   * @returns {GameRGBColor} 两个颜色相乘的结果。
+   */
   mul(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 将当前颜色除以另一个颜色。
+   * @param {GameRGBColor} rgb 要除以的颜色。
+   * @returns {GameRGBColor} 两个颜色相除的结果。
+   */
   div(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 将当前颜色与另一个颜色相加，并更新当前颜色。
+   * @param {GameRGBColor} rgb 要相加的颜色。
+   * @returns {GameRGBColor} 更新后的当前颜色。
+   */
   addEq(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 从当前颜色中减去另一个颜色，并更新当前颜色。
+   * @param {GameRGBColor} rgb 要减去的颜色。
+   * @returns {GameRGBColor} 更新后的当前颜色。
+   */
   subEq(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 将当前颜色与另一个颜色相乘，并更新当前颜色。
+   * @param {GameRGBColor} rgb 要相乘的颜色。
+   * @returns {GameRGBColor} 更新后的当前颜色。
+   */
   mulEq(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 将当前颜色除以另一个颜色，并更新当前颜色。
+   * @param {GameRGBColor} rgb 要除以的颜色。
+   * @returns {GameRGBColor} 更新后的当前颜色。
+   */
   divEq(rgb: GameRGBColor): GameRGBColor;
+
+  /**
+   * 在当前颜色与另一个颜色之间进行线性插值。
+   * @param {GameRGBColor} rgb 要插值的另一个颜色。
+   * @param {number} n 插值因子，范围在 0 到 1 之间。
+   * @returns {GameRGBColor} 插值后的颜色。
+   */
   lerp(rgb: GameRGBColor, n: number): GameRGBColor;
+
+  /**
+   * 比较当前颜色与另一个颜色是否近似（误差值：0.000001）相等。
+   * @param {GameRGBColor} rgb 要比较的另一个颜色。
+   * @returns {boolean} 如果两个颜色相等则返回 true，否则返回 false。
+   */
   equals(rgb: GameRGBColor): boolean;
+
+  /**
+   * 克隆当前颜色实例。
+   * @returns {GameRGBColor} 当前颜色的克隆。
+   */
   clone(): GameRGBColor;
+
+  /**
+   * 将当前颜色转换为 RGBA 格式。
+   * @returns {GameRGBAColor} 当前颜色的 RGBA 表示。
+   */
   toRGBA(): GameRGBAColor;
+
+  /**
+   * 返回当前颜色的字符串表示。
+   * @returns {string} 当前颜色的字符串表示。
+   */
   toString(): string;
 }
 
-
-declare type SendClientEventType = (entities: GamePlayerEntity | GamePlayerEntity[], clientEvent: JSONValue) => void;
-declare type ServerEvent = {
-  /**
-   * 服务端当前时间
-   */
-  tick: number;
-  /**
-   * 发送者实体
-   */
-  entity: GamePlayerEntity;
-  /**
-   * 事件参数
-   */
-  args: JSONValue;
-};
 declare class ServerRemoteChannel {
   /**
    * 服务端 发送至 客户端，向指定玩家发送事件。
    */
-  sendClientEvent: SendClientEventType;
+  sendClientEvent<T = JSONValue>(entities: GamePlayerEntity | GamePlayerEntity[], clientEvent: T): void;
   /**
    * 服务端 发送至 客户端，向所有玩家发送事件。
    */
-  broadcastClientEvent: (clientEvent: JSONValue) => void;
+  broadcastClientEvent<T = JSONValue>(clientEvent: T): void;
   /**
    * 监听 客户端 发来的事件
    */
-  onServerEvent: GameEventChannel<ServerEvent>;
+  onServerEvent<T = JSONValue>(handler: (event: {
+    /**
+     * 服务端当前时间
+     */
+    tick: number;
+    /**
+     * 发送者实体
+     */
+    entity: GamePlayerEntity;
+    /**
+     * 事件参数
+     */
+    args: T;
+  }) => void): GameEventHandlerToken;
+
   constructor(sendClientEvent: SendClientEventType, broadcastClientEvent: (clientEvent: JSONValue) => void, onServerEvent: GameEventChannel<ServerEvent>);
 }
 
@@ -13612,15 +15274,15 @@ declare class GameStorage implements I.GameStorage {
    * 连接指定数据存储空间，如果不存在则创建一个新的空间。
    * 只能在本地图使用此空间，其他地图（如副图）无法访问此空间，从而避免全局污染。
    */
-  getDataStorage: (key: string) => GameDataStorage;
+  getDataStorage<T = JSONValue>(key: string): GameDataStorage<T>;
   /**
    * 连接指定数据存储空间，如果不存在则创建一个新的空间。
    * 此方法为主图和副图共同维护的数据存储空间。
    */
-  getGroupStorage: (key: string) => GameDataStorage | undefined;
+  getGroupStorage<T = JSONValue>(key: string): GameDataStorage<T> | undefined;
   constructor(getDataStorage: (key: string) => GameDataStorage, getGroupStorage: (key: string) => GameDataStorage | undefined);
 }
-declare type ResultValue = {
+declare type ResultValue<T> = {
   /**
    * 数据键名
    */
@@ -13628,7 +15290,7 @@ declare type ResultValue = {
   /**
    * 数据值
    */
-  value: JSONValue;
+  value: T;
   /**
    * 数据版本号
    */
@@ -13642,17 +15304,17 @@ declare type ResultValue = {
    */
   createTime: number;
 } | undefined;
-declare type ListReturnValue = {
+declare type ListReturnValue<T> = {
   /**
    * 数据列表
    */
-  items: ResultValue[];
+  items: ResultValue<T>[];
   /**
    * 是否为最后一页
    */
   isLastPage: boolean;
 };
-declare type ReturnValue = ResultValue;
+declare type ReturnValue<T> = ResultValue<T>;
 declare type ListPageOptions = {
   /**
    * 分页指针，用于指定本次获取的分页起点页码。
@@ -13683,7 +15345,7 @@ declare type ListPageOptions = {
   min?: number;
 };
 
-declare class GameDataStorage implements I.GameDataStorage {
+declare class GameDataStorage<T> implements I.GameDataStorage {
   /**
    * 数据存储空间名称
    */
@@ -13693,43 +15355,43 @@ declare class GameDataStorage implements I.GameDataStorage {
    * @param key 数据键名
    * @param value 数据值
    */
-  set: (key: string, value: JSONValue) => Promise<void>;
+  set: (key: string, value: T) => Promise<void>;
   /**
    * 更新数据
    * @param key 数据键名
    * @param handler 数据更新处理器
    * @returns 返回更新后的数据
    */
-  update: (key: string, handler: (prevValue: ReturnValue) => JSONValue) => Promise<void>;
+  update: (key: string, handler: (prevValue: ReturnValue<T>) => T) => Promise<void>;
   /**
    * 获取数据
    * @param key 数据键名
    * @returns 返回数据
    */
-  get: (key: string) => Promise<ReturnValue>;
+  get: (key: string) => Promise<ReturnValue<T>>;
   /**
    * 获取数据列表
    * @param options 分页参数
    * @returns 返回数据列表
    */
-  list: (options: ListPageOptions) => Promise<QueryList>;
+  list: (options: ListPageOptions) => Promise<QueryList<T>>;
   /**
    * 删除数据
    * @param key 数据键名
    * @returns 返回删除的数据
    */
-  remove: (key: string) => Promise<ReturnValue>;
+  remove: (key: string) => Promise<ReturnValue<T>>;
   /**
    * 销毁数据存储空间
    */
   destroy: () => Promise<void>;
   constructor(key: string, set: (key: string, value: JSONValue) => Promise<void>, update: (key: string, handler: (prevValue: ReturnValue) => JSONValue) => Promise<void>, get: (key: string) => Promise<ReturnValue>, list: (options: ListPageOptions) => Promise<QueryList>, remove: (key: string) => Promise<ReturnValue>, destroy: () => Promise<void>);
 }
-declare class QueryList implements I.QueryList {
+declare class QueryList<T> implements I.QueryList {
   /**
    * 	按 {QueryList | pageSize} 获取当前页的键值对，返回当前页的键值对内容
    */
-  getCurrentPage: () => ReturnValue[];
+  getCurrentPage: () => ReturnValue<T>[];
   /**
    * 翻到下一页，执行后 {getCurrentPage} 将返回下一页的键值对内容
    */
@@ -13740,46 +15402,240 @@ declare class QueryList implements I.QueryList {
   isLastPage: boolean;
   constructor(getCurrentPage: () => ReturnValue[], nextPage: () => Promise<void>);
 }
+/**
+ * URLSearchParams 类用于处理 URL 查询字符串中的参数部分
+ * 它提供了一系列方法来添加、删除、获取和操作查询参数
+ */
 declare class URLSearchParams {
+  /**
+   * 构造函数，用于创建一个新的 URLSearchParams 对象
+   * @param args 初始化查询参数的对象或字符串
+   */
   constructor(args: any);
+
+  /**
+   * 为指定的查询参数追加一个值
+   * @param name 查询参数的名称
+   * @param value 查询参数的值
+   */
   append(name: string, value: string): void;
+
+  /**
+   * 删除指定的查询参数及其值
+   * @param name 要删除的查询参数的名称
+   */
   delete(name: string): void;
+
+  /**
+   * 获取指定查询参数的值
+   * 如果该参数不存在，则返回 null
+   * @param name 查询参数的名称
+   * @returns 查询参数的值或 null
+   */
   get(name: string): string | null;
+
+  /**
+   * 获取指定查询参数的所有值
+   * @param name 查询参数的名称
+   * @returns 查询参数的值的数组
+   */
   getAll(name: string): string[];
+
+  /**
+   * 遍历查询参数，执行回调函数
+   * @param callback 每个查询参数执行的回调函数
+   */
   forEach(callback: (this: URLSearchParams, value: string, key: string, url: URLSearchParams) => any): void;
+
+  /**
+   * 检查是否存在指定的查询参数
+   * @param name 查询参数的名称
+   * @returns 如果存在则返回 true，否则返回 false
+   */
   has(name: string): boolean;
+
+  /**
+   * 设置指定查询参数的值
+   * 如果该参数已存在，则替换其值
+   * @param name 查询参数的名称
+   * @param value 查询参数的值
+   */
   set(name: string, value: string): void;
+
+  /**
+   * 返回一个包含所有查询参数名称的迭代器
+   * @returns 查询参数名称的迭代器
+   */
   keys(): IterableIterator<string>;
+
+  /**
+   * 返回一个包含所有查询参数值的迭代器
+   * @returns 查询参数值的迭代器
+   */
   values(): IterableIterator<string>;
+
+  /**
+   * 返回一个包含所有查询参数及其值的迭代器
+   * 每个元素是一个包含名称和值的数组
+   * @returns 查询参数及其值的迭代器
+   */
   entries(): IterableIterator<string[]>;
+
+  /**
+   * 对查询参数进行排序
+   * 注意：排序后的参数可能不再与原始 URL 的顺序相同
+   */
   sort(): void;
+
+  /**
+   * 将查询参数转换为字符串
+   * @returns 查询参数的字符串表示
+   */
   toString(): string;
+
+  /**
+   * 返回一个包含所有查询参数及其值的迭代器
+   * 与 entries 方法的返回值相同
+   * @returns 查询参数及其值的迭代器
+   */
   [Symbol.iterator](): IterableIterator<string[]>;
 }
+/**
+ * URL 类用于解析和操作统一资源定位符（URL）。
+ * 它提供了一系列的属性和方法，用于获取和设置URL的各个组成部分。
+ * @param url 要解析的URL字符串。
+ * @param base 可选的基准URL，用于解析相对URL。
+ */
 declare class URL {
   constructor(url: any, base?: any);
+
+  /**
+   * 获取或设置URL的片段标识符（hash）部分。
+   */
   get hash(): string;
   set hash(value: string);
+
+  /**
+   * 获取或设置URL的主机名和端口号部分。
+   */
   get host(): string;
   set host(value: string);
+
+  /**
+   * 获取或设置URL的主机名部分。
+   */
   get hostname(): any;
   set hostname(value: any);
+
+  /**
+   * 获取或设置URL的端口号部分。
+   */
   get port(): string;
   set port(value: string);
+
+  /**
+   * 获取或设置整个URL字符串表示。
+   */
   get href(): string;
   set href(value: string);
+
+  /**
+   * 获取URL的源（协议、主机名和端口号）部分。
+   */
   get origin(): string;
+
+  /**
+   * 获取或设置URL的用户名部分。
+   */
   get username(): string;
   set username(value: string);
+
+  /**
+   * 获取或设置URL的密码部分。
+   */
   get password(): string;
   set password(value: string);
+
+  /**
+   * 获取或设置URL的路径名部分。
+   */
   get pathname(): string;
   set pathname(value: string);
+
+  /**
+   * 获取或设置URL的协议部分。
+   */
   get protocol(): string;
   set protocol(value: string);
+
+  /**
+   * 获取或设置URL的查询字符串部分。
+   */
   get search(): string;
   set search(value: string);
+
+  /**
+   * 获取URL的查询参数对象。
+   */
   get searchParams(): URLSearchParams;
+
+  /**
+   * 将URL对象转换为字符串。
+   * @returns URL字符串。
+   */
   toString(): string;
+
+  /**
+   * 将URL对象转换为JSON字符串。
+   * @returns URL字符串。
+   */
   toJSON(): string;
 }
+
+/**
+ * 延迟指定毫秒后返回一个resolve的Promise对象。
+ * @param ms - 延迟的毫秒数。
+ * @returns 一个Promise，在指定的毫秒数后resolve。
+ * @example
+ *
+ * // 返回Promise，有两种基本用法
+ * // #1
+ *
+ * sleep(1000).then(() => {
+ *   console.log('这句话将在一秒后输出。')
+ * })
+ *
+ * // #2
+ *
+ * (async () => {
+ *     await sleep(1000);
+ *     console.log('这句话将在一秒后输出。')
+ * })();
+ */
+declare function sleep(ms: number): Promise<void>;
+/**
+ * 用于延迟执行函数的计时器，delayMs毫秒后异步执行回调函数callback。
+ * 该函数自身是同步的，返回用于清除此计时器的ID，可在 clearTimeout 中使用。
+ * @param callback - 要延迟执行的回调函数。
+ * @param delayMs - 延迟的毫秒数。
+ * @returns 用于清除计时器的ID。
+ */
+declare function setTimeout(callback: Function, delayMs: number): number;
+/**
+ * 用于清除传入ID对应的 setTimeout 计时器。
+ * @param id - 要清除的计时器的ID。
+ */
+declare function clearTimeout(id: number): void;
+/**
+ * 用于定时执行函数的计时器，每 delayMs 毫秒后异步执行回调函数 callback。
+ * 该函数自身是同步的，返回用于清除此计时器的ID，可在 clearInterval 中使用。
+ * @param callback - 要定时执行的回调函数。
+ * @param delayMs - 间隔的毫秒数。
+ * @returns 用于清除计时器的ID。
+ */
+declare function setInterval(callback: Function, delayMs: number): number;
+/**
+ * 用于清除传入ID对应的 setInterval 计时器。
+ * @param id - 要清除的计时器的ID。
+ */
+declare function clearInterval(id: number): void;

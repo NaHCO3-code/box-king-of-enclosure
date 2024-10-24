@@ -1,6 +1,6 @@
 import { Emitter, GenEmitterType } from "./lib/Emitter";
 import { Rich } from "./lib/Rich";
-import { RemoteEvent } from "./RemoteEvent";
+import { RemoteEvent } from "@shares/RemoteEvent";
 import { RemoteEventType } from "./RemoteEventType";
 import { tutorial } from "./Tutorial";
 

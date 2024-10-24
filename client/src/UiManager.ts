@@ -4,9 +4,10 @@ import { Vector2 } from "./lib/Vector";
 import { Ease, MineMotion } from "./lib/MineMotion";
 import { tutorial } from "./Tutorial";
 import { Emit, ScreenEvent } from "./Event";
-import { RemoteEvent } from "./RemoteEvent";
+import { RemoteEvent } from "@shares/RemoteEvent";
 
 
+/** @deprecated */
 export class UiManager {
   grid: KGrid;
   coverEl: UiBox;

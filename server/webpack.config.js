@@ -1,9 +1,11 @@
+// @ts-ignore
 const path = require('path');
 module.exports = {
     resolve: {
         alias: {
-            'component': path.resolve(__dirname, 'dist/src/Component/Definition'),
-            "@": path.resolve(__dirname, 'dist/src'),
+            '@': path.resolve(__dirname, 'dist/server/src'),
+            'component': path.resolve(__dirname, 'dist/server/src/Component/Definition'),
+            '@shares': path.resolve(__dirname, 'dist/shares'),
         }
     }
 };

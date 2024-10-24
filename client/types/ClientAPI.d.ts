@@ -58,14 +58,13 @@ declare class EventEmitter<EventMap extends Record<string, any>> {
  * 客户端与服务端通信通道
  */
 declare type ClientRemoteChannelEvents = {
-    client: any;
+    client: JSONValue;
 };
-declare type ClientEvent = {
-    /**
-     * 服务端传递过来的数据
-     */
-    args: any;
-};
+declare type JSONValue = string | number | boolean |
+{
+    [x: string]: JSONValue;
+}
+    | Array<JSONValue>;
 /**
  * 客户端与服务端通信通道
  */
@@ -73,11 +72,11 @@ declare class ClientRemoteChannel {
     /**
      * 向服务端发送数据。
      */
-    sendServerEvent: (event: any) => void;
+    sendServerEvent<T = JSONValue>(event: T): void;
     /**
      * 监听服务端发来的数据事件。
      */
-    onClientEvent: (handler: (event: ClientEvent) => void) => void;
+    onClientEvent<T = JSONValue>(handler: (event: T) => void): void;
     /**
      * 事件管理器。
      */
@@ -125,7 +124,7 @@ declare class Vec2 {
     static create(val?: Vec2 | { x: number, y: number }): Vec2;
 }
 /**
- * 三维向量
+ * 三维向量 & RGB颜色
  */
 declare class Vec3 {
     /**
@@ -141,15 +140,15 @@ declare class Vec3 {
      */
     z: number;
     /**
-     * Vec3的r颜色值。
+     * Vec3的r颜色值。范围：0-255
      */
     r: number;
     /**
-     * Vec3的g颜色值。
+     * Vec3的g颜色值。范围：0-255
      */
     g: number;
     /**
-     * Vec3的b颜色值。
+     * Vec3的b颜色值。范围：0-255
      */
     b: number;
     /**
@@ -194,6 +193,7 @@ declare type UiNodeEvents = {
      */
     pointerup: UiEvent;
 };
+
 /**
  * UI输入事件管理器
  */
@@ -207,6 +207,32 @@ declare type UiInputEvents = UiNodeEvents & {
      */
     blur: UiInputEvent;
 };
+
+/**
+ * 屏幕事件管理器
+ */
+declare type UiScreenEvents = {
+    /**
+     * 当屏幕尺寸发生变化时，携带新的屏幕宽度和高度。
+     */
+    resize: {
+        /**游戏屏幕的宽度 */
+        screenWidth: number,
+        /**游戏屏幕的高度 */
+        screenHeight: number
+    };
+};
+
+/**
+ * 屏幕系统。
+ */
+declare class ScreenSystem {
+    /**
+     * 一个只读的事件发射器，用于处理用户界面屏幕事件
+     */
+    readonly events: EventEmitter<UiScreenEvents>;
+}
+
 /**
  * 基础节点
  */
@@ -241,6 +267,8 @@ declare class UiNode {
      */
     clone: () => this;
 }
+
+
 /**
  * UI可渲染的基类
  */
@@ -489,17 +517,13 @@ declare class InputSystem {
     /**
      * 全局监听当玩家按下鼠标时产生的事件。
      */
-    onPointerDown: { sub: (handler: (event: { target: UiNode }) => void) => void };
+    onPointerDown: { sub: (handler: (e: { target: UiNode }) => void) => void };
     /**
-     * 全局监听当玩家抬起鼠标时产生的事件。
-     */
-    onPointerUp: { sub: (handler: (event: { target: UiNode }) => void) => void };
-    /**
-     * 调用后解锁指针。
+     * 调用后解锁鼠标指针。
      */
     unlockPointer(): void;
     /**
-     * 调用后锁定指针，由于浏览器限制，此操作可能会失败。
+     * 调用后锁定鼠标指针，由于浏览器限制，此操作可能会失败。
      * 有兴趣可以查看https://w3c.github.io/pointerlock/#dom-element-requestpointerlock。
      */
     lockPointer(): void;
@@ -578,3 +602,7 @@ declare function clearInterval(id: number): void;
  * 全局监听玩家的输入。
  */
 declare const input: InputSystem;
+/**
+ * 全局监听玩家的屏幕。
+ */
+declare const screen: ScreenSystem;
