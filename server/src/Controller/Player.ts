@@ -1,4 +1,4 @@
-import Component from "component";
+import Component from "@/Component/Definition";
 import { Emit } from "@/Event";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
@@ -19,7 +19,6 @@ export class Player {
   }
 
   async init(){
-    // await SPlayed.remove(this.entity.player.userId);
     const isPlayed = await SPlayed.get(this.entity.player.userId);
     if(!isPlayed || Date.now() - isPlayed.updateTime >= 2592000000){
       await SPlayed.set(this.entity.player.userId, true);

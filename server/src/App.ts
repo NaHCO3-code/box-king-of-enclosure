@@ -1,4 +1,4 @@
-import Component from "component";
+import Component from "@/Component/Definition";
 import { Player } from "./Controller/Player";
 import { KGameManager } from "./Controller/GameManager";
 
@@ -22,5 +22,5 @@ export class App extends Component {
 }
 
 const gameMgr = new KGameManager();
-// const cmd = new KCommand(gameMgr);
 const app = new App();
+

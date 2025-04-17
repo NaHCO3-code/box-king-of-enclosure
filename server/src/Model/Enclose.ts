@@ -28,6 +28,21 @@ export class KEnclose {
     }
   }
 
+  getstat(){
+    let res: {[key: string]: number} = {};
+    for(let i=1; i<Teams.length; ++i) {
+      res[Teams[i].name] = 0;
+      for(let y=0; y<MAP_SIZE.y; ++y){
+        for(let x=0; x<MAP_SIZE.x; ++x){
+          if(this.map[x][y] === i){
+            res[Teams[i].name] += 1;
+          }
+        }
+      }
+    }
+    return res;
+  }
+
   init(){
     for(let arr of this.map){
       arr.fill(0);

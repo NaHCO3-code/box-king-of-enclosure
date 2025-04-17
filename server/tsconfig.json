@@ -23,9 +23,9 @@
             "@/*": [
                 "./src/*"
             ],
-            "component": [
-                "./src/Component/Definition"
-            ],
+            // "component": [
+            //     "./src/Component/Definition"
+            // ],
             "@shares/*": [
                 "../shares/*"
             ],

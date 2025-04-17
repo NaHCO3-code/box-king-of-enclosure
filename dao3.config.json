@@ -5,13 +5,13 @@
                 "server": {
                     "base": "./server",
                     "entry": "src/App.ts",
-                    "development": false,
+                    "development": true,
                     "webpack": "./server/webpack.config.js"
                 },
                 "client": {
                     "base": "./client",
                     "entry": "src/clientApp.ts",
-                    "development": false,
+                    "development": true,
                     "webpack": "./client/webpack.config.js"
                 }
             }

@@ -12,7 +12,7 @@ export class SnowZone extends KZone {
 
     this.gameZone.onEnter(({ entity }) => {
       if (entity.isPlayer) {
-        (entity as GamePlayerEntity).player.directMessage("snow zone.");
+        (entity as GamePlayerEntity).player.directMessage("您已进入：雪区");
       }
     });
   }

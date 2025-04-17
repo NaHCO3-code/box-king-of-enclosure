@@ -1,6 +1,7 @@
-import Component from "component";
+import Component from "../Component/Definition";
 import { KGameUpdater } from "./GameUpdater";
 import { GAME_REST_TIME, GAME_TIME } from "@/Constants";
+import { Rich } from "@/lib/Rich";
 
 export enum KGameState {
   GAME,
@@ -20,6 +21,9 @@ export class KGameManager extends Component {
     this.nextStateChangeTime = GAME_REST_TIME;
     this.updater = new KGameUpdater();
     this.updater.enable = false;
+    setInterval(() => {
+      world.say(`距离${this.state === KGameState.REST ? "游戏开始" : "游戏结束"}还有${this.nextStateChangeTime - Math.floor(this.tick / 1000)}秒`);
+    }, 700);
   }
 
   toGame(){

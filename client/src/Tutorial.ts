@@ -34,7 +34,14 @@ export async function tutorial(grid: KGrid, textEl: UiText){
     })
   });
   await grid.update();
-  await sleep(4000);
+  await sleep(2000);
+  grid.updateInfo.forEach((_, i, a) => {
+    a[i].forEach((_, j, b) => {
+      b[j] = 255
+    })
+  });
+  await grid.update();
+  await sleep(2000);
   await text(textEl, "当你在地图上走动，\n脚下的方块就会变成相应的颜色。");
   await sleep(2000);
   grid.updateInfo[0][1] = 1;

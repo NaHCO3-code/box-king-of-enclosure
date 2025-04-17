@@ -1,9 +1,7 @@
-// import { UiManager } from "./UiManager";
+import { RemoteEvent } from "@shares/RemoteEvent";
+import { UiManager } from "./UiManager";
 
 import { Rich } from "./lib/Rich";
+import { Emit } from "./Event";
 
-// UiManager.getInstance();
-
-// Rich.print(ui);
-
-Rich.print(ui, 321)
+UiManager.getInstance();

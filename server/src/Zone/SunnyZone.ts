@@ -15,7 +15,7 @@ export class SunnyZone extends KZone {
 
     this.gameZone.onEnter(({ entity }) => {
       if (entity.isPlayer) {
-        (entity as GamePlayerEntity).player.directMessage("sunny zone");
+        (entity as GamePlayerEntity).player.directMessage("您已进入：晴区");
       }
     });
   }

@@ -1,7 +1,7 @@
 export interface ConvertHandler {
   condition: (obj: any, depth: number) => boolean;
   handler: (obj: any, depth: number, fn: (obj: any, depth: number) => string) => string;
-  cat?: boolean
+  cut?: boolean
 }
 
 export interface RichConfig {
@@ -30,6 +30,8 @@ export abstract class Rich {
     tabChar: '|---'
   };
 
+  private static visitedObj: WeakSet<any> = new WeakSet();
+
   static handlers: ConvertHandler[] = [
     {
       condition: obj => obj === null,
@@ -42,7 +44,7 @@ export abstract class Rich {
     {
       condition: obj => typeof obj === 'string',
       handler: obj => obj,
-      cat: true
+      cut: true
     },
     {
       condition: obj => typeof obj === 'number'
@@ -50,7 +52,7 @@ export abstract class Rich {
         || typeof obj === 'boolean'
         || typeof obj === 'symbol',
       handler: obj => obj.toString(),
-      cat: true
+      cut: true
     },
     {
       condition: (_, depth) => depth >= Rich.config.maxDepth,
@@ -86,20 +88,19 @@ export abstract class Rich {
           .join(`,\n${ctxTab}`);
 
         Rich.visitedObj.delete(obj);
-        return `{\n${ctxTab}${ctx}\n${Rich.config.tabChar.repeat(depth)}}`;
+        return `${obj.constructor.name} {\n${ctxTab}${ctx}\n${Rich.config.tabChar.repeat(depth)}}`;
       }
     }
   ];
 
-  private static visitedObj: WeakSet<any> = new WeakSet();
 
-  static getRiched(obj: any, depth: number = 0): string {
+  static toRichString(obj: any, depth: number = 0): string {
     for (const handler of Rich.handlers) {
       if(!handler.condition(obj, depth)){
         continue;
       }
-      let ctx = handler.handler(obj, depth, Rich.getRiched);
-      if(handler.cat && ctx.length >= Rich.config.maxLength){
+      let ctx = handler.handler(obj, depth, Rich.toRichString);
+      if(handler.cut && ctx.length >= Rich.config.maxLength){
         ctx = ctx.slice(0, Rich.config.maxLength / 2) + '...' + ctx.slice(-Rich.config.maxLength / 2);
       }
       return ctx;
@@ -113,7 +114,7 @@ export abstract class Rich {
     }
     let res = "";
     for(let obj of args){
-      res += Rich.getRiched(obj);
+      res += Rich.toRichString(obj);
       res += " ";
     }
     console.log(res);

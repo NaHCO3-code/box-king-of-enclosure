@@ -3,7 +3,7 @@
  * @todo 重构
  */
 
-import Component from "component";
+import Component from "@/Component/Definition";
 import { KGameUpdater } from "./Controller/GameUpdater";
 import { Rich } from "./lib/Rich";
 

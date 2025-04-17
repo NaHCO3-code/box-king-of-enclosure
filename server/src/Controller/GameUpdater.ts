@@ -1,4 +1,4 @@
-import Component from "component";
+import Component from "@/Component/Definition";
 import { KEnclose } from "@/Model/Enclose";
 import { Emit } from "@/Event";
 import { KEvents, WEATHER_CHANGE_TIME } from "@/Constants";
@@ -6,6 +6,8 @@ import { KTeamManager } from "./TeamManager";
 import { Rich } from "@/lib/Rich";
 import { Listener } from "@/lib/Emitter";
 import { KZoneMgr } from "./ZoneManager";
+import { Player } from "./Player";
+import { RemoteEvent } from "@shares/RemoteEvent";
 
 export class KGameUpdater extends Component {
   model: KEnclose;
@@ -29,7 +31,7 @@ export class KGameUpdater extends Component {
 
   protected onEnable(): void {
     if(this.enableCount <= 1) return;
-    world.say("Game Start");
+    world.say("游戏开始");
     this.tick = 0;
     this.model.init();
     this.teamMgr.clear();
@@ -41,7 +43,14 @@ export class KGameUpdater extends Component {
   }
 
   protected onDisable(): void {
-    world.say("Game end.");
+    const result = this.model.getstat();
+    remoteChannel.sendClientEvent(Player.players.map(e => e.entity), {
+      type: RemoteEvent.gameinfo,
+      args: {
+        gameInfo: result
+      }
+    });
+    world.say("游戏结束");
     this.model.clear();
     this.teamMgr.clear();
     this.zoneMgr.clear();
@@ -53,7 +62,6 @@ export class KGameUpdater extends Component {
     this.model.updateModel(this.teamMgr.teamNum);
     this.zoneMgr.calcEffect(this.model);
     this.model.updateMap();
-
     this.tick += deltaTime;
     if(this.tick / 1000 <= WEATHER_CHANGE_TIME){
       return;

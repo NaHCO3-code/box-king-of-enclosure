@@ -21,16 +21,18 @@ declare const voxels: GameVoxels;
  */
 declare const resources: {
   /**
-  * 列出指定类型的游戏资源。
-  * @param path - 可选。指定游戏资源的类型。如果不提供，默认返回全部资源（包含脚本）。
-  *        - 'snow': 查询雪贴图资源。
-  *        - 'mesh': 查询体素模型资源。
-  *        - 'picture': 查询图片资源。
-  *        - 'audio': 查询音频资源。
-  *        - 'lut': 查询滤镜资源。
-  * @returns 返回一个 GameAssetListEntry 对象数组，每个对象代表一个游戏资源条目。
-  */
-  ls: (path?: 'snow' | 'mesh' | 'picture' | 'audio' | 'lut') => GameAssetListEntry[];
+   * 列出指定类型的游戏资源。
+   * @param path - 可选。指定游戏资源的类型。如果不提供，默认返回全部资源（包含脚本）。
+   *        - 'snow': 查询雪贴图资源。
+   *        - 'mesh': 查询体素模型资源。
+   *        - 'picture': 查询图片资源。
+   *        - 'audio': 查询音频资源。
+   *        - 'lut': 查询滤镜资源。
+   * @returns 返回一个 GameAssetListEntry 对象数组，每个对象代表一个游戏资源条目。
+   */
+  ls: (
+    path?: "snow" | "mesh" | "picture" | "audio" | "lut"
+  ) => GameAssetListEntry[];
 };
 /**
  * 旧代编辑器使用的数据库接口，已弃用，请在使用GameDataStorage，如：
@@ -53,6 +55,12 @@ declare const http: GameHttpAPI;
  * GameRTC 是实时通讯技术，用于与其他游戏玩家语音交流的操作。
  */
 declare const rtc: GameRTC;
+
+/**
+ * GameAnalytics 是专业的游戏数据分析模块，提供强大的数据追踪与分析能力。借助此模块，你可以精确记录玩家行为、监控游戏事件并获取深入的数据洞察，为游戏优化和决策提供有力支持。
+ */
+declare const analytics: GameAnalytics;
+
 /**
  * 较老版本的GUI接口，已不推荐使用，请在客户端使用GameUI，如：
  * ```
@@ -83,9 +91,9 @@ declare const require: {
    */
   (module: string): any;
   /**
-   * 
+   *
    * @param path 路径
-   * @returns 
+   * @returns
    */
   resolve: (path: string) => string;
 };
@@ -130,7 +138,7 @@ interface Map<K, V> {
   delete(key: K): boolean;
   forEach(
     callbackfn: (value: V, key: K, map: Map<K, V>) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   get(key: K): V | undefined;
   has(key: K): boolean;
@@ -139,7 +147,7 @@ interface Map<K, V> {
 }
 
 interface MapConstructor {
-  new(): Map<any, any>;
+  new (): Map<any, any>;
   new <K, V>(entries?: readonly (readonly [K, V])[] | null): Map<K, V>;
   readonly prototype: Map<any, any>;
 }
@@ -148,7 +156,7 @@ declare var Map: MapConstructor;
 interface ReadonlyMap<K, V> {
   forEach(
     callbackfn: (value: V, key: K, map: ReadonlyMap<K, V>) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   get(key: K): V | undefined;
   has(key: K): boolean;
@@ -164,7 +172,7 @@ interface WeakMap<K extends object, V> {
 
 interface WeakMapConstructor {
   new <K extends object = object, V = any>(
-    entries?: readonly [K, V][] | null,
+    entries?: readonly [K, V][] | null
   ): WeakMap<K, V>;
   readonly prototype: WeakMap<object, any>;
 }
@@ -176,7 +184,7 @@ interface Set<T> {
   delete(value: T): boolean;
   forEach(
     callbackfn: (value: T, value2: T, set: Set<T>) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   has(value: T): boolean;
   readonly size: number;
@@ -191,7 +199,7 @@ declare var Set: SetConstructor;
 interface ReadonlySet<T> {
   forEach(
     callbackfn: (value: T, value2: T, set: ReadonlySet<T>) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   has(value: T): boolean;
   readonly size: number;
@@ -235,11 +243,11 @@ interface Array<T> {
    */
   find<S extends T>(
     predicate: (this: void, value: T, index: number, obj: T[]) => value is S,
-    thisArg?: any,
+    thisArg?: any
   ): S | undefined;
   find(
     predicate: (value: T, index: number, obj: T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): T | undefined;
 
   /**
@@ -253,7 +261,7 @@ interface Array<T> {
    */
   findIndex(
     predicate: (value: T, index: number, obj: T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -294,7 +302,7 @@ interface ArrayConstructor {
   from<T, U>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => U,
-    thisArg?: any,
+    thisArg?: any
   ): U[];
 
   /**
@@ -305,7 +313,7 @@ interface ArrayConstructor {
 }
 
 interface DateConstructor {
-  new(value: number | string | Date): Date;
+  new (value: number | string | Date): Date;
 }
 
 interface Function {
@@ -524,7 +532,7 @@ interface ObjectConstructor {
     target: T,
     source1: U,
     source2: V,
-    source3: W,
+    source3: W
   ): T & U & V & W;
 
   /**
@@ -577,13 +585,13 @@ interface ReadonlyArray<T> {
       this: void,
       value: T,
       index: number,
-      obj: readonly T[],
+      obj: readonly T[]
     ) => value is S,
-    thisArg?: any,
+    thisArg?: any
   ): S | undefined;
   find(
     predicate: (value: T, index: number, obj: readonly T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): T | undefined;
 
   /**
@@ -597,7 +605,7 @@ interface ReadonlyArray<T> {
    */
   findIndex(
     predicate: (value: T, index: number, obj: readonly T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 }
 
@@ -630,7 +638,7 @@ interface RegExp {
 }
 
 interface RegExpConstructor {
-  new(pattern: RegExp | string, flags?: string): RegExp;
+  new (pattern: RegExp | string, flags?: string): RegExp;
   (pattern: RegExp | string, flags?: string): RegExp;
 }
 
@@ -666,7 +674,7 @@ interface String {
    * @param form Applicable values: "NFC", "NFD", "NFKC", or "NFKD", If not specified default
    * is "NFC"
    */
-  normalize(form: 'NFC' | 'NFD' | 'NFKC' | 'NFKD'): string;
+  normalize(form: "NFC" | "NFD" | "NFKC" | "NFKD"): string;
 
   /**
    * Returns the String value result of normalizing the string into the normalization form
@@ -781,7 +789,7 @@ interface GeneratorFunction {
    * Creates a new Generator object.
    * @param args A list of arguments the function accepts.
    */
-  new(...args: any[]): Generator;
+  new (...args: any[]): Generator;
   /**
    * Creates a new Generator object.
    * @param args A list of arguments the function accepts.
@@ -806,7 +814,7 @@ interface GeneratorFunctionConstructor {
    * Creates a new Generator function.
    * @param args A list of arguments the function accepts.
    */
-  new(...args: string[]): GeneratorFunction;
+  new (...args: string[]): GeneratorFunction;
   /**
    * Creates a new Generator function.
    * @param args A list of arguments the function accepts.
@@ -913,7 +921,7 @@ interface ArrayConstructor {
   from<T, U>(
     iterable: Iterable<T> | ArrayLike<T>,
     mapfn: (v: T, k: number) => U,
-    thisArg?: any,
+    thisArg?: any
   ): U[];
 }
 
@@ -986,7 +994,7 @@ interface MapConstructor {
   new <K, V>(iterable: Iterable<readonly [K, V]>): Map<K, V>;
 }
 
-interface WeakMap<K extends object, V> { }
+interface WeakMap<K extends object, V> {}
 
 interface WeakMapConstructor {
   new <K extends object, V>(iterable: Iterable<[K, V]>): WeakMap<K, V>;
@@ -1034,13 +1042,13 @@ interface SetConstructor {
   new <T>(iterable?: Iterable<T> | null): Set<T>;
 }
 
-interface WeakSet<T extends object> { }
+interface WeakSet<T extends object> {}
 
 interface WeakSetConstructor {
   new <T extends object = object>(iterable: Iterable<T>): WeakSet<T>;
 }
 
-interface Promise<T> { }
+interface Promise<T> {}
 
 interface PromiseConstructor {
   /**
@@ -1086,7 +1094,7 @@ interface Int8Array {
 }
 
 interface Int8ArrayConstructor {
-  new(elements: Iterable<number>): Int8Array;
+  new (elements: Iterable<number>): Int8Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1097,7 +1105,7 @@ interface Int8ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int8Array;
 }
 
@@ -1118,7 +1126,7 @@ interface Uint8Array {
 }
 
 interface Uint8ArrayConstructor {
-  new(elements: Iterable<number>): Uint8Array;
+  new (elements: Iterable<number>): Uint8Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1129,7 +1137,7 @@ interface Uint8ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8Array;
 }
 
@@ -1152,7 +1160,7 @@ interface Uint8ClampedArray {
 }
 
 interface Uint8ClampedArrayConstructor {
-  new(elements: Iterable<number>): Uint8ClampedArray;
+  new (elements: Iterable<number>): Uint8ClampedArray;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1163,7 +1171,7 @@ interface Uint8ClampedArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8ClampedArray;
 }
 
@@ -1186,7 +1194,7 @@ interface Int16Array {
 }
 
 interface Int16ArrayConstructor {
-  new(elements: Iterable<number>): Int16Array;
+  new (elements: Iterable<number>): Int16Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1197,7 +1205,7 @@ interface Int16ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int16Array;
 }
 
@@ -1218,7 +1226,7 @@ interface Uint16Array {
 }
 
 interface Uint16ArrayConstructor {
-  new(elements: Iterable<number>): Uint16Array;
+  new (elements: Iterable<number>): Uint16Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1229,7 +1237,7 @@ interface Uint16ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint16Array;
 }
 
@@ -1250,7 +1258,7 @@ interface Int32Array {
 }
 
 interface Int32ArrayConstructor {
-  new(elements: Iterable<number>): Int32Array;
+  new (elements: Iterable<number>): Int32Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1261,7 +1269,7 @@ interface Int32ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int32Array;
 }
 
@@ -1282,7 +1290,7 @@ interface Uint32Array {
 }
 
 interface Uint32ArrayConstructor {
-  new(elements: Iterable<number>): Uint32Array;
+  new (elements: Iterable<number>): Uint32Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1293,7 +1301,7 @@ interface Uint32ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint32Array;
 }
 
@@ -1314,7 +1322,7 @@ interface Float32Array {
 }
 
 interface Float32ArrayConstructor {
-  new(elements: Iterable<number>): Float32Array;
+  new (elements: Iterable<number>): Float32Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1325,7 +1333,7 @@ interface Float32ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Float32Array;
 }
 
@@ -1346,7 +1354,7 @@ interface Float64Array {
 }
 
 interface Float64ArrayConstructor {
-  new(elements: Iterable<number>): Float64Array;
+  new (elements: Iterable<number>): Float64Array;
 
   /**
    * Creates an array from an array-like or iterable object.
@@ -1357,7 +1365,7 @@ interface Float64ArrayConstructor {
   from(
     arrayLike: Iterable<number>,
     mapfn?: (v: number, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Float64Array;
 }
 /*! *****************************************************************************
@@ -1390,8 +1398,8 @@ interface PromiseConstructor {
   new <T>(
     executor: (
       resolve: (value?: T | PromiseLike<T>) => void,
-      reject: (reason?: any) => void,
-    ) => void,
+      reject: (reason?: any) => void
+    ) => void
   ): Promise<T>;
 
   /**
@@ -1411,8 +1419,8 @@ interface PromiseConstructor {
       T7 | PromiseLike<T7>,
       T8 | PromiseLike<T8>,
       T9 | PromiseLike<T9>,
-      T10 | PromiseLike<T10>,
-    ],
+      T10 | PromiseLike<T10>
+    ]
   ): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9, T10]>;
 
   /**
@@ -1431,8 +1439,8 @@ interface PromiseConstructor {
       T6 | PromiseLike<T6>,
       T7 | PromiseLike<T7>,
       T8 | PromiseLike<T8>,
-      T9 | PromiseLike<T9>,
-    ],
+      T9 | PromiseLike<T9>
+    ]
   ): Promise<[T1, T2, T3, T4, T5, T6, T7, T8, T9]>;
 
   /**
@@ -1450,8 +1458,8 @@ interface PromiseConstructor {
       T5 | PromiseLike<T5>,
       T6 | PromiseLike<T6>,
       T7 | PromiseLike<T7>,
-      T8 | PromiseLike<T8>,
-    ],
+      T8 | PromiseLike<T8>
+    ]
   ): Promise<[T1, T2, T3, T4, T5, T6, T7, T8]>;
 
   /**
@@ -1468,8 +1476,8 @@ interface PromiseConstructor {
       T4 | PromiseLike<T4>,
       T5 | PromiseLike<T5>,
       T6 | PromiseLike<T6>,
-      T7 | PromiseLike<T7>,
-    ],
+      T7 | PromiseLike<T7>
+    ]
   ): Promise<[T1, T2, T3, T4, T5, T6, T7]>;
 
   /**
@@ -1485,8 +1493,8 @@ interface PromiseConstructor {
       T3 | PromiseLike<T3>,
       T4 | PromiseLike<T4>,
       T5 | PromiseLike<T5>,
-      T6 | PromiseLike<T6>,
-    ],
+      T6 | PromiseLike<T6>
+    ]
   ): Promise<[T1, T2, T3, T4, T5, T6]>;
 
   /**
@@ -1501,8 +1509,8 @@ interface PromiseConstructor {
       T2 | PromiseLike<T2>,
       T3 | PromiseLike<T3>,
       T4 | PromiseLike<T4>,
-      T5 | PromiseLike<T5>,
-    ],
+      T5 | PromiseLike<T5>
+    ]
   ): Promise<[T1, T2, T3, T4, T5]>;
 
   /**
@@ -1516,8 +1524,8 @@ interface PromiseConstructor {
       T1 | PromiseLike<T1>,
       T2 | PromiseLike<T2>,
       T3 | PromiseLike<T3>,
-      T4 | PromiseLike<T4>,
-    ],
+      T4 | PromiseLike<T4>
+    ]
   ): Promise<[T1, T2, T3, T4]>;
 
   /**
@@ -1530,8 +1538,8 @@ interface PromiseConstructor {
     values: readonly [
       T1 | PromiseLike<T1>,
       T2 | PromiseLike<T2>,
-      T3 | PromiseLike<T3>,
-    ],
+      T3 | PromiseLike<T3>
+    ]
   ): Promise<[T1, T2, T3]>;
 
   /**
@@ -1541,7 +1549,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   all<T1, T2>(
-    values: readonly [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>],
+    values: readonly [T1 | PromiseLike<T1>, T2 | PromiseLike<T2>]
   ): Promise<[T1, T2]>;
 
   /**
@@ -1559,7 +1567,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   race<T>(
-    values: readonly T[],
+    values: readonly T[]
   ): Promise<T extends PromiseLike<infer U> ? U : T>;
 
   /**
@@ -1614,7 +1622,7 @@ interface ProxyHandler<T extends object> {
   preventExtensions?(target: T): boolean;
   getOwnPropertyDescriptor?(
     target: T,
-    p: PropertyKey,
+    p: PropertyKey
   ): PropertyDescriptor | undefined;
   has?(target: T, p: PropertyKey): boolean;
   get?(target: T, p: PropertyKey, receiver: any): any;
@@ -1623,7 +1631,7 @@ interface ProxyHandler<T extends object> {
   defineProperty?(
     target: T,
     p: PropertyKey,
-    attributes: PropertyDescriptor,
+    attributes: PropertyDescriptor
   ): boolean;
   enumerate?(target: T): PropertyKey[];
   ownKeys?(target: T): PropertyKey[];
@@ -1634,7 +1642,7 @@ interface ProxyHandler<T extends object> {
 interface ProxyConstructor {
   revocable<T extends object>(
     target: T,
-    handler: ProxyHandler<T>,
+    handler: ProxyHandler<T>
   ): { proxy: T; revoke: () => void };
   new <T extends object>(target: T, handler: ProxyHandler<T>): T;
 }
@@ -1658,23 +1666,23 @@ declare namespace Reflect {
   function apply(
     target: Function,
     thisArgument: any,
-    argumentsList: ArrayLike<any>,
+    argumentsList: ArrayLike<any>
   ): any;
   function construct(
     target: Function,
     argumentsList: ArrayLike<any>,
-    newTarget?: any,
+    newTarget?: any
   ): any;
   function defineProperty(
     target: object,
     propertyKey: PropertyKey,
-    attributes: PropertyDescriptor,
+    attributes: PropertyDescriptor
   ): boolean;
   function deleteProperty(target: object, propertyKey: PropertyKey): boolean;
   function get(target: object, propertyKey: PropertyKey, receiver?: any): any;
   function getOwnPropertyDescriptor(
     target: object,
-    propertyKey: PropertyKey,
+    propertyKey: PropertyKey
   ): PropertyDescriptor | undefined;
   function getPrototypeOf(target: object): object;
   function has(target: object, propertyKey: PropertyKey): boolean;
@@ -1685,7 +1693,7 @@ declare namespace Reflect {
     target: object,
     propertyKey: PropertyKey,
     value: any,
-    receiver?: any,
+    receiver?: any
   ): boolean;
   function setPrototypeOf(target: object, proto: any): boolean;
 }
@@ -1833,15 +1841,15 @@ interface Date {
   /**
    * Converts a Date object to a string.
    */
-  [Symbol.toPrimitive](hint: 'default'): string;
+  [Symbol.toPrimitive](hint: "default"): string;
   /**
    * Converts a Date object to a string.
    */
-  [Symbol.toPrimitive](hint: 'string'): string;
+  [Symbol.toPrimitive](hint: "string"): string;
   /**
    * Converts a Date object to a number.
    */
-  [Symbol.toPrimitive](hint: 'number'): number;
+  [Symbol.toPrimitive](hint: "number"): number;
   /**
    * Converts a Date object to a string or number.
    *
@@ -1925,7 +1933,7 @@ interface RegExp {
    */
   [Symbol.replace](
     string: string,
-    replacer: (substring: string, ...args: any[]) => string,
+    replacer: (substring: string, ...args: any[]) => string
   ): string;
 
   /**
@@ -1973,7 +1981,7 @@ interface String {
     searchValue: {
       [Symbol.replace](string: string, replaceValue: string): string;
     },
-    replaceValue: string,
+    replaceValue: string
   ): string;
 
   /**
@@ -1985,10 +1993,10 @@ interface String {
     searchValue: {
       [Symbol.replace](
         string: string,
-        replacer: (substring: string, ...args: any[]) => string,
+        replacer: (substring: string, ...args: any[]) => string
       ): string;
     },
-    replacer: (substring: string, ...args: any[]) => string,
+    replacer: (substring: string, ...args: any[]) => string
   ): string;
 
   /**
@@ -2004,7 +2012,7 @@ interface String {
    */
   split(
     splitter: { [Symbol.split](string: string, limit?: number): string[] },
-    limit?: number,
+    limit?: number
   ): string[];
 }
 
@@ -2017,39 +2025,39 @@ interface DataView {
 }
 
 interface Int8Array {
-  readonly [Symbol.toStringTag]: 'Int8Array';
+  readonly [Symbol.toStringTag]: "Int8Array";
 }
 
 interface Uint8Array {
-  readonly [Symbol.toStringTag]: 'UInt8Array';
+  readonly [Symbol.toStringTag]: "UInt8Array";
 }
 
 interface Uint8ClampedArray {
-  readonly [Symbol.toStringTag]: 'Uint8ClampedArray';
+  readonly [Symbol.toStringTag]: "Uint8ClampedArray";
 }
 
 interface Int16Array {
-  readonly [Symbol.toStringTag]: 'Int16Array';
+  readonly [Symbol.toStringTag]: "Int16Array";
 }
 
 interface Uint16Array {
-  readonly [Symbol.toStringTag]: 'Uint16Array';
+  readonly [Symbol.toStringTag]: "Uint16Array";
 }
 
 interface Int32Array {
-  readonly [Symbol.toStringTag]: 'Int32Array';
+  readonly [Symbol.toStringTag]: "Int32Array";
 }
 
 interface Uint32Array {
-  readonly [Symbol.toStringTag]: 'Uint32Array';
+  readonly [Symbol.toStringTag]: "Uint32Array";
 }
 
 interface Float32Array {
-  readonly [Symbol.toStringTag]: 'Float32Array';
+  readonly [Symbol.toStringTag]: "Float32Array";
 }
 
 interface Float64Array {
-  readonly [Symbol.toStringTag]: 'Float64Array';
+  readonly [Symbol.toStringTag]: "Float64Array";
 }
 
 interface ArrayConstructor {
@@ -2194,17 +2202,17 @@ and limitations under the License.
 
 declare namespace Intl {
   type DateTimeFormatPartTypes =
-    | 'day'
-    | 'dayPeriod'
-    | 'era'
-    | 'hour'
-    | 'literal'
-    | 'minute'
-    | 'month'
-    | 'second'
-    | 'timeZoneName'
-    | 'weekday'
-    | 'year';
+    | "day"
+    | "dayPeriod"
+    | "era"
+    | "hour"
+    | "literal"
+    | "minute"
+    | "month"
+    | "second"
+    | "timeZoneName"
+    | "weekday"
+    | "year";
 
   interface DateTimeFormatPart {
     type: DateTimeFormatPartTypes;
@@ -2295,12 +2303,12 @@ interface SharedArrayBuffer {
    */
   slice(begin: number, end?: number): SharedArrayBuffer;
   readonly [Symbol.species]: SharedArrayBuffer;
-  readonly [Symbol.toStringTag]: 'SharedArrayBuffer';
+  readonly [Symbol.toStringTag]: "SharedArrayBuffer";
 }
 
 interface SharedArrayBufferConstructor {
   readonly prototype: SharedArrayBuffer;
-  new(byteLength: number): SharedArrayBuffer;
+  new (byteLength: number): SharedArrayBuffer;
 }
 declare var SharedArrayBuffer: SharedArrayBufferConstructor;
 
@@ -2323,7 +2331,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
   /**
@@ -2340,7 +2348,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
   /**
@@ -2358,7 +2366,7 @@ interface Atomics {
       | Uint32Array,
     index: number,
     expectedValue: number,
-    replacementValue: number,
+    replacementValue: number
   ): number;
 
   /**
@@ -2375,7 +2383,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
   /**
@@ -2397,7 +2405,7 @@ interface Atomics {
       | Uint16Array
       | Int32Array
       | Uint32Array,
-    index: number,
+    index: number
   ): number;
 
   /**
@@ -2414,7 +2422,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
   /**
@@ -2430,7 +2438,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
   /**
@@ -2447,7 +2455,7 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
   /**
@@ -2460,8 +2468,8 @@ interface Atomics {
     typedArray: Int32Array,
     index: number,
     value: number,
-    timeout?: number,
-  ): 'ok' | 'not-equal' | 'timed-out';
+    timeout?: number
+  ): "ok" | "not-equal" | "timed-out";
 
   /**
    * Wakes up sleeping agents that are waiting on the given index of the array, returning the
@@ -2483,10 +2491,10 @@ interface Atomics {
       | Int32Array
       | Uint32Array,
     index: number,
-    value: number,
+    value: number
   ): number;
 
-  readonly [Symbol.toStringTag]: 'Atomics';
+  readonly [Symbol.toStringTag]: "Atomics";
 }
 
 declare var Atomics: Atomics;
@@ -2548,39 +2556,39 @@ and limitations under the License.
 ***************************************************************************** */
 
 interface Int8ArrayConstructor {
-  new(): Int8Array;
+  new (): Int8Array;
 }
 
 interface Uint8ArrayConstructor {
-  new(): Uint8Array;
+  new (): Uint8Array;
 }
 
 interface Uint8ClampedArrayConstructor {
-  new(): Uint8ClampedArray;
+  new (): Uint8ClampedArray;
 }
 
 interface Int16ArrayConstructor {
-  new(): Int16Array;
+  new (): Int16Array;
 }
 
 interface Uint16ArrayConstructor {
-  new(): Uint16Array;
+  new (): Uint16Array;
 }
 
 interface Int32ArrayConstructor {
-  new(): Int32Array;
+  new (): Int32Array;
 }
 
 interface Uint32ArrayConstructor {
-  new(): Uint32Array;
+  new (): Uint32Array;
 }
 
 interface Float32ArrayConstructor {
-  new(): Float32Array;
+  new (): Float32Array;
 }
 
 interface Float64ArrayConstructor {
-  new(): Float64Array;
+  new (): Float64Array;
 }
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved. 
@@ -2602,7 +2610,7 @@ interface AsyncGenerator<T = unknown, TReturn = any, TNext = unknown>
   // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
   next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;
   return(
-    value: TReturn | PromiseLike<TReturn>,
+    value: TReturn | PromiseLike<TReturn>
   ): Promise<IteratorResult<T, TReturn>>;
   throw(e: any): Promise<IteratorResult<T, TReturn>>;
   [Symbol.asyncIterator](): AsyncGenerator<T, TReturn, TNext>;
@@ -2613,7 +2621,7 @@ interface AsyncGeneratorFunction {
    * Creates a new AsyncGenerator object.
    * @param args A list of arguments the function accepts.
    */
-  new(...args: any[]): AsyncGenerator;
+  new (...args: any[]): AsyncGenerator;
   /**
    * Creates a new AsyncGenerator object.
    * @param args A list of arguments the function accepts.
@@ -2638,7 +2646,7 @@ interface AsyncGeneratorFunctionConstructor {
    * Creates a new AsyncGenerator function.
    * @param args A list of arguments the function accepts.
    */
-  new(...args: string[]): AsyncGeneratorFunction;
+  new (...args: string[]): AsyncGeneratorFunction;
   /**
    * Creates a new AsyncGenerator function.
    * @param args A list of arguments the function accepts.
@@ -2684,7 +2692,7 @@ interface AsyncIterator<T, TReturn = any, TNext = undefined> {
   // NOTE: 'next' is defined using a tuple to ensure we report the correct assignability errors in all places.
   next(...args: [] | [TNext]): Promise<IteratorResult<T, TReturn>>;
   return?(
-    value?: TReturn | PromiseLike<TReturn>,
+    value?: TReturn | PromiseLike<TReturn>
   ): Promise<IteratorResult<T, TReturn>>;
   throw?(e?: any): Promise<IteratorResult<T, TReturn>>;
 }
@@ -2713,14 +2721,14 @@ and limitations under the License.
 
 declare namespace Intl {
   interface PluralRulesOptions {
-    localeMatcher?: 'lookup' | 'best fit';
-    type?: 'cardinal' | 'ordinal';
+    localeMatcher?: "lookup" | "best fit";
+    type?: "cardinal" | "ordinal";
   }
 
   interface ResolvedPluralRulesOptions {
     locale: string;
     pluralCategories: string[];
-    type: 'cardinal' | 'ordinal';
+    type: "cardinal" | "ordinal";
     minimumIntegerDigits: number;
     minimumFractionDigits: number;
     maximumFractionDigits: number;
@@ -2734,14 +2742,14 @@ declare namespace Intl {
   }
 
   const PluralRules: {
-    new(
+    new (
       locales?: string | string[],
-      options?: PluralRulesOptions,
+      options?: PluralRulesOptions
     ): PluralRules;
     (locales?: string | string[], options?: PluralRulesOptions): PluralRules;
     supportedLocalesOf(
       locales: string | string[],
-      options?: PluralRulesOptions,
+      options?: PluralRulesOptions
     ): string[];
   };
 }
@@ -2837,9 +2845,9 @@ interface ReadonlyArray<T> {
       this: This,
       value: T,
       index: number,
-      array: T[],
+      array: T[]
     ) => U | ReadonlyArray<U>,
-    thisArg?: This,
+    thisArg?: This
   ): U[];
 
   /**
@@ -2866,9 +2874,9 @@ interface ReadonlyArray<T> {
       | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>[]>>
       | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>[]>
       | ReadonlyArray<
-        ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>
-      >,
-    depth: 4,
+          ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>
+        >,
+    depth: 4
   ): U[];
 
   /**
@@ -2887,7 +2895,7 @@ interface ReadonlyArray<T> {
       | ReadonlyArray<ReadonlyArray<ReadonlyArray<U>[]>>
       | ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>[]>
       | ReadonlyArray<ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>>,
-    depth: 3,
+    depth: 3
   ): U[];
 
   /**
@@ -2902,7 +2910,7 @@ interface ReadonlyArray<T> {
       | ReadonlyArray<ReadonlyArray<U[]>>
       | ReadonlyArray<ReadonlyArray<U>[]>
       | ReadonlyArray<ReadonlyArray<ReadonlyArray<U>>>,
-    depth: 2,
+    depth: 2
   ): U[];
 
   /**
@@ -2913,7 +2921,7 @@ interface ReadonlyArray<T> {
    */
   flat<U>(
     this: ReadonlyArray<U[]> | ReadonlyArray<ReadonlyArray<U>>,
-    depth?: 1,
+    depth?: 1
   ): U[];
 
   /**
@@ -2949,9 +2957,9 @@ interface Array<T> {
       this: This,
       value: T,
       index: number,
-      array: T[],
+      array: T[]
     ) => U | ReadonlyArray<U>,
-    thisArg?: This,
+    thisArg?: This
   ): U[];
 
   /**
@@ -3047,7 +3055,7 @@ interface ObjectConstructor {
    * @param entries An iterable object that contains key-value entries for properties and methods.
    */
   fromEntries<T = any>(
-    entries: Iterable<readonly [PropertyKey, T]>,
+    entries: Iterable<readonly [PropertyKey, T]>
   ): { [k in PropertyKey]: T };
 
   /**
@@ -3133,7 +3141,7 @@ interface BigInt {
   /** Returns the primitive value of the specified object. */
   valueOf(): bigint;
 
-  readonly [Symbol.toStringTag]: 'BigInt';
+  readonly [Symbol.toStringTag]: "BigInt";
 }
 
 interface BigIntConstructor {
@@ -3199,7 +3207,7 @@ interface BigInt64Array {
    */
   every(
     callbackfn: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -3221,7 +3229,7 @@ interface BigInt64Array {
    */
   filter(
     callbackfn: (value: bigint, index: number, array: BigInt64Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): BigInt64Array;
 
   /**
@@ -3235,7 +3243,7 @@ interface BigInt64Array {
    */
   find(
     predicate: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): bigint | undefined;
 
   /**
@@ -3249,7 +3257,7 @@ interface BigInt64Array {
    */
   findIndex(
     predicate: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -3261,7 +3269,7 @@ interface BigInt64Array {
    */
   forEach(
     callbackfn: (value: bigint, index: number, array: BigInt64Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -3310,7 +3318,7 @@ interface BigInt64Array {
    */
   map(
     callbackfn: (value: bigint, index: number, array: BigInt64Array) => bigint,
-    thisArg?: any,
+    thisArg?: any
   ): BigInt64Array;
 
   /**
@@ -3328,8 +3336,8 @@ interface BigInt64Array {
       previousValue: bigint,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array,
-    ) => bigint,
+      array: BigInt64Array
+    ) => bigint
   ): bigint;
 
   /**
@@ -3347,9 +3355,9 @@ interface BigInt64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array,
+      array: BigInt64Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -3367,8 +3375,8 @@ interface BigInt64Array {
       previousValue: bigint,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array,
-    ) => bigint,
+      array: BigInt64Array
+    ) => bigint
   ): bigint;
 
   /**
@@ -3386,9 +3394,9 @@ interface BigInt64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigInt64Array,
+      array: BigInt64Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /** Reverses the elements in the array. */
@@ -3418,7 +3426,7 @@ interface BigInt64Array {
    */
   some(
     callbackfn: (value: bigint, index: number, array: BigInt64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -3446,19 +3454,19 @@ interface BigInt64Array {
 
   [Symbol.iterator](): IterableIterator<bigint>;
 
-  readonly [Symbol.toStringTag]: 'BigInt64Array';
+  readonly [Symbol.toStringTag]: "BigInt64Array";
 
   [index: number]: bigint;
 }
 
 interface BigInt64ArrayConstructor {
   readonly prototype: BigInt64Array;
-  new(length?: number): BigInt64Array;
-  new(array: Iterable<bigint>): BigInt64Array;
-  new(
+  new (length?: number): BigInt64Array;
+  new (array: Iterable<bigint>): BigInt64Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number,
+    length?: number
   ): BigInt64Array;
 
   /** The size in bytes of each element in the array. */
@@ -3480,7 +3488,7 @@ interface BigInt64ArrayConstructor {
   from<U>(
     arrayLike: ArrayLike<U>,
     mapfn: (v: U, k: number) => bigint,
-    thisArg?: any,
+    thisArg?: any
   ): BigInt64Array;
 }
 
@@ -3529,9 +3537,9 @@ interface BigUint64Array {
     callbackfn: (
       value: bigint,
       index: number,
-      array: BigUint64Array,
+      array: BigUint64Array
     ) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -3553,7 +3561,7 @@ interface BigUint64Array {
    */
   filter(
     callbackfn: (value: bigint, index: number, array: BigUint64Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): BigUint64Array;
 
   /**
@@ -3567,7 +3575,7 @@ interface BigUint64Array {
    */
   find(
     predicate: (value: bigint, index: number, array: BigUint64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): bigint | undefined;
 
   /**
@@ -3581,7 +3589,7 @@ interface BigUint64Array {
    */
   findIndex(
     predicate: (value: bigint, index: number, array: BigUint64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -3593,7 +3601,7 @@ interface BigUint64Array {
    */
   forEach(
     callbackfn: (value: bigint, index: number, array: BigUint64Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -3642,7 +3650,7 @@ interface BigUint64Array {
    */
   map(
     callbackfn: (value: bigint, index: number, array: BigUint64Array) => bigint,
-    thisArg?: any,
+    thisArg?: any
   ): BigUint64Array;
 
   /**
@@ -3660,8 +3668,8 @@ interface BigUint64Array {
       previousValue: bigint,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array,
-    ) => bigint,
+      array: BigUint64Array
+    ) => bigint
   ): bigint;
 
   /**
@@ -3679,9 +3687,9 @@ interface BigUint64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array,
+      array: BigUint64Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -3699,8 +3707,8 @@ interface BigUint64Array {
       previousValue: bigint,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array,
-    ) => bigint,
+      array: BigUint64Array
+    ) => bigint
   ): bigint;
 
   /**
@@ -3718,9 +3726,9 @@ interface BigUint64Array {
       previousValue: U,
       currentValue: bigint,
       currentIndex: number,
-      array: BigUint64Array,
+      array: BigUint64Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /** Reverses the elements in the array. */
@@ -3752,9 +3760,9 @@ interface BigUint64Array {
     callbackfn: (
       value: bigint,
       index: number,
-      array: BigUint64Array,
+      array: BigUint64Array
     ) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -3782,19 +3790,19 @@ interface BigUint64Array {
 
   [Symbol.iterator](): IterableIterator<bigint>;
 
-  readonly [Symbol.toStringTag]: 'BigUint64Array';
+  readonly [Symbol.toStringTag]: "BigUint64Array";
 
   [index: number]: bigint;
 }
 
 interface BigUint64ArrayConstructor {
   readonly prototype: BigUint64Array;
-  new(length?: number): BigUint64Array;
-  new(array: Iterable<bigint>): BigUint64Array;
-  new(
+  new (length?: number): BigUint64Array;
+  new (array: Iterable<bigint>): BigUint64Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    length?: number,
+    length?: number
   ): BigUint64Array;
 
   /** The size in bytes of each element in the array. */
@@ -3816,7 +3824,7 @@ interface BigUint64ArrayConstructor {
   from<U>(
     arrayLike: ArrayLike<U>,
     mapfn: (v: U, k: number) => bigint,
-    thisArg?: any,
+    thisArg?: any
   ): BigUint64Array;
 }
 
@@ -3871,12 +3879,12 @@ and limitations under the License.
 ***************************************************************************** */
 
 interface PromiseFulfilledResult<T> {
-  status: 'fulfilled';
+  status: "fulfilled";
   value: T;
 }
 
 interface PromiseRejectedResult {
-  status: 'rejected';
+  status: "rejected";
   reason: any;
 }
 
@@ -3892,7 +3900,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   allSettled<T extends readonly unknown[] | readonly [unknown]>(
-    values: T,
+    values: T
   ): Promise<{
     -readonly [P in keyof T]: PromiseSettledResult<
       T[P] extends PromiseLike<infer U> ? U : T[P]
@@ -3906,7 +3914,7 @@ interface PromiseConstructor {
    * @returns A new Promise.
    */
   allSettled<T>(
-    values: Iterable<T>,
+    values: Iterable<T>
   ): Promise<PromiseSettledResult<T extends PromiseLike<infer U> ? U : T>[]>;
 }
 /*! *****************************************************************************
@@ -4040,7 +4048,7 @@ declare function encodeURI(uri: string): string;
  * @param uriComponent A value representing an encoded URI component.
  */
 declare function encodeURIComponent(
-  uriComponent: string | number | boolean,
+  uriComponent: string | number | boolean
 ): string;
 
 /**
@@ -4111,7 +4119,7 @@ interface Object {
 }
 
 interface ObjectConstructor {
-  new(value?: any): Object;
+  new (value?: any): Object;
   (): any;
   (value: any): any;
 
@@ -4132,7 +4140,7 @@ interface ObjectConstructor {
    */
   getOwnPropertyDescriptor(
     o: any,
-    p: PropertyKey,
+    p: PropertyKey
   ): PropertyDescriptor | undefined;
 
   /**
@@ -4155,7 +4163,7 @@ interface ObjectConstructor {
    */
   create(
     o: object | null,
-    properties: PropertyDescriptorMap & ThisType<any>,
+    properties: PropertyDescriptorMap & ThisType<any>
   ): any;
 
   /**
@@ -4167,7 +4175,7 @@ interface ObjectConstructor {
   defineProperty(
     o: any,
     p: PropertyKey,
-    attributes: PropertyDescriptor & ThisType<any>,
+    attributes: PropertyDescriptor & ThisType<any>
   ): any;
 
   /**
@@ -4177,7 +4185,7 @@ interface ObjectConstructor {
    */
   defineProperties(
     o: any,
-    properties: PropertyDescriptorMap & ThisType<any>,
+    properties: PropertyDescriptorMap & ThisType<any>
   ): any;
 
   /**
@@ -4282,7 +4290,7 @@ interface FunctionConstructor {
    * Creates a new function.
    * @param args A list of arguments the function accepts.
    */
-  new(...args: string[]): Function;
+  new (...args: string[]): Function;
   (...args: string[]): Function;
   readonly prototype: Function;
 }
@@ -4315,7 +4323,7 @@ interface CallableFunction extends Function {
   apply<T, A extends any[], R>(
     this: (this: T, ...args: A) => R,
     thisArg: T,
-    args: A,
+    args: A
   ): R;
 
   /**
@@ -4339,20 +4347,20 @@ interface CallableFunction extends Function {
   bind<T, A0, A extends any[], R>(
     this: (this: T, arg0: A0, ...args: A) => R,
     thisArg: T,
-    arg0: A0,
+    arg0: A0
   ): (...args: A) => R;
   bind<T, A0, A1, A extends any[], R>(
     this: (this: T, arg0: A0, arg1: A1, ...args: A) => R,
     thisArg: T,
     arg0: A0,
-    arg1: A1,
+    arg1: A1
   ): (...args: A) => R;
   bind<T, A0, A1, A2, A extends any[], R>(
     this: (this: T, arg0: A0, arg1: A1, arg2: A2, ...args: A) => R,
     thisArg: T,
     arg0: A0,
     arg1: A1,
-    arg2: A2,
+    arg2: A2
   ): (...args: A) => R;
   bind<T, A0, A1, A2, A3, A extends any[], R>(
     this: (this: T, arg0: A0, arg1: A1, arg2: A2, arg3: A3, ...args: A) => R,
@@ -4360,7 +4368,7 @@ interface CallableFunction extends Function {
     arg0: A0,
     arg1: A1,
     arg2: A2,
-    arg3: A3,
+    arg3: A3
   ): (...args: A) => R;
   bind<T, AX, R>(
     this: (this: T, ...args: AX[]) => R,
@@ -4379,7 +4387,7 @@ interface NewableFunction extends Function {
   apply<T, A extends any[]>(
     this: new (...args: A) => T,
     thisArg: T,
-    args: A,
+    args: A
   ): void;
 
   /**
@@ -4403,20 +4411,20 @@ interface NewableFunction extends Function {
   bind<A0, A extends any[], R>(
     this: new (arg0: A0, ...args: A) => R,
     thisArg: any,
-    arg0: A0,
+    arg0: A0
   ): new (...args: A) => R;
   bind<A0, A1, A extends any[], R>(
     this: new (arg0: A0, arg1: A1, ...args: A) => R,
     thisArg: any,
     arg0: A0,
-    arg1: A1,
+    arg1: A1
   ): new (...args: A) => R;
   bind<A0, A1, A2, A extends any[], R>(
     this: new (arg0: A0, arg1: A1, arg2: A2, ...args: A) => R,
     thisArg: any,
     arg0: A0,
     arg1: A1,
-    arg2: A2,
+    arg2: A2
   ): new (...args: A) => R;
   bind<A0, A1, A2, A3, A extends any[], R>(
     this: new (arg0: A0, arg1: A1, arg2: A2, arg3: A3, ...args: A) => R,
@@ -4424,7 +4432,7 @@ interface NewableFunction extends Function {
     arg0: A0,
     arg1: A1,
     arg2: A2,
-    arg3: A3,
+    arg3: A3
   ): new (...args: A) => R;
   bind<AX, R>(
     this: new (...args: AX[]) => R,
@@ -4501,7 +4509,7 @@ interface String {
    */
   replace(
     searchValue: string | RegExp,
-    replacer: (substring: string, ...args: any[]) => string,
+    replacer: (substring: string, ...args: any[]) => string
   ): string;
 
   /**
@@ -4566,7 +4574,7 @@ interface String {
 }
 
 interface StringConstructor {
-  new(value?: any): String;
+  new (value?: any): String;
   (value?: any): string;
   readonly prototype: String;
   fromCharCode(...codes: number[]): string;
@@ -4583,7 +4591,7 @@ interface Boolean {
 }
 
 interface BooleanConstructor {
-  new(value?: any): Boolean;
+  new (value?: any): Boolean;
   <T>(value?: T): boolean;
   readonly prototype: Boolean;
 }
@@ -4620,7 +4628,7 @@ interface Number {
 }
 
 interface NumberConstructor {
-  new(value?: any): Number;
+  new (value?: any): Number;
   (value?: any): number;
   readonly prototype: Number;
 
@@ -4662,7 +4670,7 @@ interface TemplateStringsArray extends ReadonlyArray<string> {
  * If you need to declare that a given property exists on `import.meta`,
  * this type may be augmented via interface merging.
  */
-interface ImportMeta { }
+interface ImportMeta {}
 
 interface Math {
   /** The mathematical constant e. This is Euler's number, the base of natural logarithms. */
@@ -4829,9 +4837,9 @@ interface Date {
   getTimezoneOffset(): number;
 
   /**
-  * 设置 Date 对象中的日期和时间值。
-  * @param time 自 1970 年 1 月 1 日午夜（GMT）以来经过的毫秒数。
-  */
+   * 设置 Date 对象中的日期和时间值。
+   * @param time 自 1970 年 1 月 1 日午夜（GMT）以来经过的毫秒数。
+   */
   setTime(time: number): number;
 
   /**
@@ -4953,16 +4961,16 @@ interface Date {
 }
 
 interface DateConstructor {
-  new(): Date;
-  new(value: number | string): Date;
-  new(
+  new (): Date;
+  new (value: number | string): Date;
+  new (
     year: number,
     month: number,
     date?: number,
     hours?: number,
     minutes?: number,
     seconds?: number,
-    ms?: number,
+    ms?: number
   ): Date;
   (): string;
   readonly prototype: Date;
@@ -4988,7 +4996,7 @@ interface DateConstructor {
     hours?: number,
     minutes?: number,
     seconds?: number,
-    ms?: number,
+    ms?: number
   ): number;
   now(): number;
 }
@@ -5037,8 +5045,8 @@ interface RegExp {
 }
 
 interface RegExpConstructor {
-  new(pattern: RegExp | string): RegExp;
-  new(pattern: string, flags?: string): RegExp;
+  new (pattern: RegExp | string): RegExp;
+  new (pattern: string, flags?: string): RegExp;
   (pattern: RegExp | string): RegExp;
   (pattern: string, flags?: string): RegExp;
   readonly prototype: RegExp;
@@ -5065,67 +5073,67 @@ interface Error {
 }
 
 interface ErrorConstructor {
-  new(message?: string): Error;
+  new (message?: string): Error;
   (message?: string): Error;
   readonly prototype: Error;
 }
 
 declare var Error: ErrorConstructor;
 
-interface EvalError extends Error { }
+interface EvalError extends Error {}
 
 interface EvalErrorConstructor extends ErrorConstructor {
-  new(message?: string): EvalError;
+  new (message?: string): EvalError;
   (message?: string): EvalError;
   readonly prototype: EvalError;
 }
 
 declare var EvalError: EvalErrorConstructor;
 
-interface RangeError extends Error { }
+interface RangeError extends Error {}
 
 interface RangeErrorConstructor extends ErrorConstructor {
-  new(message?: string): RangeError;
+  new (message?: string): RangeError;
   (message?: string): RangeError;
   readonly prototype: RangeError;
 }
 
 declare var RangeError: RangeErrorConstructor;
 
-interface ReferenceError extends Error { }
+interface ReferenceError extends Error {}
 
 interface ReferenceErrorConstructor extends ErrorConstructor {
-  new(message?: string): ReferenceError;
+  new (message?: string): ReferenceError;
   (message?: string): ReferenceError;
   readonly prototype: ReferenceError;
 }
 
 declare var ReferenceError: ReferenceErrorConstructor;
 
-interface SyntaxError extends Error { }
+interface SyntaxError extends Error {}
 
 interface SyntaxErrorConstructor extends ErrorConstructor {
-  new(message?: string): SyntaxError;
+  new (message?: string): SyntaxError;
   (message?: string): SyntaxError;
   readonly prototype: SyntaxError;
 }
 
 declare var SyntaxError: SyntaxErrorConstructor;
 
-interface TypeError extends Error { }
+interface TypeError extends Error {}
 
 interface TypeErrorConstructor extends ErrorConstructor {
-  new(message?: string): TypeError;
+  new (message?: string): TypeError;
   (message?: string): TypeError;
   readonly prototype: TypeError;
 }
 
 declare var TypeError: TypeErrorConstructor;
 
-interface URIError extends Error { }
+interface URIError extends Error {}
 
 interface URIErrorConstructor extends ErrorConstructor {
-  new(message?: string): URIError;
+  new (message?: string): URIError;
   (message?: string): URIError;
   readonly prototype: URIError;
 }
@@ -5141,7 +5149,7 @@ interface JSON {
    */
   parse(
     text: string,
-    reviver?: (this: any, key: string, value: any) => any,
+    reviver?: (this: any, key: string, value: any) => any
   ): any;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
@@ -5152,7 +5160,7 @@ interface JSON {
   stringify(
     value: any,
     replacer?: (this: any, key: string, value: any) => any,
-    space?: string | number,
+    space?: string | number
   ): string;
   /**
    * Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
@@ -5163,7 +5171,7 @@ interface JSON {
   stringify(
     value: any,
     replacer?: (number | string)[] | null,
-    space?: string | number,
+    space?: string | number
   ): string;
 }
 
@@ -5232,7 +5240,7 @@ interface ReadonlyArray<T> {
    */
   every(
     callbackfn: (value: T, index: number, array: readonly T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
   /**
    * Determines whether the specified callback function returns true for any element of an array.
@@ -5244,7 +5252,7 @@ interface ReadonlyArray<T> {
    */
   some(
     callbackfn: (value: T, index: number, array: readonly T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
   /**
    * Performs the specified action for each element in an array.
@@ -5253,7 +5261,7 @@ interface ReadonlyArray<T> {
    */
   forEach(
     callbackfn: (value: T, index: number, array: readonly T[]) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   /**
    * Calls a defined callback function on each element of an array, and returns an array that contains the results.
@@ -5262,7 +5270,7 @@ interface ReadonlyArray<T> {
    */
   map<U>(
     callbackfn: (value: T, index: number, array: readonly T[]) => U,
-    thisArg?: any,
+    thisArg?: any
   ): U[];
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -5271,7 +5279,7 @@ interface ReadonlyArray<T> {
    */
   filter<S extends T>(
     callbackfn: (value: T, index: number, array: readonly T[]) => value is S,
-    thisArg?: any,
+    thisArg?: any
   ): S[];
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -5280,7 +5288,7 @@ interface ReadonlyArray<T> {
    */
   filter(
     callbackfn: (value: T, index: number, array: readonly T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): T[];
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5292,17 +5300,17 @@ interface ReadonlyArray<T> {
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: readonly T[],
-    ) => T,
+      array: readonly T[]
+    ) => T
   ): T;
   reduce(
     callbackfn: (
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: readonly T[],
+      array: readonly T[]
     ) => T,
-    initialValue: T,
+    initialValue: T
   ): T;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5314,9 +5322,9 @@ interface ReadonlyArray<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: readonly T[],
+      array: readonly T[]
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5328,17 +5336,17 @@ interface ReadonlyArray<T> {
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: readonly T[],
-    ) => T,
+      array: readonly T[]
+    ) => T
   ): T;
   reduceRight(
     callbackfn: (
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: readonly T[],
+      array: readonly T[]
     ) => T,
-    initialValue: T,
+    initialValue: T
   ): T;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5350,9 +5358,9 @@ interface ReadonlyArray<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: readonly T[],
+      array: readonly T[]
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   readonly [n: number]: T;
@@ -5466,7 +5474,7 @@ interface Array<T> {
    */
   every(
     callbackfn: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
   /**
    * Determines whether the specified callback function returns true for any element of an array.
@@ -5478,7 +5486,7 @@ interface Array<T> {
    */
   some(
     callbackfn: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
   /**
    * Performs the specified action for each element in an array.
@@ -5487,7 +5495,7 @@ interface Array<T> {
    */
   forEach(
     callbackfn: (value: T, index: number, array: T[]) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   /**
    * Calls a defined callback function on each element of an array, and returns an array that contains the results.
@@ -5496,7 +5504,7 @@ interface Array<T> {
    */
   map<U>(
     callbackfn: (value: T, index: number, array: T[]) => U,
-    thisArg?: any,
+    thisArg?: any
   ): U[];
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -5505,7 +5513,7 @@ interface Array<T> {
    */
   filter<S extends T>(
     callbackfn: (value: T, index: number, array: T[]) => value is S,
-    thisArg?: any,
+    thisArg?: any
   ): S[];
   /**
    * Returns the elements of an array that meet the condition specified in a callback function.
@@ -5514,7 +5522,7 @@ interface Array<T> {
    */
   filter(
     callbackfn: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): T[];
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5526,17 +5534,17 @@ interface Array<T> {
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: T[],
-    ) => T,
+      array: T[]
+    ) => T
   ): T;
   reduce(
     callbackfn: (
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: T[],
+      array: T[]
     ) => T,
-    initialValue: T,
+    initialValue: T
   ): T;
   /**
    * Calls the specified callback function for all the elements in an array. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5548,9 +5556,9 @@ interface Array<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: T[],
+      array: T[]
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5562,17 +5570,17 @@ interface Array<T> {
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: T[],
-    ) => T,
+      array: T[]
+    ) => T
   ): T;
   reduceRight(
     callbackfn: (
       previousValue: T,
       currentValue: T,
       currentIndex: number,
-      array: T[],
+      array: T[]
     ) => T,
-    initialValue: T,
+    initialValue: T
   ): T;
   /**
    * Calls the specified callback function for all the elements in an array, in descending order. The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
@@ -5584,16 +5592,16 @@ interface Array<T> {
       previousValue: U,
       currentValue: T,
       currentIndex: number,
-      array: T[],
+      array: T[]
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   [n: number]: T;
 }
 
 interface ArrayConstructor {
-  new(arrayLength?: number): any[];
+  new (arrayLength?: number): any[];
   new <T>(arrayLength: number): T[];
   new <T>(...items: T[]): T[];
   (arrayLength?: number): any[];
@@ -5615,28 +5623,28 @@ interface TypedPropertyDescriptor<T> {
 }
 
 declare type ClassDecorator = <TFunction extends Function>(
-  target: TFunction,
+  target: TFunction
 ) => TFunction | void;
 declare type PropertyDecorator = (
   target: Object,
-  propertyKey: string | symbol,
+  propertyKey: string | symbol
 ) => void;
 declare type MethodDecorator = <T>(
   target: Object,
   propertyKey: string | symbol,
-  descriptor: TypedPropertyDescriptor<T>,
+  descriptor: TypedPropertyDescriptor<T>
 ) => TypedPropertyDescriptor<T> | void;
 declare type ParameterDecorator = (
   target: Object,
   propertyKey: string | symbol,
-  parameterIndex: number,
+  parameterIndex: number
 ) => void;
 
 declare type PromiseConstructorLike = new <T>(
   executor: (
     resolve: (value?: T | PromiseLike<T>) => void,
-    reject: (reason?: any) => void,
-  ) => void,
+    reject: (reason?: any) => void
+  ) => void
 ) => PromiseLike<T>;
 
 interface PromiseLike<T> {
@@ -5654,7 +5662,7 @@ interface PromiseLike<T> {
     onrejected?:
       | ((reason: any) => TResult2 | PromiseLike<TResult2>)
       | undefined
-      | null,
+      | null
   ): PromiseLike<TResult1 | TResult2>;
 }
 
@@ -5676,7 +5684,7 @@ interface Promise<T> {
     onrejected?:
       | ((reason: any) => TResult2 | PromiseLike<TResult2>)
       | undefined
-      | null,
+      | null
   ): Promise<TResult1 | TResult2>;
 
   /**
@@ -5688,7 +5696,7 @@ interface Promise<T> {
     onrejected?:
       | ((reason: any) => TResult | PromiseLike<TResult>)
       | undefined
-      | null,
+      | null
   ): Promise<T | TResult>;
 }
 
@@ -5788,7 +5796,7 @@ type InstanceType<T extends new (...args: any) => any> = T extends new (
 /**
  * Marker for contextual 'this' type
  */
-interface ThisType<T> { }
+interface ThisType<T> {}
 
 /**
  * Represents a raw buffer of binary data, which is used to store data for the
@@ -5818,7 +5826,7 @@ type ArrayBufferLike = ArrayBufferTypes[keyof ArrayBufferTypes];
 
 interface ArrayBufferConstructor {
   readonly prototype: ArrayBuffer;
-  new(byteLength: number): ArrayBuffer;
+  new (byteLength: number): ArrayBuffer;
   isView(arg: any): arg is ArrayBufferView;
 }
 declare var ArrayBuffer: ArrayBufferConstructor;
@@ -5969,10 +5977,10 @@ interface DataView {
 }
 
 interface DataViewConstructor {
-  new(
+  new (
     buffer: ArrayBufferLike,
     byteOffset?: number,
-    byteLength?: number,
+    byteLength?: number
   ): DataView;
 }
 declare var DataView: DataViewConstructor;
@@ -6023,7 +6031,7 @@ interface Int8Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Int8Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -6045,7 +6053,7 @@ interface Int8Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Int8Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Int8Array;
 
   /**
@@ -6059,7 +6067,7 @@ interface Int8Array {
    */
   find(
     predicate: (value: number, index: number, obj: Int8Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -6073,7 +6081,7 @@ interface Int8Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Int8Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -6085,7 +6093,7 @@ interface Int8Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Int8Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -6126,7 +6134,7 @@ interface Int8Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Int8Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int8Array;
 
   /**
@@ -6144,17 +6152,17 @@ interface Int8Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int8Array,
-    ) => number,
+      array: Int8Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int8Array,
+      array: Int8Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -6172,9 +6180,9 @@ interface Int8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Int8Array,
+      array: Int8Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -6192,17 +6200,17 @@ interface Int8Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int8Array,
-    ) => number,
+      array: Int8Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int8Array,
+      array: Int8Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -6220,9 +6228,9 @@ interface Int8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Int8Array,
+      array: Int8Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -6254,7 +6262,7 @@ interface Int8Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Int8Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -6290,9 +6298,9 @@ interface Int8Array {
 }
 interface Int8ArrayConstructor {
   readonly prototype: Int8Array;
-  new(length: number): Int8Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Int8Array;
-  new(buffer: ArrayBufferLike, byteOffset: number, length?: number): Int8Array;
+  new (length: number): Int8Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Int8Array;
+  new (buffer: ArrayBufferLike, byteOffset: number, length?: number): Int8Array;
 
   /**
    * The size in bytes of each element in the array.
@@ -6320,7 +6328,7 @@ interface Int8ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int8Array;
 }
 declare var Int8Array: Int8ArrayConstructor;
@@ -6371,7 +6379,7 @@ interface Uint8Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Uint8Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -6393,7 +6401,7 @@ interface Uint8Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Uint8Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8Array;
 
   /**
@@ -6407,7 +6415,7 @@ interface Uint8Array {
    */
   find(
     predicate: (value: number, index: number, obj: Uint8Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -6421,7 +6429,7 @@ interface Uint8Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Uint8Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -6433,7 +6441,7 @@ interface Uint8Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Uint8Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -6474,7 +6482,7 @@ interface Uint8Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Uint8Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8Array;
 
   /**
@@ -6492,17 +6500,17 @@ interface Uint8Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8Array,
-    ) => number,
+      array: Uint8Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8Array,
+      array: Uint8Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -6520,9 +6528,9 @@ interface Uint8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint8Array,
+      array: Uint8Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -6540,17 +6548,17 @@ interface Uint8Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8Array,
-    ) => number,
+      array: Uint8Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8Array,
+      array: Uint8Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -6568,9 +6576,9 @@ interface Uint8Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint8Array,
+      array: Uint8Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -6602,7 +6610,7 @@ interface Uint8Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Uint8Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -6639,12 +6647,12 @@ interface Uint8Array {
 
 interface Uint8ArrayConstructor {
   readonly prototype: Uint8Array;
-  new(length: number): Uint8Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Uint8Array;
-  new(
+  new (length: number): Uint8Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Uint8Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Uint8Array;
 
   /**
@@ -6673,7 +6681,7 @@ interface Uint8ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8Array;
 }
 declare var Uint8Array: Uint8ArrayConstructor;
@@ -6726,9 +6734,9 @@ interface Uint8ClampedArray {
     callbackfn: (
       value: number,
       index: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -6750,7 +6758,7 @@ interface Uint8ClampedArray {
    */
   filter(
     callbackfn: (value: number, index: number, array: Uint8ClampedArray) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8ClampedArray;
 
   /**
@@ -6766,9 +6774,9 @@ interface Uint8ClampedArray {
     predicate: (
       value: number,
       index: number,
-      obj: Uint8ClampedArray,
+      obj: Uint8ClampedArray
     ) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -6784,9 +6792,9 @@ interface Uint8ClampedArray {
     predicate: (
       value: number,
       index: number,
-      obj: Uint8ClampedArray,
+      obj: Uint8ClampedArray
     ) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -6800,9 +6808,9 @@ interface Uint8ClampedArray {
     callbackfn: (
       value: number,
       index: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -6845,9 +6853,9 @@ interface Uint8ClampedArray {
     callbackfn: (
       value: number,
       index: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8ClampedArray;
 
   /**
@@ -6865,17 +6873,17 @@ interface Uint8ClampedArray {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8ClampedArray,
-    ) => number,
+      array: Uint8ClampedArray
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -6893,9 +6901,9 @@ interface Uint8ClampedArray {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -6913,17 +6921,17 @@ interface Uint8ClampedArray {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8ClampedArray,
-    ) => number,
+      array: Uint8ClampedArray
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -6941,9 +6949,9 @@ interface Uint8ClampedArray {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -6977,9 +6985,9 @@ interface Uint8ClampedArray {
     callbackfn: (
       value: number,
       index: number,
-      array: Uint8ClampedArray,
+      array: Uint8ClampedArray
     ) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -7016,14 +7024,14 @@ interface Uint8ClampedArray {
 
 interface Uint8ClampedArrayConstructor {
   readonly prototype: Uint8ClampedArray;
-  new(length: number): Uint8ClampedArray;
-  new(
-    arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike,
+  new (length: number): Uint8ClampedArray;
+  new (
+    arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike
   ): Uint8ClampedArray;
-  new(
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Uint8ClampedArray;
 
   /**
@@ -7052,7 +7060,7 @@ interface Uint8ClampedArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint8ClampedArray;
 }
 declare var Uint8ClampedArray: Uint8ClampedArrayConstructor;
@@ -7103,7 +7111,7 @@ interface Int16Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Int16Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -7125,7 +7133,7 @@ interface Int16Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Int16Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Int16Array;
 
   /**
@@ -7139,7 +7147,7 @@ interface Int16Array {
    */
   find(
     predicate: (value: number, index: number, obj: Int16Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -7153,7 +7161,7 @@ interface Int16Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Int16Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -7165,7 +7173,7 @@ interface Int16Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Int16Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   /**
    * Returns the index of the first occurrence of a value in an array.
@@ -7205,7 +7213,7 @@ interface Int16Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Int16Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int16Array;
 
   /**
@@ -7223,17 +7231,17 @@ interface Int16Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int16Array,
-    ) => number,
+      array: Int16Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int16Array,
+      array: Int16Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -7251,9 +7259,9 @@ interface Int16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Int16Array,
+      array: Int16Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -7271,17 +7279,17 @@ interface Int16Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int16Array,
-    ) => number,
+      array: Int16Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int16Array,
+      array: Int16Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -7299,9 +7307,9 @@ interface Int16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Int16Array,
+      array: Int16Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -7333,7 +7341,7 @@ interface Int16Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Int16Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -7370,12 +7378,12 @@ interface Int16Array {
 
 interface Int16ArrayConstructor {
   readonly prototype: Int16Array;
-  new(length: number): Int16Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Int16Array;
-  new(
+  new (length: number): Int16Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Int16Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Int16Array;
 
   /**
@@ -7404,7 +7412,7 @@ interface Int16ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int16Array;
 }
 declare var Int16Array: Int16ArrayConstructor;
@@ -7455,7 +7463,7 @@ interface Uint16Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Uint16Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -7477,7 +7485,7 @@ interface Uint16Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Uint16Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Uint16Array;
 
   /**
@@ -7491,7 +7499,7 @@ interface Uint16Array {
    */
   find(
     predicate: (value: number, index: number, obj: Uint16Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -7505,7 +7513,7 @@ interface Uint16Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Uint16Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -7517,7 +7525,7 @@ interface Uint16Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Uint16Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -7558,7 +7566,7 @@ interface Uint16Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Uint16Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint16Array;
 
   /**
@@ -7576,17 +7584,17 @@ interface Uint16Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint16Array,
-    ) => number,
+      array: Uint16Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint16Array,
+      array: Uint16Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -7604,9 +7612,9 @@ interface Uint16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint16Array,
+      array: Uint16Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -7624,17 +7632,17 @@ interface Uint16Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint16Array,
-    ) => number,
+      array: Uint16Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint16Array,
+      array: Uint16Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -7652,9 +7660,9 @@ interface Uint16Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint16Array,
+      array: Uint16Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -7686,7 +7694,7 @@ interface Uint16Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Uint16Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -7723,12 +7731,12 @@ interface Uint16Array {
 
 interface Uint16ArrayConstructor {
   readonly prototype: Uint16Array;
-  new(length: number): Uint16Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Uint16Array;
-  new(
+  new (length: number): Uint16Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Uint16Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Uint16Array;
 
   /**
@@ -7757,7 +7765,7 @@ interface Uint16ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint16Array;
 }
 declare var Uint16Array: Uint16ArrayConstructor;
@@ -7807,7 +7815,7 @@ interface Int32Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Int32Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -7829,7 +7837,7 @@ interface Int32Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Int32Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Int32Array;
 
   /**
@@ -7843,7 +7851,7 @@ interface Int32Array {
    */
   find(
     predicate: (value: number, index: number, obj: Int32Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -7857,7 +7865,7 @@ interface Int32Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Int32Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -7869,7 +7877,7 @@ interface Int32Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Int32Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -7910,7 +7918,7 @@ interface Int32Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Int32Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int32Array;
 
   /**
@@ -7928,17 +7936,17 @@ interface Int32Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int32Array,
-    ) => number,
+      array: Int32Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int32Array,
+      array: Int32Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -7956,9 +7964,9 @@ interface Int32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Int32Array,
+      array: Int32Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -7976,17 +7984,17 @@ interface Int32Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int32Array,
-    ) => number,
+      array: Int32Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Int32Array,
+      array: Int32Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -8004,9 +8012,9 @@ interface Int32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Int32Array,
+      array: Int32Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -8038,7 +8046,7 @@ interface Int32Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Int32Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -8075,12 +8083,12 @@ interface Int32Array {
 
 interface Int32ArrayConstructor {
   readonly prototype: Int32Array;
-  new(length: number): Int32Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Int32Array;
-  new(
+  new (length: number): Int32Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Int32Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Int32Array;
 
   /**
@@ -8109,7 +8117,7 @@ interface Int32ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Int32Array;
 }
 declare var Int32Array: Int32ArrayConstructor;
@@ -8160,7 +8168,7 @@ interface Uint32Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Uint32Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -8182,7 +8190,7 @@ interface Uint32Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Uint32Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Uint32Array;
 
   /**
@@ -8196,7 +8204,7 @@ interface Uint32Array {
    */
   find(
     predicate: (value: number, index: number, obj: Uint32Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -8210,7 +8218,7 @@ interface Uint32Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Uint32Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -8222,7 +8230,7 @@ interface Uint32Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Uint32Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
   /**
    * Returns the index of the first occurrence of a value in an array.
@@ -8262,7 +8270,7 @@ interface Uint32Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Uint32Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint32Array;
 
   /**
@@ -8280,17 +8288,17 @@ interface Uint32Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint32Array,
-    ) => number,
+      array: Uint32Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint32Array,
+      array: Uint32Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -8308,9 +8316,9 @@ interface Uint32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint32Array,
+      array: Uint32Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -8328,17 +8336,17 @@ interface Uint32Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint32Array,
-    ) => number,
+      array: Uint32Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Uint32Array,
+      array: Uint32Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -8356,9 +8364,9 @@ interface Uint32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Uint32Array,
+      array: Uint32Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -8390,7 +8398,7 @@ interface Uint32Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Uint32Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -8427,12 +8435,12 @@ interface Uint32Array {
 
 interface Uint32ArrayConstructor {
   readonly prototype: Uint32Array;
-  new(length: number): Uint32Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Uint32Array;
-  new(
+  new (length: number): Uint32Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Uint32Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Uint32Array;
 
   /**
@@ -8461,7 +8469,7 @@ interface Uint32ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Uint32Array;
 }
 declare var Uint32Array: Uint32ArrayConstructor;
@@ -8512,7 +8520,7 @@ interface Float32Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Float32Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -8534,7 +8542,7 @@ interface Float32Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Float32Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Float32Array;
 
   /**
@@ -8548,7 +8556,7 @@ interface Float32Array {
    */
   find(
     predicate: (value: number, index: number, obj: Float32Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -8562,7 +8570,7 @@ interface Float32Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Float32Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -8574,7 +8582,7 @@ interface Float32Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Float32Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -8615,7 +8623,7 @@ interface Float32Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Float32Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Float32Array;
 
   /**
@@ -8633,17 +8641,17 @@ interface Float32Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float32Array,
-    ) => number,
+      array: Float32Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float32Array,
+      array: Float32Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -8661,9 +8669,9 @@ interface Float32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Float32Array,
+      array: Float32Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -8681,17 +8689,17 @@ interface Float32Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float32Array,
-    ) => number,
+      array: Float32Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float32Array,
+      array: Float32Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -8709,9 +8717,9 @@ interface Float32Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Float32Array,
+      array: Float32Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -8743,7 +8751,7 @@ interface Float32Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Float32Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -8780,12 +8788,12 @@ interface Float32Array {
 
 interface Float32ArrayConstructor {
   readonly prototype: Float32Array;
-  new(length: number): Float32Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Float32Array;
-  new(
+  new (length: number): Float32Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Float32Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Float32Array;
 
   /**
@@ -8814,7 +8822,7 @@ interface Float32ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Float32Array;
 }
 declare var Float32Array: Float32ArrayConstructor;
@@ -8865,7 +8873,7 @@ interface Float64Array {
    */
   every(
     callbackfn: (value: number, index: number, array: Float64Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -8887,7 +8895,7 @@ interface Float64Array {
    */
   filter(
     callbackfn: (value: number, index: number, array: Float64Array) => any,
-    thisArg?: any,
+    thisArg?: any
   ): Float64Array;
 
   /**
@@ -8901,7 +8909,7 @@ interface Float64Array {
    */
   find(
     predicate: (value: number, index: number, obj: Float64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number | undefined;
 
   /**
@@ -8915,7 +8923,7 @@ interface Float64Array {
    */
   findIndex(
     predicate: (value: number, index: number, obj: Float64Array) => boolean,
-    thisArg?: any,
+    thisArg?: any
   ): number;
 
   /**
@@ -8927,7 +8935,7 @@ interface Float64Array {
    */
   forEach(
     callbackfn: (value: number, index: number, array: Float64Array) => void,
-    thisArg?: any,
+    thisArg?: any
   ): void;
 
   /**
@@ -8968,7 +8976,7 @@ interface Float64Array {
    */
   map(
     callbackfn: (value: number, index: number, array: Float64Array) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Float64Array;
 
   /**
@@ -8986,17 +8994,17 @@ interface Float64Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float64Array,
-    ) => number,
+      array: Float64Array
+    ) => number
   ): number;
   reduce(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float64Array,
+      array: Float64Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -9014,9 +9022,9 @@ interface Float64Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Float64Array,
+      array: Float64Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -9034,17 +9042,17 @@ interface Float64Array {
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float64Array,
-    ) => number,
+      array: Float64Array
+    ) => number
   ): number;
   reduceRight(
     callbackfn: (
       previousValue: number,
       currentValue: number,
       currentIndex: number,
-      array: Float64Array,
+      array: Float64Array
     ) => number,
-    initialValue: number,
+    initialValue: number
   ): number;
 
   /**
@@ -9062,9 +9070,9 @@ interface Float64Array {
       previousValue: U,
       currentValue: number,
       currentIndex: number,
-      array: Float64Array,
+      array: Float64Array
     ) => U,
-    initialValue: U,
+    initialValue: U
   ): U;
 
   /**
@@ -9096,7 +9104,7 @@ interface Float64Array {
    */
   some(
     callbackfn: (value: number, index: number, array: Float64Array) => unknown,
-    thisArg?: any,
+    thisArg?: any
   ): boolean;
 
   /**
@@ -9124,12 +9132,12 @@ interface Float64Array {
 
 interface Float64ArrayConstructor {
   readonly prototype: Float64Array;
-  new(length: number): Float64Array;
-  new(arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Float64Array;
-  new(
+  new (length: number): Float64Array;
+  new (arrayOrArrayBuffer: ArrayLike<number> | ArrayBufferLike): Float64Array;
+  new (
     buffer: ArrayBufferLike,
     byteOffset: number,
-    length?: number,
+    length?: number
   ): Float64Array;
 
   /**
@@ -9158,7 +9166,7 @@ interface Float64ArrayConstructor {
   from<T>(
     arrayLike: ArrayLike<T>,
     mapfn: (v: T, k: number) => number,
-    thisArg?: any,
+    thisArg?: any
   ): Float64Array;
 }
 declare var Float64Array: Float64ArrayConstructor;
@@ -9192,11 +9200,11 @@ declare namespace Intl {
     resolvedOptions(): ResolvedCollatorOptions;
   }
   var Collator: {
-    new(locales?: string | string[], options?: CollatorOptions): Collator;
+    new (locales?: string | string[], options?: CollatorOptions): Collator;
     (locales?: string | string[], options?: CollatorOptions): Collator;
     supportedLocalesOf(
       locales: string | string[],
-      options?: CollatorOptions,
+      options?: CollatorOptions
     ): string[];
   };
 
@@ -9232,14 +9240,14 @@ declare namespace Intl {
     resolvedOptions(): ResolvedNumberFormatOptions;
   }
   var NumberFormat: {
-    new(
+    new (
       locales?: string | string[],
-      options?: NumberFormatOptions,
+      options?: NumberFormatOptions
     ): NumberFormat;
     (locales?: string | string[], options?: NumberFormatOptions): NumberFormat;
     supportedLocalesOf(
       locales: string | string[],
-      options?: NumberFormatOptions,
+      options?: NumberFormatOptions
     ): string[];
   };
 
@@ -9281,17 +9289,17 @@ declare namespace Intl {
     resolvedOptions(): ResolvedDateTimeFormatOptions;
   }
   var DateTimeFormat: {
-    new(
+    new (
       locales?: string | string[],
-      options?: DateTimeFormatOptions,
+      options?: DateTimeFormatOptions
     ): DateTimeFormat;
     (
       locales?: string | string[],
-      options?: DateTimeFormatOptions,
+      options?: DateTimeFormatOptions
     ): DateTimeFormat;
     supportedLocalesOf(
       locales: string | string[],
-      options?: DateTimeFormatOptions,
+      options?: DateTimeFormatOptions
     ): string[];
   };
 }
@@ -9306,7 +9314,7 @@ interface String {
   localeCompare(
     that: string,
     locales?: string | string[],
-    options?: Intl.CollatorOptions,
+    options?: Intl.CollatorOptions
   ): number;
 }
 
@@ -9318,7 +9326,7 @@ interface Number {
    */
   toLocaleString(
     locales?: string | string[],
-    options?: Intl.NumberFormatOptions,
+    options?: Intl.NumberFormatOptions
   ): string;
 }
 
@@ -9330,7 +9338,7 @@ interface Date {
    */
   toLocaleString(
     locales?: string | string[],
-    options?: Intl.DateTimeFormatOptions,
+    options?: Intl.DateTimeFormatOptions
   ): string;
   /**
    * Converts a date to a string by using the current or specified locale.
@@ -9339,7 +9347,7 @@ interface Date {
    */
   toLocaleDateString(
     locales?: string | string[],
-    options?: Intl.DateTimeFormatOptions,
+    options?: Intl.DateTimeFormatOptions
   ): string;
 
   /**
@@ -9349,7 +9357,7 @@ interface Date {
    */
   toLocaleTimeString(
     locales?: string | string[],
-    options?: Intl.DateTimeFormatOptions,
+    options?: Intl.DateTimeFormatOptions
   ): string;
 }
 interface GUIData {
@@ -9367,7 +9375,7 @@ interface GUIBind<T extends string> {
 interface GUIBindDefinition<T> {
   drag: {
     attributes: {
-      [name: string]: 'x' | '-x' | 'y' | '-y';
+      [name: string]: "x" | "-x" | "y" | "-y";
     };
     targetSelector: string;
   };
@@ -9399,22 +9407,28 @@ interface GUIConfigItem<T extends string> {
 declare type GUIConfig<T extends string, U extends T> = {
   [name in T]: GUIConfigItem<U>;
 };
-declare type JSONValue = string | number | boolean |
-{
-  [x: string]: JSONValue;
-}
+declare type JSONValue =
+  | string
+  | number
+  | boolean
+  | {
+      [x: string]: JSONValue;
+    }
   | Array<JSONValue>;
 
 declare enum GameLogLevel {
   ERROR = 0,
   WARN = 1,
   INFO = 2,
-  DEBUG = 3
+  DEBUG = 3,
 }
 declare type GameLoggerMethod = (...args: any[]) => void;
 declare class GameConsole {
   clear: () => void;
-  constructor(log: (level: GameLogLevel, message: string) => void, clear: () => void);
+  constructor(
+    log: (level: GameLogLevel, message: string) => void,
+    clear: () => void
+  );
   assert: (assertion: any, ...args: any[]) => void;
   log: GameLoggerMethod;
   debug: GameLoggerMethod;
@@ -9433,30 +9447,76 @@ declare class GameConsole {
   trace: () => void;
 }
 
+/**  定义远传错误状态类型，表示可能的错误情况 */
+declare type TELEPORT_ERROR_STATUS =
+  | "PLAYER_OFFLINE"
+  | "ACCESS_DENIED"
+  | "UNKNOWN";
 
-declare type TELEPORT_ERROR_STATUS = 'PLAYER_OFFLINE' | 'ACCESS_DENIED' | 'UNKNOWN';
-declare type TeleportType = (mapId: string, players: GameEntity[]) => Promise<void>;
+/**  定义远传函数类型，包含地图ID、玩家列表和可选的服务器ID作为参数，返回Promise<TeleportResult> */
+declare type TeleportType = (
+  mapId: string,
+  players: GameEntity[],
+  serverId?: (string & {}) | "public"
+) => Promise<TeleportResult>;
+
+/**  定义远传结果类型，包含服务器ID */
+declare type TeleportResult = {
+  serverId: string;
+};
+
+/**
+ * 社交关系类型枚举
+ */
 declare enum SocialType {
+  /**
+   * 表示用户正在关注的人
+   */
   FOLLOWING = 0,
+  /**
+   * 表示用户的粉丝
+   */
   FOLLOWERS = 1,
-  FRIENDS = 2
+  /**
+   * 表示用户的双向关注者，即互相关注的人
+   */
+  FRIENDS = 2,
 }
+
+/**
+ * 定义社交统计信息的类型
+ */
+type SocialStatisticType = {
+  /**
+   * 表示用户关注的人数
+   */
+  followingNum: number;
+  /**
+   * 表示用户的粉丝人数
+   */
+  followerNum: number;
+  /**
+   * 表示用户的好友人数
+   */
+  friendsNum: number;
+};
+
 /**
  * 定义游戏音效配置的接口
  * 此接口用于标准化音效配置，确保音效在游戏中的表现一致性和可预测性
  */
 interface GameSoundEffectConfig {
-  // 音效样本的标识符，用于引用特定的音效资源
+  /** 音效样本的标识符，用于引用特定的音效资源 */
   sample: string;
-  // 音效生效的最大半径，超出此范围将无法听到音效
+  /** 音效生效的最大半径，超出此范围将无法听到音效 */
   radius: number;
-  // 音效的基础音量增益，用于控制音效的初始响度
+  /** 音效的基础音量增益，用于控制音效的初始响度 */
   gain: number;
-  // 音量增益的变化范围，用于随机化音效的响度，增加真实感
+  /** 音量增益的变化范围，用于随机化音效的响度，增加真实感 */
   gainRange: number;
-  // 音效的基础音高，用于控制音效的初始频率
+  /** 音效的基础音高，用于控制音效的初始频率 */
   pitch: number;
-  // 音高变化的范围，用于随机化音效的频率，增加多样性和真实感
+  /** 音高变化的范围，用于随机化音效的频率，增加多样性和真实感 */
   pitchRange: number;
 }
 /**
@@ -9489,7 +9549,7 @@ declare class GameSoundEffect implements GameSoundEffectConfig {
   /**
    * 样本路径
    */
-  sample: string;
+  sample: GameAudioAssets;
 }
 /**
  * 触发器可以用于检测对象何时进入或离开某个区域。
@@ -9672,7 +9732,7 @@ declare class GameZone {
    * 'natural' - 自然模式
    * 'manual' - 手动模式
    */
-  skyMode: 'natural' | 'manual';
+  skyMode: "natural" | "manual";
 
   /**
    * 太阳相位
@@ -9744,7 +9804,8 @@ declare class GameZone {
     nextEnter: GameEventFuture<GameTriggerEvent>,
     onLeave: GameEventChannel<GameTriggerEvent>,
     nextLeave: GameEventFuture<GameTriggerEvent>,
-    remove: () => void);
+    remove: () => void
+  );
 }
 
 /**
@@ -9809,7 +9870,7 @@ declare type GameZoneConfig = {
   // 表示是否启用天空盒
   skyEnabled: boolean;
   // 定义天空盒的模式，可以是自然模式或手动模式
-  skyMode: 'natural' | 'manual';
+  skyMode: "natural" | "manual";
   // 定义天空盒的太阳相位，用于控制太阳的位置和光照
   skySunPhase: number;
   // 定义天空盒的太阳频率，用于控制太阳光照的变化速度
@@ -9836,7 +9897,7 @@ declare type GameZoneConfig = {
 declare enum GameAnimationPlaybackState {
   PENDING = "pending",
   RUNNING = "running",
-  FINISHED = "finished"
+  FINISHED = "finished",
 }
 declare enum GameAnimationDirection {
   NORMAL = "normal",
@@ -9844,7 +9905,7 @@ declare enum GameAnimationDirection {
   WRAP = "wrap",
   WRAP_REVERSE = "wrap-reverse",
   ALTERNATE = "alternate",
-  ALTERNATE_REVERSE = "alternate-reverse"
+  ALTERNATE_REVERSE = "alternate-reverse",
 }
 declare enum GameEasing {
   NONE = "none",
@@ -9855,7 +9916,7 @@ declare enum GameEasing {
   BACK = "back",
   ELASTIC = "elastic",
   BOUNCE = "bounce",
-  CIRCLE = "circle"
+  CIRCLE = "circle",
 }
 /**
  * 定义游戏动画播放的配置接口
@@ -9949,7 +10010,11 @@ declare class GameAnimation<KeyframeType, TargetType> {
     /**
      * Returns all animation keyframes
      */
-    keyframes: () => Partial<KeyframeType>[], currentTime: () => number, startTime: () => number, playState: () => GameAnimationPlaybackState, playbackRate: () => number,
+    keyframes: () => Partial<KeyframeType>[],
+    currentTime: () => number,
+    startTime: () => number,
+    playState: () => GameAnimationPlaybackState,
+    playbackRate: () => number,
     /**
      * Starts or restarts playback for the animation.
      */
@@ -9961,12 +10026,18 @@ declare class GameAnimation<KeyframeType, TargetType> {
     /**
      * Fires when animation begins
      */
-    onReady: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>, nextReady: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>,
+    onReady: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>,
+    nextReady: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>,
     /**
      * Fires when animation completes successfully
      */
-    onFinish: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>, nextFinish: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>);
-  then<T>(resolve: (event: GameAnimationEvent<KeyframeType, TargetType>) => T, reject?: (error: any) => any): any;
+    onFinish: GameEventChannel<GameAnimationEvent<KeyframeType, TargetType>>,
+    nextFinish: GameEventFuture<GameAnimationEvent<KeyframeType, TargetType>>
+  );
+  then<T>(
+    resolve: (event: GameAnimationEvent<KeyframeType, TargetType>) => T,
+    reject?: (error: any) => any
+  ): any;
 }
 /**
  * 定义游戏世界的关键帧接口，用于描述游戏环境中各种效果和状态的动画变化
@@ -9991,7 +10062,7 @@ interface GameWorldKeyframe {
   // 最大雾效强度，用于限制雾效的最大可见度
   maxFog: number;
   // 光照模式，可以是自然或手动
-  lightMode: 'natural' | 'manual';
+  lightMode: "natural" | "manual";
   // 太阳相位，用于控制太阳的位置和光照
   sunPhase: number;
   // 太阳频率，用于控制太阳光照的变化速度
@@ -10053,9 +10124,9 @@ interface GameWorldKeyframe {
  */
 declare class Sound {
   /**
-  * 可能用于控制音频或视频播放的函数，根据提供的参数恢复播放
-  * @param currentTime 可选参数，指定当前播放的时间点，如果不提供，则从上次停止或暂停处继续播放
-  */
+   * 可能用于控制音频或视频播放的函数，根据提供的参数恢复播放
+   * @param currentTime 可选参数，指定当前播放的时间点，如果不提供，则从上次停止或暂停处继续播放
+   */
   resume: (currentTime?: number) => void;
 
   /**
@@ -10073,7 +10144,12 @@ declare class Sound {
    * 停止当前播放的函数，可能重置播放进度到初始状态
    */
   stop: () => void;
-  constructor(resume: (currentTime?: number) => void, setCurrentTime: (currentTime: number) => void, pause: () => void, stop: () => void);
+  constructor(
+    resume: (currentTime?: number) => void,
+    setCurrentTime: (currentTime: number) => void,
+    pause: () => void,
+    stop: () => void
+  );
 }
 /**
  * {@link Game.GameWorld} 是引擎 API 的主要入口点。使用此对象可以控制场景的全局属性，如天气、一天中的时间等，并对存在于世界中的所有 {@link Game.GameEntity} 进行搜索。
@@ -10124,7 +10200,8 @@ declare class GameWorld {
    * @returns 所有匹配选择器的实体
    * @category 实体
    */
-  querySelectorAll: (selector: GameSelectorString) => GameEntity[];
+  querySelectorAll(selector: "player"): GamePlayerEntity[];
+  querySelectorAll(selector: GameSelectorString): GameEntity[];
 
   /**
    * 测试实体上的选择器
@@ -10142,7 +10219,10 @@ declare class GameWorld {
    * @param bSelector 第二组实体的选择器
    * @category 物理
    */
-  addCollisionFilter: (aSelector: GameSelectorString, bSelector: GameSelectorString) => void;
+  addCollisionFilter: (
+    aSelector: GameSelectorString,
+    bSelector: GameSelectorString
+  ) => void;
 
   /**
    * 移除 aSelector 和 bSelector 之间的碰撞过滤器
@@ -10151,7 +10231,10 @@ declare class GameWorld {
    * @param bSelector 第二组实体的选择器
    * @category 物理
    */
-  removeCollisionFilter: (aSelector: GameSelectorString, bSelector: GameSelectorString) => void;
+  removeCollisionFilter: (
+    aSelector: GameSelectorString,
+    bSelector: GameSelectorString
+  ) => void;
 
   /**
    * 清除所有碰撞过滤器
@@ -10176,7 +10259,11 @@ declare class GameWorld {
    * @returns 关于射线结果的信息
    * @category 搜索
    */
-  raycast: (origin: GameVector3, direction: GameVector3, options?: Partial<GameRaycastOptions>) => GameRaycastResult;
+  raycast: (
+    origin: GameVector3,
+    direction: GameVector3,
+    options?: Partial<GameRaycastOptions>
+  ) => GameRaycastResult;
 
   /**
    * 搜索包含在边界框内的所有实体
@@ -10188,7 +10275,10 @@ declare class GameWorld {
   /**
    * 在世界对象上播放动画
    */
-  animate: (keyframes: Partial<GameWorldKeyframe>[], playbackInfo?: Partial<GameAnimationPlaybackConfig>) => GameAnimation<GameWorldKeyframe, GameWorld>;
+  animate: (
+    keyframes: Partial<GameWorldKeyframe>[],
+    playbackInfo?: Partial<GameAnimationPlaybackConfig>
+  ) => GameAnimation<GameWorldKeyframe, GameWorld>;
 
   getAnimations: () => GameAnimation<GameWorldKeyframe, GameWorld>[];
 
@@ -10367,22 +10457,26 @@ declare class GameWorld {
   /**
    * 在指定位置播放声音
    */
-  sound: (spec: {
-    // 定义一个样本字符串，用于标识或描述某个音频样本
-    sample: string;
+  sound: (
+    spec:
+      | {
+          // 定义一个样本字符串，用于标识或描述某个音频样本
+          sample: GameAudioAssets;
 
-    // 可选地定义一个三维位置，表示音频在游戏世界中的位置
-    position?: GameVector3;
+          // 可选地定义一个三维位置，表示音频在游戏世界中的位置
+          position?: GameVector3;
 
-    // 可选地定义一个半径，用于指定音频影响或听觉范围的大小
-    radius?: number;
+          // 可选地定义一个半径，用于指定音频影响或听觉范围的大小
+          radius?: number;
 
-    // 可选地定义一个增益值，用于调整音频的音量
-    gain?: number;
+          // 可选地定义一个增益值，用于调整音频的音量
+          gain?: number;
 
-    // 可选地定义一个音调值，用于调整音频的播放速度或频率
-    pitch?: number;
-  } | string) => Sound;
+          // 可选地定义一个音调值，用于调整音频的播放速度或频率
+          pitch?: number;
+        }
+      | GameAudioAssets
+  ) => Sound;
   /**
    * 地图组内传送能力，能够令 Player 被传送到其他地图中
    */
@@ -10402,7 +10496,10 @@ declare class GameWorld {
   /**
    * 往特定频道删减用户
    */
-  removeTempChatPlayer: (chatId: string, userIds: string[]) => Promise<string[]>;
+  removeTempChatPlayer: (
+    chatId: string,
+    userIds: string[]
+  ) => Promise<string[]>;
   /**
    * 读取当前地图存在的临时聊天频道
    */
@@ -10411,6 +10508,10 @@ declare class GameWorld {
    * 查询特定频道内用户
    */
   getTempChatUsers: (chatId: string) => Promise<string[]>;
+  /**
+   * 当前服务器id
+   */
+  serverId: string;
   /**
    * 项目的名称（只读）
    */
@@ -10425,7 +10526,7 @@ declare class GameWorld {
   /**
    * 用于天空和环境光的照明类型
    */
-  lightMode: 'natural' | 'manual';
+  lightMode: "natural" | "manual";
 
   /**
    * 太阳在天空中的初始相位。一天中的时间通过以下公式计算：
@@ -10677,7 +10778,8 @@ declare class GameWorld {
     /**
      * @category health
      */
-    onRespawn: GameEventChannel<GameRespawnEvent>, nextRespawn: GameEventFuture<GameRespawnEvent>,
+    onRespawn: GameEventChannel<GameRespawnEvent>,
+    nextRespawn: GameEventFuture<GameRespawnEvent>,
     /**
      * Creates a new {@link Game.GameEntity} or makes a copy of an existing entity.
      * If entity quota is exceeded, then returns null.
@@ -10719,7 +10821,10 @@ declare class GameWorld {
      * @param bSelector the selector for the second set of entities
      * @category physics
      */
-    addCollisionFilter: (aSelector: GameSelectorString, bSelector: GameSelectorString) => void,
+    addCollisionFilter: (
+      aSelector: GameSelectorString,
+      bSelector: GameSelectorString
+    ) => void,
     /**
      * Removes collision filter between aSelector and bSelector
      *
@@ -10727,7 +10832,10 @@ declare class GameWorld {
      * @param bSelector the selector for the second set of entities
      * @category physics
      */
-    removeCollisionFilter: (aSelector: GameSelectorString, bSelector: GameSelectorString) => void,
+    removeCollisionFilter: (
+      aSelector: GameSelectorString,
+      bSelector: GameSelectorString
+    ) => void,
     /**
      * Clears all collision filters
      *
@@ -10749,7 +10857,11 @@ declare class GameWorld {
      * @returns Information about the resulting raycast
      * @category search
      */
-    raycast: (origin: GameVector3, direction: GameVector3, options?: Partial<GameRaycastOptions>) => GameRaycastResult,
+    raycast: (
+      origin: GameVector3,
+      direction: GameVector3,
+      options?: Partial<GameRaycastOptions>
+    ) => GameRaycastResult,
     /**
      * Search for all entities contained in a bounding box
      * @param bounds the bounding box to search
@@ -10759,42 +10871,55 @@ declare class GameWorld {
     /**
      * Plays an animation on the world object
      */
-    animate: (keyframes: Partial<GameWorldKeyframe>[], playbackInfo?: Partial<GameAnimationPlaybackConfig>) => GameAnimation<GameWorldKeyframe, GameWorld>, getAnimations: () => GameAnimation<GameWorldKeyframe, GameWorld>[], getEntityAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[], getPlayerAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[],
+    animate: (
+      keyframes: Partial<GameWorldKeyframe>[],
+      playbackInfo?: Partial<GameAnimationPlaybackConfig>
+    ) => GameAnimation<GameWorldKeyframe, GameWorld>,
+    getAnimations: () => GameAnimation<GameWorldKeyframe, GameWorld>[],
+    getEntityAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[],
+    getPlayerAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[],
     /**
      * An event handler called each tick
      * @category tick
      */
-    onTick: GameEventChannel<GameTickEvent>, nextTick: GameEventFuture<GameTickEvent>,
+    onTick: GameEventChannel<GameTickEvent>,
+    nextTick: GameEventFuture<GameTickEvent>,
     /**
      * Called when an entity takes damage
      * @category health
      */
-    onTakeDamage: GameEventChannel<GameDamageEvent>, nextTakeDamage: GameEventFuture<GameDamageEvent>,
+    onTakeDamage: GameEventChannel<GameDamageEvent>,
+    nextTakeDamage: GameEventFuture<GameDamageEvent>,
     /**
      * Called when an entity dies
      * @category health
      */
-    onDie: GameEventChannel<GameDieEvent>, nextDie: GameEventFuture<GameDieEvent>,
+    onDie: GameEventChannel<GameDieEvent>,
+    nextDie: GameEventFuture<GameDieEvent>,
     /**
      * Called whenever a player joins the game
      * @category player
      */
-    onPlayerJoin: GameEventChannel<GamePlayerEntityEvent>, nextPlayerJoin: GameEventFuture<GamePlayerEntityEvent>,
+    onPlayerJoin: GameEventChannel<GamePlayerEntityEvent>,
+    nextPlayerJoin: GameEventFuture<GamePlayerEntityEvent>,
     /**
      * Called whenever a player leaves the game
      * @category player
      */
-    onPlayerLeave: GameEventChannel<GamePlayerEntityEvent>, nextPlayerLeave: GameEventFuture<GamePlayerEntityEvent>,
+    onPlayerLeave: GameEventChannel<GamePlayerEntityEvent>,
+    nextPlayerLeave: GameEventFuture<GamePlayerEntityEvent>,
     /**
      * Called whenever an entity is created
      * @category entity
      */
-    onEntityCreate: GameEventChannel<GameEntityEvent>, nextEntityCreate: GameEventFuture<GameEntityEvent>,
+    onEntityCreate: GameEventChannel<GameEntityEvent>,
+    nextEntityCreate: GameEventFuture<GameEntityEvent>,
     /**
      * Called whenever an entity is destroyed
      * @category chat
      */
-    onEntityDestroy: GameEventChannel<GameEntityEvent>, nextEntityDestroy: GameEventFuture<GameEntityEvent>,
+    onEntityDestroy: GameEventChannel<GameEntityEvent>,
+    nextEntityDestroy: GameEventFuture<GameEntityEvent>,
     /**
      * Broadcast a global message to all players
      * @param message is some text we want to broadcast
@@ -10805,76 +10930,94 @@ declare class GameWorld {
      * Called whenever a player says something
      * @category player
      */
-    onChat: GameEventChannel<GameChatEvent>, nextChat: GameEventFuture<GameChatEvent>,
+    onChat: GameEventChannel<GameChatEvent>,
+    nextChat: GameEventFuture<GameChatEvent>,
     /**
      * Called whenever a player clicks on an object
      * @category player
      */
-    onClick: GameEventChannel<GameClickEvent>, nextClick: GameEventFuture<GameClickEvent>,
+    onClick: GameEventChannel<GameClickEvent>,
+    nextClick: GameEventFuture<GameClickEvent>,
     /**
      * Called whenever a player pushes a button
      * @category player
      */
-    onPress: GameEventChannel<GameInputEvent>, nextPress: GameEventFuture<GameInputEvent>,
+    onPress: GameEventChannel<GameInputEvent>,
+    nextPress: GameEventFuture<GameInputEvent>,
     /**
      * Called whenever a player releases a button
      * @category player
      */
-    onRelease: GameEventChannel<GameInputEvent>, nextRelease: GameEventFuture<GameInputEvent>,
+    onRelease: GameEventChannel<GameInputEvent>,
+    nextRelease: GameEventFuture<GameInputEvent>,
     /**
      * Called whenever two entities collide
      * @category entity
      */
-    onEntityContact: GameEventChannel<GameEntityContactEvent>, nextEntityContact: GameEventFuture<GameEntityContactEvent>,
+    onEntityContact: GameEventChannel<GameEntityContactEvent>,
+    nextEntityContact: GameEventFuture<GameEntityContactEvent>,
     /**
      * Called whenever two entities stop colliding
      * @category entity
      */
-    onEntitySeparate: GameEventChannel<GameEntityContactEvent>, nextEntitySeparate: GameEventFuture<GameEntityContactEvent>,
+    onEntitySeparate: GameEventChannel<GameEntityContactEvent>,
+    nextEntitySeparate: GameEventFuture<GameEntityContactEvent>,
     /**
      * Called whenever an entity touches a voxel
      * @category entity
      */
-    onVoxelContact: GameEventChannel<GameVoxelContactEvent>, nextVoxelContact: GameEventFuture<GameVoxelContactEvent>,
+    onVoxelContact: GameEventChannel<GameVoxelContactEvent>,
+    nextVoxelContact: GameEventFuture<GameVoxelContactEvent>,
     /**
      * Called whenever an entity stops touching a voxel
      * @category entity
      */
-    onVoxelSeparate: GameEventChannel<GameVoxelContactEvent>, nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>,
+    onVoxelSeparate: GameEventChannel<GameVoxelContactEvent>,
+    nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>,
     /**
      * Called when an entity enters a fluid
      * @category entity
      */
-    onFluidEnter: GameEventChannel<GameFluidContactEvent>, nextFluidEnter: GameEventFuture<GameFluidContactEvent>,
+    onFluidEnter: GameEventChannel<GameFluidContactEvent>,
+    nextFluidEnter: GameEventFuture<GameFluidContactEvent>,
     /**
      * Called when an entity leaves a fluid
      * @category entity
      */
-    onFluidLeave: GameEventChannel<GameFluidContactEvent>, nextFluidLeave: GameEventFuture<GameFluidContactEvent>,
+    onFluidLeave: GameEventChannel<GameFluidContactEvent>,
+    nextFluidLeave: GameEventFuture<GameFluidContactEvent>,
     /**
      * Zones
      * @category zone
      */
-    zones: () => GameZone[], addZone: (config: Partial<GameZoneConfig>) => GameZone, removeZone: (trigger: GameZone) => void,
+    zones: () => GameZone[],
+    addZone: (config: Partial<GameZoneConfig>) => GameZone,
+    removeZone: (trigger: GameZone) => void,
     /**
      * @category interactive
      */
-    onInteract: GameEventChannel<GameInteractEvent>, nextInteract: GameEventFuture<GameInteractEvent>,
+    onInteract: GameEventChannel<GameInteractEvent>,
+    nextInteract: GameEventFuture<GameInteractEvent>,
     /**
      * Called when player buy product success
      * @category player
      */
-    onPlayerPurchaseSuccess: GameEventChannel<GamePurchaseSuccessEvent>, nextPlayerPurchaseSuccess: GameEventFuture<GamePurchaseSuccessEvent>,
+    onPlayerPurchaseSuccess: GameEventChannel<GamePurchaseSuccessEvent>,
+    nextPlayerPurchaseSuccess: GameEventFuture<GamePurchaseSuccessEvent>,
     /**
      * Plays a sound at a given location
      */
-    sound: (spec: {
-      sample: string;
-      position?: GameVector3;
-      radius?: number;
-      gain?: number;
-      pitch?: number;
-    } | string) => Sound,
+    sound: (
+      spec:
+        | {
+            sample: GameAudioAssets;
+            position?: GameVector3;
+            radius?: number;
+            gain?: number;
+            pitch?: number;
+          }
+        | GameAudioAssets
+    ) => Sound,
     /**
      * 地图组内传送能力，能够令 Player 被传送到其他地图中
      */
@@ -10894,7 +11037,10 @@ declare class GameWorld {
     /**
      * 往特定频道删减用户
      */
-    removeTempChatPlayer: (chatId: string, userIds: string[]) => Promise<string[]>,
+    removeTempChatPlayer: (
+      chatId: string,
+      userIds: string[]
+    ) => Promise<string[]>,
     /**
      * 读取当前地图存在的临时聊天频道
      */
@@ -10902,8 +11048,783 @@ declare class GameWorld {
     /**
      * 查询特定频道内用户
      */
-    getTempChatUsers: (chatId: string) => Promise<string[]>);
+    getTempChatUsers: (chatId: string) => Promise<string[]>,
+    /**
+     * 当前服务器id
+     */
+    serverId: string
+  );
 }
+
+/**
+ * 方块收录最新时间：2024/10/17
+ * 已收录384种方块
+ */
+type voxelName =
+  | "A"
+  | "B"
+  | "C"
+  | "D"
+  | "E"
+  | "F"
+  | "G"
+  | "H"
+  | "I"
+  | "J"
+  | "K"
+  | "L"
+  | "M"
+  | "N"
+  | "O"
+  | "Q"
+  | "R"
+  | "S"
+  | "T"
+  | "U"
+  | "V"
+  | "W"
+  | "X"
+  | "Y"
+  | "Z"
+  | "acacia"
+  | "air"
+  | "bamboo"
+  | "barrier"
+  | "bear_footprint"
+  | "blue_surface_01"
+  | "blue_surface_02"
+  | "dark_grass"
+  | "dark_stone"
+  | "dark_surface"
+  | "dirt"
+  | "grass"
+  | "green_leaf"
+  | "honeycomb_01"
+  | "honeycomb_02"
+  | "ice"
+  | "lava01"
+  | "lava02"
+  | "leaf_01"
+  | "leaf_02"
+  | "leaf_03"
+  | "leaf_04"
+  | "leaf_05"
+  | "leaf_06"
+  | "palm"
+  | "polar_ice"
+  | "polar_region"
+  | "pumpkin"
+  | "purple_surface_01"
+  | "purple_surface_02"
+  | "rock"
+  | "sand"
+  | "snow"
+  | "snowland"
+  | "spiderweb"
+  | "stone"
+  | "water"
+  | "white_grass"
+  | "windygrass"
+  | "winter_leaf"
+  | "wood"
+  | "yellow_grass"
+  | "add"
+  | "ampersand"
+  | "asterisk"
+  | "at"
+  | "backslash"
+  | "bracket_close"
+  | "bracket_open"
+  | "caret"
+  | "colon"
+  | "comma"
+  | "divide"
+  | "dollar"
+  | "equal"
+  | "exclamation_mark"
+  | "greater_than"
+  | "less_than"
+  | "multiply"
+  | "paren_close"
+  | "paren_open"
+  | "percent"
+  | "period"
+  | "pound"
+  | "question_mark"
+  | "quotation_mark"
+  | "semicolon"
+  | "slash"
+  | "subtract"
+  | "tilde"
+  | "air_duct"
+  | "bat_window"
+  | "black_glass"
+  | "blue_decorative_light"
+  | "blue_gift"
+  | "blue_glass"
+  | "board0"
+  | "board1"
+  | "board10"
+  | "board11"
+  | "board12"
+  | "board13"
+  | "board14"
+  | "board15"
+  | "board2"
+  | "board3"
+  | "board4"
+  | "board5"
+  | "board6"
+  | "board7"
+  | "board8"
+  | "board9"
+  | "board_01"
+  | "board_02"
+  | "board_03"
+  | "board_04"
+  | "board_05"
+  | "board_06"
+  | "board_07"
+  | "bookshelf"
+  | "bounce_pad"
+  | "brick_01"
+  | "brick_02"
+  | "button"
+  | "carpet_01"
+  | "carpet_02"
+  | "carpet_03"
+  | "carpet_04"
+  | "carpet_05"
+  | "carpet_06"
+  | "carpet_07"
+  | "carpet_08"
+  | "carpet_09"
+  | "carpet_10"
+  | "carpet_11"
+  | "carpet_12"
+  | "carpet_13"
+  | "color_glass"
+  | "conveyor"
+  | "crane_lantern"
+  | "crane_roof_01"
+  | "crane_roof_02"
+  | "cross_window"
+  | "dark_brick_00"
+  | "dark_brick_01"
+  | "dark_brick_02"
+  | "express_box"
+  | "fan"
+  | "firecracker"
+  | "fu"
+  | "geometric_window_01"
+  | "geometric_window_02"
+  | "glass"
+  | "gold_trim_brick"
+  | "green_decorative_light"
+  | "green_glass"
+  | "greenbelt_L"
+  | "greenbelt_L1"
+  | "grey_stone_brick"
+  | "ice_brick"
+  | "ice_wall"
+  | "lab_lamp_01"
+  | "lab_lamp_02"
+  | "lab_lamp_03"
+  | "lab_material_01"
+  | "lab_material_02"
+  | "lab_material_03"
+  | "lab_material_04"
+  | "lab_material_05"
+  | "lab_material_06"
+  | "lab_material_07"
+  | "lab_material_08"
+  | "lab_material_09"
+  | "lab_material_10"
+  | "lab_material_11"
+  | "lab_material_12"
+  | "lab_material_13"
+  | "lab_material_14"
+  | "lab_material_15"
+  | "lab_screen"
+  | "lab_wire"
+  | "lantern_01"
+  | "lantern_02"
+  | "ledfloor01"
+  | "ledfloor02"
+  | "light_grey_stone_brick"
+  | "palace_carving"
+  | "palace_cloud"
+  | "palace_eaves_01"
+  | "palace_eaves_02"
+  | "palace_eaves_03"
+  | "palace_eaves_04"
+  | "palace_eaves_05"
+  | "palace_eaves_06"
+  | "palace_eaves_07"
+  | "palace_eaves_08"
+  | "palace_floor"
+  | "palace_lamp"
+  | "palace_roof"
+  | "palace_window"
+  | "plank_01"
+  | "plank_02"
+  | "plank_03"
+  | "plank_04"
+  | "plank_05"
+  | "plank_06"
+  | "plank_07"
+  | "pumpkin_lantern"
+  | "quartz_brick"
+  | "rainbow_cube"
+  | "red_brick"
+  | "red_brick_floor"
+  | "red_brick_wall"
+  | "red_decorative_light"
+  | "red_gift"
+  | "red_glass"
+  | "roof_blue_04"
+  | "roof_green"
+  | "roof_grey"
+  | "roof_purple"
+  | "roof_red"
+  | "roof_yellow"
+  | "snowflake_lamp"
+  | "snowman_body"
+  | "snowman_head"
+  | "stained_glass"
+  | "stainless_steel"
+  | "star_lamp"
+  | "stone_brick_01"
+  | "stone_brick_02"
+  | "stone_pillar_03"
+  | "stone_pillar_04"
+  | "stone_pillar_05"
+  | "stone_pillar_06"
+  | "stone_wall"
+  | "stone_wall_01"
+  | "television"
+  | "toolbox"
+  | "traditional_window"
+  | "treasure_chest"
+  | "window"
+  | "wooden_box"
+  | "woodstone_12"
+  | "biscuit"
+  | "blueberry_juice"
+  | "candy"
+  | "coffee"
+  | "grape_juice"
+  | "lemon_juice"
+  | "lime_juice"
+  | "macaroon"
+  | "milk"
+  | "orange_juice"
+  | "peach_juice"
+  | "pink_cake"
+  | "soy_sauce"
+  | "strawberry_juice"
+  | "black"
+  | "blue"
+  | "brick_red"
+  | "cadet_blue"
+  | "coffee_gray"
+  | "dark_gray"
+  | "dark_orchid"
+  | "dark_red"
+  | "dark_salmon"
+  | "dark_slate_blue"
+  | "lemon"
+  | "light_gray"
+  | "maroon"
+  | "medium_gray"
+  | "medium_green"
+  | "medium_orchid"
+  | "medium_purple"
+  | "medium_spring_green"
+  | "medium_violet_red"
+  | "medium_yellow"
+  | "mint_green"
+  | "navajo_white"
+  | "olive_green"
+  | "orange"
+  | "orange_red"
+  | "pale_green"
+  | "peru"
+  | "pink"
+  | "powder_blue"
+  | "red"
+  | "sakura_pink"
+  | "sienna"
+  | "sky_blue"
+  | "stripe_01"
+  | "stripe_02"
+  | "stripe_03"
+  | "stripe_04"
+  | "stripe_05"
+  | "turquoise"
+  | "white"
+  | "yellow_green"
+  | "blue_grass"
+  | "blue_grass_all"
+  | "dark_blue_grass"
+  | "dark_blue_grass_all"
+  | "dark_grass_all"
+  | "dark_grass_rock"
+  | "dark_grass_sand"
+  | "dark_purple_grass"
+  | "dark_purple_grass_all"
+  | "dark_red_grass"
+  | "dark_red_grass_all"
+  | "dark_sand"
+  | "dark_volcanic_rock"
+  | "dark_yellow_grass"
+  | "dark_yellow_grass_all"
+  | "grass_all"
+  | "grass_rock"
+  | "grass_sand"
+  | "light_blue_grass"
+  | "light_blue_grass_all"
+  | "light_dirt"
+  | "light_purple_grass_"
+  | "light_purple_grass_all"
+  | "light_sand"
+  | "light_volcanic_rock"
+  | "orange_grass"
+  | "orange_grass_all"
+  | "pink_grass"
+  | "pink_grass_all"
+  | "purple_grass"
+  | "purple_grass_all"
+  | "sand_stones"
+  | "snow_grass"
+  | "snow_land"
+  | "special_grass_01"
+  | "special_grass_02"
+  | "special_grass_03"
+  | "special_grass_04"
+  | "special_grass_05"
+  | "special_grass_06"
+  | "special_grass_07"
+  | "special_grass_08"
+  | "special_grass_09"
+  | "special_grass_10"
+  | "special_grass_11"
+  | "special_grass_12"
+  | "special_grass_13"
+  | "special_grass_14"
+  | "special_grass_15"
+  | "special_grass_16"
+  | "special_land_01"
+  | "special_sand_01"
+  | "special_sand_02"
+  | "special_sand_03"
+  | "special_sand_04"
+  | "special_sand_05"
+  | "withered_grass"
+  | "withered_grass_land"
+  | "blue_light"
+  | "green_light"
+  | "indigo_light"
+  | "mint_green_light"
+  | "orange_light"
+  | "pink_light"
+  | "purple"
+  | "red_light"
+  | "warm_yellow_light"
+  | "white_light"
+  | "yellow_decorative_light"
+  | "yellow_light"
+  | "eight"
+  | "five"
+  | "four"
+  | "nine"
+  | "one"
+  | "seven"
+  | "six"
+  | "three"
+  | "two"
+  | "zero";
+type voxelId =
+  | 37
+  | 39
+  | 41
+  | 43
+  | 45
+  | 47
+  | 49
+  | 51
+  | 53
+  | 55
+  | 57
+  | 59
+  | 61
+  | 63
+  | 65
+  | 69
+  | 71
+  | 73
+  | 75
+  | 77
+  | 79
+  | 81
+  | 83
+  | 85
+  | 87
+  | 133
+  | 0
+  | 574
+  | 650
+  | 553
+  | 349
+  | 351
+  | 317
+  | 327
+  | 357
+  | 125
+  | 127
+  | 131
+  | 535
+  | 537
+  | 398
+  | 465
+  | 467
+  | 251
+  | 253
+  | 529
+  | 531
+  | 533
+  | 633
+  | 541
+  | 347
+  | 345
+  | 543
+  | 353
+  | 355
+  | 359
+  | 135
+  | 169
+  | 343
+  | 544
+  | 129
+  | 364
+  | 539
+  | 469
+  | 527
+  | 257
+  | 3
+  | 485
+  | 487
+  | 489
+  | 491
+  | 493
+  | 495
+  | 497
+  | 499
+  | 501
+  | 9
+  | 503
+  | 11
+  | 505
+  | 507
+  | 7
+  | 511
+  | 509
+  | 513
+  | 515
+  | 517
+  | 15
+  | 519
+  | 521
+  | 523
+  | 5
+  | 525
+  | 585
+  | 546
+  | 302
+  | 566
+  | 557
+  | 276
+  | 433
+  | 435
+  | 453
+  | 455
+  | 457
+  | 459
+  | 461
+  | 463
+  | 437
+  | 439
+  | 441
+  | 443
+  | 445
+  | 447
+  | 449
+  | 451
+  | 181
+  | 183
+  | 309
+  | 311
+  | 313
+  | 315
+  | 635
+  | 483
+  | 631
+  | 637
+  | 639
+  | 587
+  | 195
+  | 197
+  | 199
+  | 201
+  | 203
+  | 205
+  | 207
+  | 235
+  | 237
+  | 239
+  | 241
+  | 243
+  | 245
+  | 172
+  | 471
+  | 405
+  | 401
+  | 403
+  | 162
+  | 329
+  | 331
+  | 333
+  | 479
+  | 589
+  | 582
+  | 577
+  | 164
+  | 166
+  | 170
+  | 151
+  | 568
+  | 278
+  | 319
+  | 321
+  | 149
+  | 145
+  | 249
+  | 591
+  | 593
+  | 595
+  | 597
+  | 599
+  | 601
+  | 603
+  | 605
+  | 607
+  | 609
+  | 611
+  | 613
+  | 615
+  | 617
+  | 619
+  | 621
+  | 622
+  | 624
+  | 627
+  | 629
+  | 157
+  | 159
+  | 473
+  | 475
+  | 147
+  | 264
+  | 361
+  | 209
+  | 211
+  | 213
+  | 215
+  | 217
+  | 219
+  | 221
+  | 223
+  | 263
+  | 307
+  | 255
+  | 408
+  | 137
+  | 139
+  | 141
+  | 143
+  | 641
+  | 643
+  | 645
+  | 549
+  | 155
+  | 581
+  | 153
+  | 259
+  | 261
+  | 570
+  | 555
+  | 304
+  | 231
+  | 229
+  | 407
+  | 227
+  | 225
+  | 233
+  | 565
+  | 561
+  | 559
+  | 123
+  | 247
+  | 562
+  | 323
+  | 325
+  | 267
+  | 269
+  | 271
+  | 273
+  | 275
+  | 335
+  | 481
+  | 647
+  | 578
+  | 649
+  | 160
+  | 179
+  | 411
+  | 341
+  | 416
+  | 551
+  | 428
+  | 420
+  | 418
+  | 414
+  | 339
+  | 424
+  | 422
+  | 430
+  | 337
+  | 426
+  | 412
+  | 175
+  | 363
+  | 109
+  | 89
+  | 379
+  | 95
+  | 369
+  | 107
+  | 383
+  | 113
+  | 121
+  | 97
+  | 377
+  | 111
+  | 391
+  | 371
+  | 373
+  | 397
+  | 375
+  | 389
+  | 395
+  | 385
+  | 99
+  | 119
+  | 387
+  | 93
+  | 105
+  | 117
+  | 393
+  | 91
+  | 185
+  | 187
+  | 189
+  | 191
+  | 193
+  | 367
+  | 177
+  | 101
+  | 669
+  | 671
+  | 693
+  | 695
+  | 745
+  | 743
+  | 725
+  | 697
+  | 699
+  | 685
+  | 687
+  | 729
+  | 735
+  | 689
+  | 691
+  | 741
+  | 739
+  | 723
+  | 677
+  | 679
+  | 737
+  | 681
+  | 683
+  | 727
+  | 733
+  | 661
+  | 663
+  | 673
+  | 675
+  | 665
+  | 667
+  | 731
+  | 653
+  | 655
+  | 701
+  | 703
+  | 705
+  | 707
+  | 709
+  | 711
+  | 713
+  | 715
+  | 717
+  | 719
+  | 747
+  | 749
+  | 751
+  | 753
+  | 755
+  | 757
+  | 721
+  | 759
+  | 761
+  | 763
+  | 765
+  | 767
+  | 659
+  | 657
+  | 291
+  | 287
+  | 289
+  | 297
+  | 283
+  | 295
+  | 293
+  | 281
+  | 301
+  | 299
+  | 572
+  | 285
+  | 33
+  | 27
+  | 25
+  | 35
+  | 19
+  | 31
+  | 29
+  | 23
+  | 21
+  | 17;
+type voxelRotation = 0 | 1 | 2 | 3;
+
 /**
  * {@link Game.GameVoxels} 提供了游戏中所有方块的接口。您可以使用它来控制地形。
  */
@@ -10925,7 +11846,7 @@ declare class GameVoxels {
    * @returns 方块的 ID 编号
    * @category 名称
    */
-  id: (name: string) => number;
+  id: (name: voxelName) => voxelId | 0;
 
   /**
    * 根据方块的 ID 获取其可读名称
@@ -10933,7 +11854,7 @@ declare class GameVoxels {
    * @returns 方块的可读名称
    * @category 名称
    */
-  name: (id: number) => string;
+  name: (id: voxelId) => voxelName | "";
 
   /**
    * 在网格中设置一个方块
@@ -10941,31 +11862,37 @@ declare class GameVoxels {
    * @param rotation 方块的旋转代码
    * @returns 更新后的方块 ID
    */
-  setVoxel: (x: number, y: number, z: number, voxel: number | string, rotation?: number | string) => number;
+  setVoxel: (
+    x: number,
+    y: number,
+    z: number,
+    voxel: voxelId | voxelName,
+    rotation?: voxelRotation
+  ) => voxelId | 0;
 
   /**
    * 获取某一点处的方块类型
    * @returns 点 x/y/z 处的方块类型代码
    */
-  getVoxel: (x: number, y: number, z: number) => number;
+  getVoxel: (x: number, y: number, z: number) => voxelId | 0;
 
   /**
-   * 获取某一点处的方块旋转
+   * 获取某一点处的方块旋转代码
    * @returns 点 x/y/z 处的方块旋转代码
    */
-  getVoxelRotation: (x: number, y: number, z: number) => number;
+  getVoxelRotation: (x: number, y: number, z: number) => voxelRotation;
 
   /**
    * 使用方块的 ID 代码直接在网格中设置一个方块
    * @category 高级
    */
-  setVoxelId: (x: number, y: number, z: number, voxel: number) => number;
+  setVoxelId: (x: number, y: number, z: number, voxel: voxelId) => voxelId | 0;
 
   /**
    * 在网格中检索方块的 ID
    * @category 高级
    */
-  getVoxelId: (x: number, y: number, z: number) => number;
+  getVoxelId: (x: number, y: number, z: number) => voxelId | 0;
 
   /**
    * @ignore
@@ -11000,7 +11927,13 @@ declare class GameVoxels {
      * @param rotation 方块的旋转代码
      * @returns 更新后的方块 ID
      */
-    setVoxel: (x: number, y: number, z: number, voxel: number | string, rotation?: number | string) => number,
+    setVoxel: (
+      x: number,
+      y: number,
+      z: number,
+      voxel: number | string,
+      rotation?: number | string
+    ) => number,
     /**
      * 获取某一点处的方块类型
      * @returns 点 x/y/z 处的方块类型代码
@@ -11020,7 +11953,8 @@ declare class GameVoxels {
      * 在网格中检索方块的 ID
      * @category 高级
      */
-    getVoxelId: (x: number, y: number, z: number) => number);
+    getVoxelId: (x: number, y: number, z: number) => number
+  );
 }
 declare type GamePlayerEntity = GameEntity & {
   player: GamePlayer;
@@ -11029,93 +11963,224 @@ declare type GamePlayerEntity = GameEntity & {
 declare type GamePlayerEntityEvent = GameEntityEvent & {
   entity: GamePlayerEntity;
 };
+
 /**
  * 定义游戏实体的配置接口
  */
 interface GameEntityConfig {
-  // 实体的位置
+  /**
+   * 实体的位置
+   */
   position: GameVector3;
-  // 实体的速度
+
+  /**
+   * 实体的速度
+   */
   velocity: GameVector3;
-  // 实体的边界
+
+  /**
+   * 实体的边界
+   */
   bounds: GameVector3;
-  // 实体的质量
+
+  /**
+   * 实体的质量
+   */
   mass: number;
-  // 实体的摩擦力
+
+  /**
+   * 实体的摩擦力
+   */
   friction: number;
-  // 实体的恢复系数
+
+  /**
+   * 实体的恢复系数
+   */
   restitution: number;
-  // 实体是否可以碰撞
+
+  /**
+   * 实体是否可以碰撞
+   */
   collides: boolean;
-  // 实体是否固定
+
+  /**
+   * 实体是否固定
+   */
   fixed: boolean;
-  // 实体是否受重力影响
+
+  /**
+   * 实体是否受重力影响
+   */
   gravity: boolean;
-  // 实体的网格模型
-  mesh: string;
-  // 实体的网格颜色
+
+  /**
+   * 实体的网格模型
+   */
+  mesh: GameModelAssets | "";
+
+  /**
+   * 实体的网格颜色
+   */
   meshColor: GameRGBAColor;
-  // 实体的网格缩放
+
+  /**
+   * 实体的网格缩放
+   */
   meshScale: GameVector3;
-  // 实体的网格朝向
+
+  /**
+   * 实体的网格朝向
+   */
   meshOrientation: GameQuaternion;
-  // 实体的网格金属度
+
+  /**
+   * 实体的网格金属度
+   */
   meshMetalness: number;
-  // 实体的网格发光强度
+
+  /**
+   * 实体的网格发光强度
+   */
   meshEmissive: number;
-  // 实体的网格光泽度
+
+  /**
+   * 实体的网格光泽度
+   */
   meshShininess: number;
-  // 实体的粒子发射速率
+
+  /**
+   * 实体几何中心与锚点的偏移量
+   */
+  anchorOffset: GameVector3;
+
+  /**
+   * 实体的粒子发射速率
+   */
   particleRate: number;
-  // 实体的粒子发射速率的随机范围
+
+  /**
+   * 实体的粒子发射速率的随机范围
+   */
   particleRateSpread: number;
-  // 实体的粒子数量上限
+
+  /**
+   * 实体的粒子数量上限
+   */
   particleLimit: number;
-  // 实体的粒子颜色数组
+
+  /**
+   * 实体的粒子颜色数组
+   */
   particleColor: GameRGBColor[];
-  // 实体的粒子大小数组
+
+  /**
+   * 实体的粒子大小数组
+   */
   particleSize: number[];
-  // 实体的粒子大小的随机范围
+
+  /**
+   * 实体的粒子大小的随机范围
+   */
   particleSizeSpread: number;
-  // 实体的粒子生命周期
+
+  /**
+   * 实体的粒子生命周期
+   */
   particleLifetime: number;
-  // 实体的粒子生命周期的随机范围
+
+  /**
+   * 实体的粒子生命周期的随机范围
+   */
   particleLifetimeSpread: number;
-  // 实体的粒子初速度
+
+  /**
+   * 实体的粒子初速度
+   */
   particleVelocity: GameVector3;
-  // 实体的粒子初速度的随机范围
+
+  /**
+   * 实体的粒子初速度的随机范围
+   */
   particleVelocitySpread: GameVector3;
-  // 实体的粒子阻尼
+
+  /**
+   * 实体的粒子阻尼
+   */
   particleDamping: number;
-  // 实体的粒子加速度
+
+  /**
+   * 实体的粒子加速度
+   */
   particleAcceleration: GameVector3;
-  // 实体的粒子噪声强度
+
+  /**
+   * 实体的粒子噪声强度
+   */
   particleNoise: number;
-  // 实体的粒子噪声频率
+
+  /**
+   * 实体的粒子噪声频率
+   */
   particleNoiseFrequency: number;
-  // 实体的粒子目标
+
+  /**
+   * 实体的粒子目标
+   */
   particleTarget: GameEntity | null;
-  // 实体的粒子目标权重
+
+  /**
+   * 实体的粒子目标权重
+   */
   particleTargetWeight: number;
-  // 实体是否可以交互
+
+  /**
+   * 实体是否可以交互
+   */
   enableInteract: boolean;
-  // 实体的交互颜色
+
+  /**
+   * 实体的交互颜色
+   */
   interactColor: GameRGBColor;
-  // 实体的交互提示文本
+
+  /**
+   * 实体的交互提示文本
+   */
   interactHint: string;
-  // 实体的交互半径
+
+  /**
+   * 实体的交互半径
+   */
   interactRadius: number;
-  // 实体受伤时的声音配置
+
+  /**
+   * 实体受伤时的声音配置
+   */
   hurtSound: GameSoundEffectConfig;
-  // 实体死亡时的声音配置
+
+  /**
+   * 实体死亡时的声音配置
+   */
   dieSound: GameSoundEffectConfig;
-  // 实体交互时的声音配置
+
+  /**
+   * 实体交互时的声音配置
+   */
   interactSound: GameSoundEffectConfig;
-  // 实体聊天时的声音配置
+
+  /**
+   * 实体聊天时的声音配置
+   */
   chatSound: GameSoundEffectConfig;
-  // 实体的唯一标识符
+
+  /**
+   * 实体的唯一标识符
+   */
   id: string;
-  // 实体的标签，可以是返回字符串数组的函数或字符串数组
+
+  /**
+   * 实体的标签，可以是返回字符串数组的函数或字符串数组
+   */
   tags: (() => string[]) | string[];
 }
 
@@ -11156,7 +12221,7 @@ interface GameEntityKeyframe {
   // 实体是否受重力影响
   gravity: boolean;
   // 实体的网格模型
-  mesh: string;
+  mesh: GameModelAssets | "";
   // 实体的网格是否不可见
   meshInvisible: boolean;
   // 实体的网格缩放
@@ -11213,9 +12278,9 @@ interface GameEntityKeyframe {
  */
 declare class GameEntity implements GameEntityConfig {
   /**
-  * 获取分配给实体的所有标签集合
-  * @category selectors
-  */
+   * 获取分配给实体的所有标签集合
+   * @category selectors
+   */
   tags: () => string[];
 
   /**
@@ -11285,12 +12350,29 @@ declare class GameEntity implements GameEntityConfig {
    * 使实体说话
    * @category chat
    */
-  say: (message: string) => void;
+  say: (
+    message: string,
+    options?: Partial<{
+      /**
+       * 气泡及广播提示语的持续时间（ms)
+       * - 缺省值：2000
+       */
+      duration: number;
+      /**
+       * 气泡内容是否在世界广播上隐藏？
+       * - 缺省值：false
+       */
+      hideFloat: boolean;
+    }>
+  ) => void;
 
   /**
    * 在实体上播放动画
    */
-  animate: (keyframes: Partial<GameEntityKeyframe>[], playbackInfo?: Partial<GameAnimationPlaybackConfig>) => GameAnimation<GameEntityKeyframe, GameEntity>;
+  animate: (
+    keyframes: Partial<GameEntityKeyframe>[],
+    playbackInfo?: Partial<GameAnimationPlaybackConfig>
+  ) => GameAnimation<GameEntityKeyframe, GameEntity>;
 
   /**
    * 获取实体当前播放的所有动画
@@ -11388,12 +12470,16 @@ declare class GameEntity implements GameEntityConfig {
    * 在实体位置播放音效
    * @category sound
    */
-  sound: (spec: {
-    sample: string;
-    radius?: number;
-    pitch?: number;
-    gain?: number;
-  } | string) => Sound;
+  sound: (
+    spec:
+      | {
+          sample: GameAudioAssets;
+          radius?: number;
+          pitch?: number;
+          gain?: number;
+        }
+      | GameAudioAssets
+  ) => Sound;
 
   /**
    * 运动控制器
@@ -11403,12 +12489,39 @@ declare class GameEntity implements GameEntityConfig {
 
   /**
    * 使实体朝向指定位置
+   * @category mesh
    */
-  lookAt: (targetPosition: GameVector3, facingDirection?: 'X' | 'Y' | 'Z', up?: GameVector3) => void;
+  lookAt: (
+    targetPosition: GameVector3,
+    facingDirection?: "X" | "Y" | "Z",
+    up?: GameVector3
+  ) => void;
+
   /**
-  * 实体在编辑器中的种子名称
-  * @category selectors
-  */
+   * 围绕模型自身坐标系下的某个点进行旋转
+   * @param localPosition - 一个包含x、y、z坐标的三维向量，表示待旋转的位置
+   * @param axis - 一个字符串，指定旋转轴可以是'X'、'Y'或'Z'
+   * @param rad - 旋转的角度，以弧度为单位
+   * @category mesh
+   */
+  rotateLocal: (
+    localPosition: GameVector3,
+    axis: "X" | "Y" | "Z",
+    rad: number
+  ) => void;
+
+  /**
+   * 参照模型自身坐标系下的某个点进行缩放
+   * @param localPosition - 本地坐标系中的位置向量，表示待缩放的点
+   * @param v - 缩放向量，表示在x、y、z轴上的缩放因子
+   * @category mesh
+   */
+  scaleLocal: (localPosition: GameVector3, v: GameVector3) => void;
+
+  /**
+   * 实体在编辑器中的种子名称
+   * @category selectors
+   */
   id: string;
 
   /**
@@ -11500,7 +12613,7 @@ declare class GameEntity implements GameEntityConfig {
    * 除非对象是玩家，否则如果设置了网格，则使用网格来计算对象的边界
    * @category mesh
    */
-  mesh: string;
+  mesh: GameModelAssets | "";
 
   /**
    * 使网格不可见
@@ -11549,6 +12662,12 @@ declare class GameEntity implements GameEntityConfig {
    * @category mesh
    */
   meshShininess: number;
+
+  /**
+   * 几何中心与锚点的偏移量
+   * @category mesh
+   */
+  anchorOffset: GameVector3;
 
   /**
    * 是否启用伤害
@@ -11791,17 +12910,20 @@ declare class GameEntity implements GameEntityConfig {
      * Called when the entity is destroyed
      * @category destroy
      */
-    onDestroy: GameEventChannel<GameEntityEvent>, nextDestroy: GameEventFuture<GameEntityEvent>,
+    onDestroy: GameEventChannel<GameEntityEvent>,
+    nextDestroy: GameEventFuture<GameEntityEvent>,
     /**
      * Called when entity takes damage
      * @category health
      */
-    onTakeDamage: GameEventChannel<GameDamageEvent>, nextTakeDamage: GameEventFuture<GameDamageEvent>,
+    onTakeDamage: GameEventChannel<GameDamageEvent>,
+    nextTakeDamage: GameEventFuture<GameDamageEvent>,
     /**
      * Called when an entity dies
      * @category health
      */
-    onDie: GameEventChannel<GameDieEvent>, nextDie: GameEventFuture<GameDieEvent>,
+    onDie: GameEventChannel<GameDieEvent>,
+    nextDie: GameEventFuture<GameDieEvent>,
     /**
      * Deals damage to an entity
      * @category health
@@ -11815,61 +12937,83 @@ declare class GameEntity implements GameEntityConfig {
     /**
      * Plays an animation on an entity
      */
-    animate: (keyframes: Partial<GameEntityKeyframe>[], playbackInfo?: Partial<GameAnimationPlaybackConfig>) => GameAnimation<GameEntityKeyframe, GameEntity>, getAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[],
+    animate: (
+      keyframes: Partial<GameEntityKeyframe>[],
+      playbackInfo?: Partial<GameAnimationPlaybackConfig>
+    ) => GameAnimation<GameEntityKeyframe, GameEntity>,
+    getAnimations: () => GameAnimation<GameEntityKeyframe, GameEntity>[],
     /**
      * Called whenever a player clicks on this entity
      */
-    onClick: GameEventChannel<GameClickEvent>, nextClick: GameEventFuture<GameClickEvent>,
+    onClick: GameEventChannel<GameClickEvent>,
+    nextClick: GameEventFuture<GameClickEvent>,
     /**
      * Called when the entity touches another entity
      * @category physics
      */
-    onEntityContact: GameEventChannel<GameEntityContactEvent>, nextEntityContact: GameEventFuture<GameEntityContactEvent>,
+    onEntityContact: GameEventChannel<GameEntityContactEvent>,
+    nextEntityContact: GameEventFuture<GameEntityContactEvent>,
     /**
      * Called when the entity stops touching another entity
      * @category physics
      */
-    onEntitySeparate: GameEventChannel<GameEntityContactEvent>, nextEntitySeparate: GameEventFuture<GameEntityContactEvent>,
+    onEntitySeparate: GameEventChannel<GameEntityContactEvent>,
+    nextEntitySeparate: GameEventFuture<GameEntityContactEvent>,
     /**
      * Called when the entity touches a voxel
      * @category physics
      */
-    onVoxelContact: GameEventChannel<GameVoxelContactEvent>, nextVoxelContact: GameEventFuture<GameVoxelContactEvent>,
+    onVoxelContact: GameEventChannel<GameVoxelContactEvent>,
+    nextVoxelContact: GameEventFuture<GameVoxelContactEvent>,
     /**
      * Called when the entity stops touching a voxel
      * @category physics
      */
-    onVoxelSeparate: GameEventChannel<GameVoxelContactEvent>, nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>,
+    onVoxelSeparate: GameEventChannel<GameVoxelContactEvent>,
+    nextVoxelSeparate: GameEventFuture<GameVoxelContactEvent>,
     /**
      * Called when the entity enters a fluid
      * @category physics
      */
-    onFluidEnter: GameEventChannel<GameFluidContactEvent>, nextFluidEnter: GameEventFuture<GameFluidContactEvent>,
+    onFluidEnter: GameEventChannel<GameFluidContactEvent>,
+    nextFluidEnter: GameEventFuture<GameFluidContactEvent>,
     /**
      * Called when the entity leaves a fluid
      * @category physics
      */
-    onFluidLeave: GameEventChannel<GameFluidContactEvent>, nextFluidLeave: GameEventFuture<GameFluidContactEvent>,
+    onFluidLeave: GameEventChannel<GameFluidContactEvent>,
+    nextFluidLeave: GameEventFuture<GameFluidContactEvent>,
     /**
      * Called when an entity interact with another entity
      * @category interactive
      */
-    onInteract: GameEventChannel<GameInteractEvent>, nextInteract: GameEventFuture<GameInteractEvent>,
+    onInteract: GameEventChannel<GameInteractEvent>,
+    nextInteract: GameEventFuture<GameInteractEvent>,
     /**
      * Play a sound effect at the location of this entity
      * @category sound
      */
-    sound: (spec: {
-      sample: string;
-      radius?: number;
-      pitch?: number;
-      gain?: number;
-    } | string) => Sound,
+    sound: (
+      spec:
+        | {
+            sample: GameAudioAssets;
+            radius?: number;
+            pitch?: number;
+            gain?: number;
+          }
+        | GameAudioAssets
+    ) => Sound,
     /**
      * motion controller
      * @category motion
      */
-    motion: GameMotionController<GameEntity>, lookAt: (targetPosition: GameVector3, facingDirection?: 'X' | 'Y' | 'Z', up?: GameVector3) => void);
+    motion: GameMotionController<GameEntity>,
+    lookAt: (
+      targetPosition: GameVector3,
+      facingDirection?: "X" | "Y" | "Z",
+      up?: GameVector3
+    ) => void
+  );
 }
 /**
  * 定义游戏动作配置接口
@@ -11894,7 +13038,9 @@ declare class GameMotionController<TargetType> {
    * @param config 动作配置，可以是字符串、动作配置数组或单个动作剪辑配置
    * @returns 返回一个 `GameMotionHandler` 实例，用于处理指定的动作
    */
-  loadByName: (config: string | GameMotionConfig[] | GameMotionClipConfig) => GameMotionHandler<TargetType>;
+  loadByName: (
+    config: string | GameMotionConfig[] | GameMotionClipConfig
+  ) => GameMotionHandler<TargetType>;
 
   /**
    * 暂停当前动作
@@ -11916,10 +13062,13 @@ declare class GameMotionController<TargetType> {
    * @ignore
    */
   constructor(
-    loadByName: (config: string | GameMotionConfig[] | GameMotionClipConfig) => GameMotionHandler<TargetType>,
+    loadByName: (
+      config: string | GameMotionConfig[] | GameMotionClipConfig
+    ) => GameMotionHandler<TargetType>,
     pause: () => void,
     resume: () => void,
-    setDefaultMotionByName: (motionName?: string) => void);
+    setDefaultMotionByName: (motionName?: string) => void
+  );
 }
 
 declare class GameMotionHandler<TargetType> {
@@ -11956,7 +13105,8 @@ declare class GameMotionHandler<TargetType> {
     play: () => void,
     cancel: () => void,
     onFinish: GameEventChannel<GameMotionEvent<TargetType>>,
-    nextFinish: GameEventFuture<GameMotionEvent<TargetType>>);
+    nextFinish: GameEventFuture<GameMotionEvent<TargetType>>
+  );
 }
 /**
  * 表示与游戏动作相关的事件，携带有关目标和事件状态的信息
@@ -11985,7 +13135,12 @@ declare class GameMotionEvent<TargetType> {
    * @param motionHandler 动作事件处理程序，特定于目标对象
    * @param cancelled 表示事件是否被取消
    */
-  constructor(tick: number, target: TargetType, motionHandler: GameMotionHandler<TargetType>, cancelled: boolean);
+  constructor(
+    tick: number,
+    target: TargetType,
+    motionHandler: GameMotionHandler<TargetType>,
+    cancelled: boolean
+  );
 }
 /**
  * 活跃实体对接触
@@ -12031,7 +13186,7 @@ declare class GameVoxelContact {
   /**
    * 方块编号
    */
-  voxel: number;
+  voxel: voxelId;
   /**
    * 接触力
    */
@@ -12049,7 +13204,14 @@ declare class GameVoxelContact {
    * @param force 接触力
    * @param axis 接触轴
    */
-  constructor(x: number, y: number, z: number, voxel: number, force: GameVector3, axis: GameVector3);
+  constructor(
+    x: number,
+    y: number,
+    z: number,
+    voxel: number,
+    force: GameVector3,
+    axis: GameVector3
+  );
 }
 
 /**
@@ -12059,7 +13221,7 @@ declare class GameFluidContact {
   /**
    * 方块编号
    */
-  voxel: number;
+  voxel: voxelId;
   /**
    * 流体体积
    */
@@ -12080,7 +13242,7 @@ declare enum GamePlayerMoveState {
   SWIM = "swim",
   FALL = "fall",
   JUMP = "jump",
-  DOUBLE_JUMP = "jump2"
+  DOUBLE_JUMP = "jump2",
 }
 /**
  * Player walking state
@@ -12089,7 +13251,7 @@ declare enum GamePlayerWalkState {
   NONE = "",
   CROUCH = "crouch",
   WALK = "walk",
-  RUN = "run"
+  RUN = "run",
 }
 declare enum GameBodyPart {
   HIPS = "hips",
@@ -12109,7 +13271,7 @@ declare enum GameBodyPart {
   RIGHT_HAND = "rightHand",
   RIGHT_UPPER_LEG = "rightUpperLeg",
   RIGHT_LOWER_LEG = "rightLowerLeg",
-  RIGHT_FOOT = "rightFoot"
+  RIGHT_FOOT = "rightFoot",
 }
 declare type GameSkinValue = string | undefined | null;
 declare type GameSkin = {
@@ -12126,7 +13288,7 @@ interface GameWearableSpec {
   // 身体部位，表示该可穿戴物品所对应的穿戴位置
   bodyPart: GameBodyPart;
   // 网格模型路径，用于指定该物品的3D模型
-  mesh: string;
+  mesh: GameModelAssets | "";
   // 颜色，表示该物品在游戏中的显示颜色
   color: GameRGBColor;
   // 发光强度，用于控制物品的自发光效果，使其在特定条件下更加显眼
@@ -12154,7 +13316,7 @@ declare class GameWearable implements GameWearableSpec {
   /**
    * 此可穿戴装备的网格模型
    */
-  mesh: string;
+  mesh: GameModelAssets | "";
   /**
    * 可穿戴装备的可选颜色调整
    */
@@ -12190,16 +13352,16 @@ declare class GameWearable implements GameWearableSpec {
 }
 /**
  * 定义游戏对话的类型。
- * 
+ *
  * GameDialogType 枚举列出了游戏中对话类型：
- * - TEXT: 用于显示文本消息。
- * - SELECT: 用于向用户呈现选择选项。
- * - INPUT: 用于收集用户输入。
+ * - `TEXT` —— 文本
+ * - `SELECT` —— 选择
+ * - `INPUT` —— 输入
  */
 declare enum GameDialogType {
   TEXT = "text",
   SELECT = "select",
-  INPUT = "input"
+  INPUT = "input",
 }
 /**
  * 表示游戏中对话框的选择响应。
@@ -12464,7 +13626,7 @@ declare enum GameCameraMode {
   FOLLOW = "follow", // 摄像头跟随玩家移动
   FPS = "fps", // 第一人称射击视角
   FIXED = "fixed", // 固定视角
-  RELATIVE = "relative" // 相对视角
+  RELATIVE = "relative", // 相对视角
 }
 declare enum GameCameraFreezedAxis {
   NONE = "",
@@ -12474,13 +13636,13 @@ declare enum GameCameraFreezedAxis {
   XY = "xy",
   XZ = "xz",
   YZ = "yz",
-  XYZ = "xyz"
+  XYZ = "xyz",
 }
 declare enum GameInputDirection {
   NONE = "none",
   VERTICAL = "vertical",
   HORIZONTAL = "horizontal",
-  BOTH = "both"
+  BOTH = "both",
 }
 /**
  * 游戏玩家关键帧接口，定义了玩家在游戏中的动画和视觉属性
@@ -12557,9 +13719,9 @@ interface Gamepad {
  */
 declare class GamePlayer {
   /**
- * 向玩家发送私聊消息
- * @category 聊天
- */
+   * 向玩家发送私聊消息
+   * @category 聊天
+   */
   directMessage: (message: string) => void;
 
   /**
@@ -12619,21 +13781,25 @@ declare class GamePlayer {
   /**
    * 为玩家打开一个对话框
    * @category 对话
-   * 
-   * 该函数是泛型函数，接受 GameInputDialogParams、GameTextDialogParams 或 GameSelectDialogParams 类型的参数。
-   * 根据参数类型，返回不同类型的结果：
-   * - 如果参数类型为 GameSelectDialogParams，则返回 GameDialogSelectResponse 或 null 的 Promise。
-   * - 否则，返回 string 或 null 的 Promise。
-   * 
    * @param params 对话框参数，可以是 GameInputDialogParams、GameTextDialogParams 或 GameSelectDialogParams 中的一种。
    * @returns 如果参数类型为 GameSelectDialogParams，则返回 GameDialogSelectResponse 或 null 的 Promise；
    *          否则，返回 string 或 null 的 Promise。
    */
-  dialog<T extends GameInputDialogParams | GameTextDialogParams | GameSelectDialogParams>(
+  dialog<
+    T extends
+      | GameInputDialogParams
+      | GameTextDialogParams
+      | GameSelectDialogParams
+  >(
     params: T
   ): T extends GameSelectDialogParams
     ? Promise<GameDialogSelectResponse | null>
     : Promise<string | null>;
+  dialog(params: GameInputDialogParams): Promise<string | null>;
+  dialog(params: GameTextDialogParams): Promise<string | null>;
+  dialog(
+    params: GameSelectDialogParams
+  ): Promise<GameDialogSelectResponse | null>;
 
   /**
    * 取消玩家的所有打开的对话框
@@ -12645,13 +13811,16 @@ declare class GamePlayer {
    * 在客户端打开一个超链接
    * @category 网页
    */
-  link: (href: string, options?: {
-    // 是否弹出确认的提醒？
-    isConfirm?: boolean;
+  link: (
+    href: string,
+    options?: {
+      // 是否弹出确认的提醒？
+      isConfirm?: boolean;
 
-    // 是否新标签页打开网页？
-    isNewTab?: boolean;
-  }) => void;
+      // 是否新标签页打开网页？
+      isNewTab?: boolean;
+    }
+  ) => void;
 
   /**
    * 列出玩家身上所有可穿戴物品
@@ -12695,22 +13864,29 @@ declare class GamePlayer {
    * 为玩家播放声音
    * @category 声音
    */
-  sound: (spec: {
-    // 用于表示样本或示例数据
-    sample: string;
+  sound: (
+    spec:
+      | {
+          // 用于表示样本或示例数据
+          sample: GameAudioAssets;
 
-    // 用于表示增益或音量调整
-    gain?: number;
+          // 用于表示增益或音量调整
+          gain?: number;
 
-    // 用于表示音高或频率调整
-    pitch?: number;
-  } | string) => Sound;
+          // 用于表示音高或频率调整
+          pitch?: number;
+        }
+      | GameAudioAssets
+  ) => Sound;
 
   /**
    * 播放动画
    * @category 动画
    */
-  animate: (keyframes: Partial<GamePlayerKeyframe>[], playbackConfig?: GameAnimationPlaybackConfig) => GameAnimation<GamePlayerKeyframe, GamePlayer>;
+  animate: (
+    keyframes: Partial<GamePlayerKeyframe>[],
+    playbackConfig?: GameAnimationPlaybackConfig
+  ) => GameAnimation<GamePlayerKeyframe, GamePlayer>;
 
   /**
    * 获取当前播放的所有动画
@@ -12761,10 +13937,16 @@ declare class GamePlayer {
   openUserProfileDialog: (userId: number) => void;
 
   /**
-   * 查询社交关系
+   * 查询用户的社交关系
    * @category 社交
    */
   querySocial: (socialType: SocialType) => Promise<number[]>;
+
+  /**
+   * 查询用户的社交统计信息
+   * @category 社交
+   */
+  querySocialStatistic: () => Promise<SocialStatisticType>;
 
   /**
    * 当玩家按下或释放键盘键时调用
@@ -13196,12 +14378,12 @@ declare class GamePlayer {
   /**
    * 玩家按下动作0按钮时播放的声音
    * @category 声音
-  */
+   */
   action0Sound: GameSoundEffect;
   /**
- * 玩家按下动作1按钮时播放的声音
- * @category 声音
- */
+   * 玩家按下动作1按钮时播放的声音
+   * @category 声音
+   */
   action1Sound: GameSoundEffect;
 
   /**
@@ -13270,21 +14452,25 @@ declare class GamePlayer {
      * Called whenever player initiates a chat event
      * @category chat
      */
-    onChat: GameEventChannel<GameChatEvent>, nextChat: GameEventFuture<GameChatEvent>,
+    onChat: GameEventChannel<GameChatEvent>,
+    nextChat: GameEventFuture<GameChatEvent>,
     /**
      * Called whenever player presses a button
      * @category input
      */
-    onPress: GameEventChannel<GameInputEvent>, nextPress: GameEventFuture<GameInputEvent>,
+    onPress: GameEventChannel<GameInputEvent>,
+    nextPress: GameEventFuture<GameInputEvent>,
     /**
      * Called whenever a player releases a buttin
      * @category input
      */
-    onRelease: GameEventChannel<GameInputEvent>, nextRelease: GameEventFuture<GameInputEvent>,
+    onRelease: GameEventChannel<GameInputEvent>,
+    nextRelease: GameEventFuture<GameInputEvent>,
     /**
      * @category health
      */
-    onRespawn: GameEventChannel<GameRespawnEvent>, nextRespawn: GameEventFuture<GameRespawnEvent>,
+    onRespawn: GameEventChannel<GameRespawnEvent>,
+    nextRespawn: GameEventFuture<GameRespawnEvent>,
     /**
      * @category health
      */
@@ -13303,10 +14489,13 @@ declare class GamePlayer {
      * Opens a hyperlink on the client
      * @category web
      */
-    link: (href: string, options?: {
-      isConfirm?: boolean;
-      isNewTab?: boolean;
-    }) => void,
+    link: (
+      href: string,
+      options?: {
+        isConfirm?: boolean;
+        isNewTab?: boolean;
+      }
+    ) => void,
     /**
      * List all wearable objects attached to the player
      * @param bodyPart is an optional filter to show only wearables attached to a specific body part
@@ -13343,15 +14532,23 @@ declare class GamePlayer {
      * Play sound for player
      * @category sound
      */
-    sound: (spec: {
-      sample: string;
-      gain?: number;
-      pitch?: number;
-    } | string) => Sound,
+    sound: (
+      spec:
+        | {
+            sample: GameAudioAssets;
+            gain?: number;
+            pitch?: number;
+          }
+        | GameAudioAssets
+    ) => Sound,
     /**
      * Play an animation
      */
-    animate: (keyframes: Partial<GamePlayerKeyframe>[], playbackConfig?: GameAnimationPlaybackConfig) => GameAnimation<GamePlayerKeyframe, GamePlayer>, getAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[],
+    animate: (
+      keyframes: Partial<GamePlayerKeyframe>[],
+      playbackConfig?: GameAnimationPlaybackConfig
+    ) => GameAnimation<GamePlayerKeyframe, GamePlayer>,
+    getAnimations: () => GameAnimation<GamePlayerKeyframe, GamePlayer>[],
     /**
      * Kick the user off the server
      */
@@ -13377,39 +14574,51 @@ declare class GamePlayer {
      * add listener for message event of iframe parent
      * @category web
      */
-    addEventListener: (type: NavigatorEventType, listener: (event: {
-      data: object;
-    }) => void) => void,
+    addEventListener: (
+      type: NavigatorEventType,
+      listener: (event: { data: object }) => void
+    ) => void,
     /**
      * open product purchase dialog
      * @category web
      */
-    openMarketplace: (productIds: number[]) => void, getMiaoShells: () => Promise<number>,
+    openMarketplace: (productIds: number[]) => void,
+    getMiaoShells: () => Promise<number>,
     /**
      * open share modal
      * @category web
      */
-    share: (content: string) => void, openUserProfileDialog: (userId: number) => void, querySocial: (socialType: SocialType) => Promise<number[]>,
+    share: (content: string) => void,
+    openUserProfileDialog: (userId: number) => void,
+    querySocial: (socialType: SocialType) => Promise<number[]>,
     /**
      * Called whenever player press down or up
      * @category input
      */
-    onKeyDown: GameEventChannel<GameKeyBoardEvent>, onKeyUp: GameEventChannel<GameKeyBoardEvent>);
+    onKeyDown: GameEventChannel<GameKeyBoardEvent>,
+    onKeyUp: GameEventChannel<GameKeyBoardEvent>
+  );
 }
 /**
  * Player 用户设备相关的接口
  */
 declare class PlayerNavigator {
   emitEvent: (type: string, value: object) => void;
-  addEventListener: (type: NavigatorEventType, listener: (event: {
-    data: object;
-  }) => void) => void;
+  addEventListener: (
+    type: NavigatorEventType,
+    listener: (event: { data: object }) => void
+  ) => void;
   dispatchEvent: (type: string, value: object) => void;
-  constructor(emitEvent: (type: string, value: object) => void, addEventListener: (type: NavigatorEventType, listener: (event: {
-    data: object;
-  }) => void) => void, dispatchEvent: (type: string, value: object) => void);
+  constructor(
+    emitEvent: (type: string, value: object) => void,
+    addEventListener: (
+      type: NavigatorEventType,
+      listener: (event: { data: object }) => void
+    ) => void,
+    dispatchEvent: (type: string, value: object) => void
+  );
 }
-declare type NavigatorEventType = 'message';
+declare type NavigatorEventType = "message";
 /**
  * 执行射线检测的结果。包含关于射线检测及其命中的对象的信息。
  */
@@ -13534,7 +14743,9 @@ interface GameRaycastOptions {
  * @returns 一个事件处理程序令牌，可以用于取消事件处理程序。
  * @category 事件
  */
-declare type GameEventChannel<EventType> = (handler: (event: EventType) => void) => GameEventHandlerToken;
+declare type GameEventChannel<EventType> = (
+  handler: (event: EventType) => void
+) => GameEventHandlerToken;
 
 /**
  * Promise 提供了另一种处理事件的方式。你可以使用 Promise 来组织长序列的事件，
@@ -13560,7 +14771,9 @@ declare type GameEventChannel<EventType> = (handler: (event: EventType) => void)
  * @returns 一个 Promise，在匹配过滤器的事件触发时解析。
  * @category 事件
  */
-declare type GameEventFuture<EventType> = (filter?: (event: EventType) => boolean) => Promise<EventType>;
+declare type GameEventFuture<EventType> = (
+  filter?: (event: EventType) => boolean
+) => Promise<EventType>;
 /**
  * 当注册处理程序时由 {@link Game.GameEventChannel} 返回。可以用于取消处理程序。
  * @category 事件
@@ -13588,11 +14801,7 @@ declare class GameEventHandlerToken {
    * @param resume 恢复监听事件处理程序的函数。
    * @param active 检查处理程序是否处于活动状态的函数。
    */
-  constructor(
-    cancel: () => void,
-    resume: () => void,
-    active: () => boolean
-  );
+  constructor(cancel: () => void, resume: () => void, active: () => boolean);
 }
 
 /**
@@ -13657,10 +14866,7 @@ declare class GameEntityEvent {
    * @param tick 事件发生的时间。
    * @param entity 被创建或销毁的实体。
    */
-  constructor(
-    tick: number,
-    entity: GameEntity
-  );
+  constructor(tick: number, entity: GameEntity);
 }
 
 /**
@@ -13684,10 +14890,7 @@ declare class GameTriggerEvent {
    * @param tick 事件发生的时间。
    * @param entity 触发事件的实体。
    */
-  constructor(
-    tick: number,
-    entity: GameEntity
-  );
+  constructor(tick: number, entity: GameEntity);
 }
 
 /**
@@ -13802,10 +15005,7 @@ declare class GameRespawnEvent {
    * @param tick 事件发生的时间。
    * @param entity 重生的玩家实体。
    */
-  constructor(
-    tick: number,
-    entity: GamePlayerEntity
-  );
+  constructor(tick: number, entity: GamePlayerEntity);
 }
 
 /**
@@ -13891,7 +15091,7 @@ declare class GameVoxelContactEvent {
   /**
    * 方块的 ID。
    */
-  voxel: number;
+  voxel: voxelId;
 
   /**
    * 分离轴。
@@ -13945,7 +15145,7 @@ declare class GameFluidContactEvent {
   /**
    * 流体方块的 ID。
    */
-  voxel: number;
+  voxel: voxelId;
 
   /**
    * @ignore
@@ -13954,11 +15154,7 @@ declare class GameFluidContactEvent {
    * @param entity 被修改的实体。
    * @param voxel 流体方块的 ID。
    */
-  constructor(
-    tick: number,
-    entity: GameEntity,
-    voxel: number
-  );
+  constructor(tick: number, entity: GameEntity, voxel: number);
 }
 
 /**
@@ -13989,11 +15185,7 @@ declare class GameChatEvent {
    * @param entity 发起聊天事件的实体。
    * @param message 实体在聊天事件中说的话。
    */
-  constructor(
-    tick: number,
-    entity: GameEntity,
-    message: string
-  );
+  constructor(tick: number, entity: GameEntity, message: string);
 }
 
 /**
@@ -14030,12 +15222,7 @@ declare class GamePurchaseSuccessEvent {
    * @param productId 购买的商品 ID。
    * @param orderId 购买成功的订单号。
    */
-  constructor(
-    tick: number,
-    userId: string,
-    productId: number,
-    orderId: number
-  );
+  constructor(tick: number, userId: string, productId: number, orderId: number);
 }
 
 /**
@@ -14066,11 +15253,7 @@ declare class GameInteractEvent {
    * @param entity 发起交互的实体。
    * @param targetEntity 接收交互的实体。
    */
-  constructor(
-    tick: number,
-    entity: GamePlayerEntity,
-    targetEntity: GameEntity
-  );
+  constructor(tick: number, entity: GamePlayerEntity, targetEntity: GameEntity);
 }
 /**
  * Type of a button pressed by a player
@@ -14084,7 +15267,7 @@ declare enum GameButtonType {
   DOUBLE_JUMP = "jump2",
   FLY = "fly",
   ACTION0 = "action0",
-  ACTION1 = "action1"
+  ACTION1 = "action1",
 }
 /**
  * 当玩家按下按钮时生成输入事件。
@@ -14222,10 +15405,7 @@ declare class GameKeyBoardEvent {
    * @param tick 发生键盘事件的游戏刻。
    * @param keyCode 按下的键码。
    */
-  constructor(
-    tick: number,
-    keyCode: number
-  );
+  constructor(tick: number, keyCode: number);
 }
 /**
  * 表示游戏动画中的一个事件，封装了当前帧数、目标对象、动画详情和取消状态等信息。
@@ -14249,7 +15429,12 @@ declare class GameAnimationEvent<KeyframeType, TargetType> {
    * @param animation 此事件所属的动画实例。
    * @param cancelled 标记事件是否已被取消。
    */
-  constructor(tick: number, target: TargetType, animation: GameAnimation<KeyframeType, TargetType>, cancelled: boolean);
+  constructor(
+    tick: number,
+    target: TargetType,
+    animation: GameAnimation<KeyframeType, TargetType>,
+    cancelled: boolean
+  );
 }
 /**
  * Selectors 是一种强大的语法，用于搜索游戏中的所有对象。游戏中的选择器接口借鉴了 DOM API 的设计。
@@ -14282,7 +15467,7 @@ declare enum GameAssetType {
   IMAGE = "image",
   PARTICLE_TEXTURE = "snow",
   SOUND = "sound",
-  PICTURE = "picture"
+  PICTURE = "picture",
 }
 
 declare class GameAssetListEntry {
@@ -14305,7 +15490,8 @@ declare class GameAssetListEntry {
     /**
      * Type of asset
      */
-    type: GameAssetType);
+    type: GameAssetType
+  );
 }
 /**
  * A standard SQL database
@@ -14314,7 +15500,10 @@ declare class GameDatabase {
   /**
    * Executes a SQL query on this database
    */
-  sql: (sql: string[], ...params: (number | string | Uint8Array | boolean | null)[]) => GameQueryResult;
+  sql: (
+    sql: string[],
+    ...params: (number | string | Uint8Array | boolean | null)[]
+  ) => GameQueryResult;
   /**
    * @ignore
    */
@@ -14322,7 +15511,11 @@ declare class GameDatabase {
     /**
      * Executes a SQL query on this database
      */
-    sql: (sql: string[], ...params: (number | string | Uint8Array | boolean | null)[]) => GameQueryResult);
+    sql: (
+      sql: string[],
+      ...params: (number | string | Uint8Array | boolean | null)[]
+    ) => GameQueryResult
+  );
 }
 /**
  * Query result api
@@ -14345,16 +15538,21 @@ declare class GameQueryResult implements AsyncIterable<any> {
   /**
    * @ignore
    */
-  constructor(next: () => Promise<{
-    done: boolean;
-    value: any;
-  }>, abort: () => Promise<{
-    done: boolean;
-    value: any;
-  }>, error: (err: any) => Promise<{
-    done: boolean;
-    value: any;
-  }>, then: (resolve: (rows: any[]) => any, reject: (err: any) => any) => void);
+  constructor(
+    next: () => Promise<{
+      done: boolean;
+      value: any;
+    }>,
+    abort: () => Promise<{
+      done: boolean;
+      value: any;
+    }>,
+    error: (err: any) => Promise<{
+      done: boolean;
+      value: any;
+    }>,
+    then: (resolve: (rows: any[]) => any, reject: (err: any) => any) => void
+  );
 }
 /**
  * 错误码规范：{status:T; code:number, msg: string}
@@ -14368,7 +15566,6 @@ declare type CommonError<T> = {
   msg: string;
 };
 
-
 interface GameGUIEvent {
   entity: GamePlayerEntity;
   name: string;
@@ -14378,14 +15575,53 @@ interface GameGUIEventListener {
   (event: GameGUIEvent): void;
 }
 declare class GameGUI {
-  init: <T extends string, U extends T>(entity: GamePlayerEntity, config: GUIConfig<T, U>) => Promise<void>;
-  show: (entity: GamePlayerEntity, name: string, allowMultiple?: boolean) => Promise<void>;
+  init: <T extends string, U extends T>(
+    entity: GamePlayerEntity,
+    config: GUIConfig<T, U>
+  ) => Promise<void>;
+  show: (
+    entity: GamePlayerEntity,
+    name: string,
+    allowMultiple?: boolean
+  ) => Promise<void>;
   remove: (entity: GamePlayerEntity, selector: string) => Promise<void>;
-  getAttribute: (entity: GamePlayerEntity, selector: string, name: string) => Promise<any>;
-  setAttribute: (entity: GamePlayerEntity, selector: string, name: string, value: any) => Promise<void>;
+  getAttribute: (
+    entity: GamePlayerEntity,
+    selector: string,
+    name: string
+  ) => Promise<any>;
+  setAttribute: (
+    entity: GamePlayerEntity,
+    selector: string,
+    name: string,
+    value: any
+  ) => Promise<void>;
   onMessage: (listener: GameGUIEventListener) => void;
-  ui: InstanceType<any>['ui'];
-  constructor(init: <T extends string, U extends T>(entity: GamePlayerEntity, config: GUIConfig<T, U>) => Promise<void>, show: (entity: GamePlayerEntity, name: string, allowMultiple?: boolean) => Promise<void>, remove: (entity: GamePlayerEntity, selector: string) => Promise<void>, getAttribute: (entity: GamePlayerEntity, selector: string, name: string) => Promise<any>, setAttribute: (entity: GamePlayerEntity, selector: string, name: string, value: any) => Promise<void>, onMessage: (listener: GameGUIEventListener) => void);
+  ui: InstanceType<any>["ui"];
+  constructor(
+    init: <T extends string, U extends T>(
+      entity: GamePlayerEntity,
+      config: GUIConfig<T, U>
+    ) => Promise<void>,
+    show: (
+      entity: GamePlayerEntity,
+      name: string,
+      allowMultiple?: boolean
+    ) => Promise<void>,
+    remove: (entity: GamePlayerEntity, selector: string) => Promise<void>,
+    getAttribute: (
+      entity: GamePlayerEntity,
+      selector: string,
+      name: string
+    ) => Promise<any>,
+    setAttribute: (
+      entity: GamePlayerEntity,
+      selector: string,
+      name: string,
+      value: any
+    ) => Promise<void>,
+    onMessage: (listener: GameGUIEventListener) => void
+  );
 }
 declare type GameHttpFetchHeaders = {
   /**
@@ -14401,7 +15637,7 @@ declare type GameHttpFetchRequestOptions = {
   /**
    * 请求方法
    */
-  method?: 'OPTIONS' | 'GET' | 'HEAD' | 'PUT' | 'POST' | 'DELETE' | 'PATCH';
+  method?: "OPTIONS" | "GET" | "HEAD" | "PUT" | "POST" | "DELETE" | "PATCH";
   /**
    * 请求头
    */
@@ -14440,17 +15676,26 @@ declare class GameHttpFetchResponse {
    * 关闭连接
    */
   close: () => Promise<void>;
-  constructor(status: number, statusText: string, headers: GameHttpFetchHeaders, json: () => Promise<any>, text: () => Promise<string>, arrayBuffer: () => Promise<ArrayBuffer>, close: () => Promise<void>);
+  constructor(
+    status: number,
+    statusText: string,
+    headers: GameHttpFetchHeaders,
+    json: () => Promise<any>,
+    text: () => Promise<string>,
+    arrayBuffer: () => Promise<ArrayBuffer>,
+    close: () => Promise<void>
+  );
   /**
    * 是否请求成功
    */
   get ok(): boolean;
 }
-declare class GameHttpRequest {
-}
-declare class GameHttpResponse {
-}
-declare type GameHttpHandler = (request: GameHttpRequest, response: GameHttpResponse) => void;
+declare class GameHttpRequest {}
+declare class GameHttpResponse {}
+declare type GameHttpHandler = (
+  request: GameHttpRequest,
+  response: GameHttpResponse
+) => void;
 declare class GameHttpAPI {
   /**
    * 请求网络资源
@@ -14458,8 +15703,16 @@ declare class GameHttpAPI {
    * @param options 请求配置
    * @returns 返回一个Promise，Promise resolve的值为请求结果
    */
-  fetch: (url: string, options?: GameHttpFetchRequestOptions) => Promise<GameHttpFetchResponse>;
-  constructor(fetch: (url: string, options?: GameHttpFetchRequestOptions) => Promise<GameHttpFetchResponse>);
+  fetch: (
+    url: string,
+    options?: GameHttpFetchRequestOptions
+  ) => Promise<GameHttpFetchResponse>;
+  constructor(
+    fetch: (
+      url: string,
+      options?: GameHttpFetchRequestOptions
+    ) => Promise<GameHttpFetchResponse>
+  );
 }
 /**
  * 表示一个四元数，用于游戏中的旋转计算
@@ -14791,9 +16044,9 @@ declare class GameVector3 {
   sqrMag(): number;
 
   /**
-   * 将此向量归一化朝向另一个向量。
-   * @param v 目标向量。
-   * @returns 本向量，用于链式操作。
+   * 计算并返回指向目标位置的向量
+   * @param v 目标位置的三维向量，表示目标点在游戏世界中的坐标
+   * @returns 返回一个从当前点指向目标点的三维向量
    */
   towards(v: GameVector3): GameVector3;
 
@@ -14917,7 +16170,14 @@ declare class GameBounds3 {
    * @param hiz 高处顶点的z坐标
    * @returns 当前的三维游戏区域边界对象
    */
-  set(lox: number, loy: number, loz: number, hix: number, hiy: number, hiz: number): GameBounds3;
+  set(
+    lox: number,
+    loy: number,
+    loz: number,
+    hix: number,
+    hiy: number,
+    hiz: number
+  ): GameBounds3;
 
   /**
    * 复制另一个边界对象的属性到当前边界对象
@@ -15191,30 +16451,39 @@ declare class ServerRemoteChannel {
   /**
    * 服务端 发送至 客户端，向指定玩家发送事件。
    */
-  sendClientEvent<T = JSONValue>(entities: GamePlayerEntity | GamePlayerEntity[], clientEvent: T): void;
+  sendClientEvent<T = any>(
+    entities: GamePlayerEntity | GamePlayerEntity[],
+    clientEvent: T
+  ): void;
   /**
    * 服务端 发送至 客户端，向所有玩家发送事件。
    */
-  broadcastClientEvent<T = JSONValue>(clientEvent: T): void;
+  broadcastClientEvent<T = any>(clientEvent: T): void;
   /**
    * 监听 客户端 发来的事件
    */
-  onServerEvent<T = JSONValue>(handler: (event: {
-    /**
-     * 服务端当前时间
-     */
-    tick: number;
-    /**
-     * 发送者实体
-     */
-    entity: GamePlayerEntity;
-    /**
-     * 事件参数
-     */
-    args: T;
-  }) => void): GameEventHandlerToken;
+  onServerEvent<T = any>(
+    handler: (event: {
+      /**
+       * 服务端当前时间
+       */
+      tick: number;
+      /**
+       * 发送者实体
+       */
+      entity: GamePlayerEntity;
+      /**
+       * 事件参数
+       */
+      args: T;
+    }) => void
+  ): GameEventHandlerToken;
 
-  constructor(sendClientEvent: SendClientEventType, broadcastClientEvent: (clientEvent: JSONValue) => void, onServerEvent: GameEventChannel<ServerEvent>);
+  constructor(
+    sendClientEvent: SendClientEventType,
+    broadcastClientEvent: (clientEvent: any) => void,
+    onServerEvent: GameEventChannel<ServerEvent>
+  );
 }
 
 declare class GameRTCChannel {
@@ -15257,7 +16526,17 @@ declare class GameRTCChannel {
    * @param entity
    */
   getMicrophonePermission: (entity: GamePlayerEntity) => Promise<boolean>;
-  constructor(add: (entity: GamePlayerEntity) => Promise<void>, remove: (entity: GamePlayerEntity) => Promise<void>, unpublish: (entity: GamePlayerEntity) => Promise<void>, publishMicrophone: (entity: GamePlayerEntity) => Promise<void>, getPlayers: () => Promise<GamePlayerEntity[]>, destroy: () => Promise<void>, getVolume: (entity: GamePlayerEntity) => Promise<number>, setVolume: (entity: GamePlayerEntity, volume: number) => Promise<void>, getMicrophonePermission: (entity: GamePlayerEntity) => Promise<boolean>);
+  constructor(
+    add: (entity: GamePlayerEntity) => Promise<void>,
+    remove: (entity: GamePlayerEntity) => Promise<void>,
+    unpublish: (entity: GamePlayerEntity) => Promise<void>,
+    publishMicrophone: (entity: GamePlayerEntity) => Promise<void>,
+    getPlayers: () => Promise<GamePlayerEntity[]>,
+    destroy: () => Promise<void>,
+    getVolume: (entity: GamePlayerEntity) => Promise<number>,
+    setVolume: (entity: GamePlayerEntity, volume: number) => Promise<void>,
+    getMicrophonePermission: (entity: GamePlayerEntity) => Promise<boolean>
+  );
 }
 declare class GameRTC {
   /**
@@ -15268,7 +16547,15 @@ declare class GameRTC {
   constructor(createChannel: (channelId?: string) => Promise<GameRTCChannel>);
 }
 
-declare type DB_ERROR_STATUS = 'CONSTRAINT_TARGET_INVALID' | 'PARAMS_INVALID' | 'DB_NAME_INVALID' | 'KEY_INVALID' | 'VALUE_INVALID' | 'SERVER_FETCH_ERROR' | 'REQUEST_THROTTLED' | 'UNKNOWN';
+declare type DB_ERROR_STATUS =
+  | "CONSTRAINT_TARGET_INVALID"
+  | "PARAMS_INVALID"
+  | "DB_NAME_INVALID"
+  | "KEY_INVALID"
+  | "VALUE_INVALID"
+  | "SERVER_FETCH_ERROR"
+  | "REQUEST_THROTTLED"
+  | "UNKNOWN";
 declare class GameStorage implements I.GameStorage {
   /**
    * 连接指定数据存储空间，如果不存在则创建一个新的空间。
@@ -15280,30 +16567,35 @@ declare class GameStorage implements I.GameStorage {
    * 此方法为主图和副图共同维护的数据存储空间。
    */
   getGroupStorage<T = JSONValue>(key: string): GameDataStorage<T> | undefined;
-  constructor(getDataStorage: (key: string) => GameDataStorage, getGroupStorage: (key: string) => GameDataStorage | undefined);
+  constructor(
+    getDataStorage: (key: string) => GameDataStorage,
+    getGroupStorage: (key: string) => GameDataStorage | undefined
+  );
 }
-declare type ResultValue<T> = {
-  /**
-   * 数据键名
-   */
-  key: string;
-  /**
-   * 数据值
-   */
-  value: T;
-  /**
-   * 数据版本号
-   */
-  version: string;
-  /**
-   * 数据更新时间
-   */
-  updateTime: number;
-  /**
-   * 数据创建时间
-   */
-  createTime: number;
-} | undefined;
+declare type ResultValue<T> =
+  | {
+      /**
+       * 数据键名
+       */
+      key: string;
+      /**
+       * 数据值
+       */
+      value: T;
+      /**
+       * 数据版本号
+       */
+      version: string;
+      /**
+       * 数据更新时间
+       */
+      updateTime: number;
+      /**
+       * 数据创建时间
+       */
+      createTime: number;
+    }
+  | undefined;
 declare type ListReturnValue<T> = {
   /**
    * 数据列表
@@ -15351,6 +16643,14 @@ declare class GameDataStorage<T> implements I.GameDataStorage {
    */
   readonly key: string;
   /**
+   * 原子方式递增给定键的值，当对应键不存在时视作设置值，对应值不为数字时报错。
+   * - 通过此方式修改值时不会触发数据锁定。
+   * @param key 需要递增的键
+   * @param value 递增量，默认为 1
+   * @returns 返回累加后的数值
+   */
+  increment: (key: string, value?: number) => Promise<number>;
+  /**
    * 设置数据
    * @param key 数据键名
    * @param value 数据值
@@ -15362,7 +16662,10 @@ declare class GameDataStorage<T> implements I.GameDataStorage {
    * @param handler 数据更新处理器
    * @returns 返回更新后的数据
    */
-  update: (key: string, handler: (prevValue: ReturnValue<T>) => T) => Promise<void>;
+  update: (
+    key: string,
+    handler: (prevValue: ReturnValue<T>) => T
+  ) => Promise<void>;
   /**
    * 获取数据
    * @param key 数据键名
@@ -15385,7 +16688,18 @@ declare class GameDataStorage<T> implements I.GameDataStorage {
    * 销毁数据存储空间
    */
   destroy: () => Promise<void>;
-  constructor(key: string, set: (key: string, value: JSONValue) => Promise<void>, update: (key: string, handler: (prevValue: ReturnValue) => JSONValue) => Promise<void>, get: (key: string) => Promise<ReturnValue>, list: (options: ListPageOptions) => Promise<QueryList>, remove: (key: string) => Promise<ReturnValue>, destroy: () => Promise<void>);
+  constructor(
+    key: string,
+    set: (key: string, value: JSONValue) => Promise<void>,
+    update: (
+      key: string,
+      handler: (prevValue: ReturnValue) => JSONValue
+    ) => Promise<void>,
+    get: (key: string) => Promise<ReturnValue>,
+    list: (options: ListPageOptions) => Promise<QueryList>,
+    remove: (key: string) => Promise<ReturnValue>,
+    destroy: () => Promise<void>
+  );
 }
 declare class QueryList<T> implements I.QueryList {
   /**
@@ -15400,8 +16714,50 @@ declare class QueryList<T> implements I.QueryList {
    * 是否为最后一页，如果翻过头了，也会为 true
    */
   isLastPage: boolean;
-  constructor(getCurrentPage: () => ReturnValue[], nextPage: () => Promise<void>);
+  constructor(
+    getCurrentPage: () => ReturnValue[],
+    nextPage: () => Promise<void>
+  );
 }
+
+/**
+ * GameAnalytics 类用于处理游戏分析相关的功能。
+ * 它提供了许多方法来记录游戏事件、用户属性和游戏状态等。
+ */
+declare class GameAnalytics {
+  /*
+   * 神策分析平台
+   */
+  readonly sensor: GameSensorAnalytics;
+}
+
+/**
+ * GameSensorAnalytics 类是神策平台的专业数据分析模块，提供完整的游戏数据采集与分析能力。通过该模块，你可以追踪玩家行为、记录关键事件并构建全面的数据分析体系。
+ */
+declare class GameSensorAnalytics {
+  /**
+   * 初始化神策埋点配置方法
+   * 用于设置数据接收地址和超时时间
+   * 注意: 以最后一次执行的配置为准
+   * @param url 数据接收地址，神策服务器的 URL
+   * @param timeout 可选，请求超时时间，默认为30s
+   */
+  init(url: string, timeout?: number): void;
+
+  /**
+   * 追踪数据事件方法
+   * 用于记录用户行为和自定义事件
+   * @param distinctId 追踪数据事件方法，用于记录用户行为和自定义事件
+   * @param eventName 用户唯一标识，通常是平台用户 ID(GamePlayer.userId)
+   * @param properties 可选，事件属性(会被 JSON.stringify 序列化)
+   */
+  track(
+    distinctId: string,
+    eventName: string,
+    properties?: Record<string, string | number | boolean>
+  ): void;
+}
+
 /**
  * URLSearchParams 类用于处理 URL 查询字符串中的参数部分
  * 它提供了一系列方法来添加、删除、获取和操作查询参数
@@ -15445,7 +16801,14 @@ declare class URLSearchParams {
    * 遍历查询参数，执行回调函数
    * @param callback 每个查询参数执行的回调函数
    */
-  forEach(callback: (this: URLSearchParams, value: string, key: string, url: URLSearchParams) => any): void;
+  forEach(
+    callback: (
+      this: URLSearchParams,
+      value: string,
+      key: string,
+      url: URLSearchParams
+    ) => any
+  ): void;
 
   /**
    * 检查是否存在指定的查询参数

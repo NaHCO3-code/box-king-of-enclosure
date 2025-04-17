@@ -16,7 +16,7 @@ export class RainZone extends KZone {
 
     this.gameZone.onEnter(({ entity }) => {
       if (entity.isPlayer) {
-        (entity as GamePlayerEntity).player.directMessage("rain zone.");
+        (entity as GamePlayerEntity).player.directMessage("您已进入：雨区");
       }
     });
   }
