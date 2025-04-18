@@ -23,7 +23,7 @@ export class KGameManager extends Component {
     this.updater.enable = false;
     setInterval(() => {
       world.say(`距离${this.state === KGameState.REST ? "游戏开始" : "游戏结束"}还有${this.nextStateChangeTime - Math.floor(this.tick / 1000)}秒`);
-    }, 700);
+    }, 3000);
   }
 
   toGame(){

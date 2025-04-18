@@ -104,7 +104,6 @@ export class UiManager {
 
 
     Emit.on(RemoteEvent.gameinfo, (e) => {
-      Rich.print(e.args.gameInfo)
       let maxScore = -1;
       let winTeam: string[] = [];
       for(let k of Object.keys(e.args.gameInfo)){

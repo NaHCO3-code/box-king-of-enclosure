@@ -13,7 +13,7 @@ export class Player {
   constructor(entity: GamePlayerEntity) {
     this.entity = entity;
     this.entity.onVoxelContact((event: GameVoxelContactEvent) => this.onVoxelContact(event));
-    this.entity.player.cameraMode = GameCameraMode.FPS;
+    this.entity.player.cameraMode = GameCameraMode.FOLLOW;
     this.entity.player.spectator = true;
     this.init();
   }

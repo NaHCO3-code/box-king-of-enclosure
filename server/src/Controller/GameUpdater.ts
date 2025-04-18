@@ -26,6 +26,7 @@ export class KGameUpdater extends Component {
   }
 
   changeWeather(){
+    world.say("天气切换！");
     this.zoneMgr.init();
   }
 

@@ -24,3 +24,17 @@ export class App extends Component {
 const gameMgr = new KGameManager();
 const app = new App();
 
+world.onPlayerPurchaseSuccess(({userId, orderId, productId}) => {
+  const player = Player.findPlayerByUserId(userId);
+  if(!player) return;
+  if(productId === 383003838722692){
+    player.entity.player.scale = 1.5;
+  }else if(productId === 383009337455908){
+    player.entity.player.runSpeed = 1.5;
+  }else if(productId === 383009341650069){
+    player.entity.player.dialog({
+      type: GameDialogType.TEXT,
+      content: "https://github.com/NaHCO3-code/box-king-of-enclosure"
+    })
+  }
+})
