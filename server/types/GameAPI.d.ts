@@ -9549,7 +9549,7 @@ declare class GameSoundEffect implements GameSoundEffectConfig {
   /**
    * 样本路径
    */
-  sample: GameAudioAssets;
+  sample: GameAudioAssets | "";
 }
 /**
  * 触发器可以用于检测对象何时进入或离开某个区域。
@@ -10461,7 +10461,7 @@ declare class GameWorld {
     spec:
       | {
           // 定义一个样本字符串，用于标识或描述某个音频样本
-          sample: GameAudioAssets;
+          sample: GameAudioAssets | "";
 
           // 可选地定义一个三维位置，表示音频在游戏世界中的位置
           position?: GameVector3;
@@ -10475,7 +10475,7 @@ declare class GameWorld {
           // 可选地定义一个音调值，用于调整音频的播放速度或频率
           pitch?: number;
         }
-      | GameAudioAssets
+      | GameAudioAssets | ""
   ) => Sound;
   /**
    * 地图组内传送能力，能够令 Player 被传送到其他地图中
@@ -11010,13 +11010,13 @@ declare class GameWorld {
     sound: (
       spec:
         | {
-            sample: GameAudioAssets;
+            sample: GameAudioAssets | "";
             position?: GameVector3;
             radius?: number;
             gain?: number;
             pitch?: number;
           }
-        | GameAudioAssets
+        | GameAudioAssets | ""
     ) => Sound,
     /**
      * 地图组内传送能力，能够令 Player 被传送到其他地图中
@@ -12473,12 +12473,12 @@ declare class GameEntity implements GameEntityConfig {
   sound: (
     spec:
       | {
-          sample: GameAudioAssets;
+          sample: GameAudioAssets | "";
           radius?: number;
           pitch?: number;
           gain?: number;
         }
-      | GameAudioAssets
+      | GameAudioAssets | ""
   ) => Sound;
 
   /**
@@ -12996,12 +12996,12 @@ declare class GameEntity implements GameEntityConfig {
     sound: (
       spec:
         | {
-            sample: GameAudioAssets;
+            sample: GameAudioAssets | "";
             radius?: number;
             pitch?: number;
             gain?: number;
           }
-        | GameAudioAssets
+        | GameAudioAssets | ""
     ) => Sound,
     /**
      * motion controller
@@ -13868,7 +13868,7 @@ declare class GamePlayer {
     spec:
       | {
           // 用于表示样本或示例数据
-          sample: GameAudioAssets;
+          sample: GameAudioAssets | "";
 
           // 用于表示增益或音量调整
           gain?: number;
@@ -13876,7 +13876,7 @@ declare class GamePlayer {
           // 用于表示音高或频率调整
           pitch?: number;
         }
-      | GameAudioAssets
+      | GameAudioAssets | ""
   ) => Sound;
 
   /**
@@ -14535,11 +14535,11 @@ declare class GamePlayer {
     sound: (
       spec:
         | {
-            sample: GameAudioAssets;
+            sample: GameAudioAssets | "";
             gain?: number;
             pitch?: number;
           }
-        | GameAudioAssets
+        | GameAudioAssets | ""
     ) => Sound,
     /**
      * Play an animation
