@@ -2,6 +2,7 @@ import { Teams } from "@/Constants";
 import { Rich } from "@/lib/Rich";
 import { Player } from "./Player";
 import { RemoteEvent } from "@shares/RemoteEvent";
+import { PlayerManager } from "@/PlayerManager";
 
 
 
@@ -15,7 +16,7 @@ export class KTeamManager {
   }
 
   clear(){
-    Player.players.forEach(player => {
+    PlayerManager.instance.players.forEach(player => {
       player.team = null;
       player.entity.player.spectator = true;
       remoteChannel.sendClientEvent(player.entity, {
@@ -27,9 +28,9 @@ export class KTeamManager {
   }
 
   alloc(){
-    if(Player.players.length <= Teams.length * 2 - 2){
+    if(PlayerManager.instance.players.size <= Teams.length * 2 - 2){
       this.teamNum = 2;
-      Player.players.forEach(player => {
+      PlayerManager.instance.players.forEach(player => {
         if(!player.joinNextGame) return;
         if(Math.random() < 0.5){
           player.team = 1;
@@ -45,7 +46,7 @@ export class KTeamManager {
       })
     }else{
       this.teamNum = Teams.length - 1;
-      Player.players.forEach(player => {
+      PlayerManager.instance.players.forEach(player => {
         if(!player.joinNextGame) return;
         player.team = Math.floor(Math.random() * (Teams.length - 1))+1;
         this.teams[player.team].push(player);

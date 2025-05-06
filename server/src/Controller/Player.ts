@@ -1,9 +1,10 @@
 import Component from "@/Component/Definition";
-import { Emit } from "@/Event";
+import { Event } from "@/Event";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
 import { Rich } from "@/lib/Rich";
 import { RemoteEvent } from "@shares/RemoteEvent";
+import { PlayerManager } from "@/PlayerManager";
 
 export class Player {
   entity: GamePlayerEntity;
@@ -31,31 +32,12 @@ export class Player {
   onVoxelContact(event: GameVoxelContactEvent){
     const { x, z } = event;
     if(this.team === null) return;
-    Emit.emit(KEvents.VoxelContact, x, z, this.team);
-  }
-
-  static players: Player[] = [];
-
-  static findPlayerByUserId(userId: string){
-    return Player.players.find(e => e.entity.player.userId === userId);
-  }
-
-  static create(entity: GamePlayerEntity){
-    Player.players.push(new Player(entity));
-  }
-
-  static delete(entity: GamePlayerEntity){
-    Player.players.splice(
-      Player.players.findIndex(
-        e => entity.player.userId === e.entity.player.userId
-      ), 
-      1
-    );
+    Event.emit(KEvents.VoxelContact, x, z, this.team);
   }
 }
 
-Emit.on(RemoteEvent.alterInvolvement, (event) => {
-  const player = Player.findPlayerByUserId(event.entity.player.userId);
+Event.on(RemoteEvent.alterInvolvement, (event) => {
+  const player = PlayerManager.instance.findPlayerByUserId(event.entity.player.userId);
   if(!player) return;
   player.joinNextGame = event.args.value;
 })

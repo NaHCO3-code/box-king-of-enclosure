@@ -1,23 +1,21 @@
 import Component from "@/Component/Definition";
 import { Player } from "./Controller/Player";
 import { KGameManager } from "./Controller/GameManager";
+import { PlayerManager } from "./PlayerManager";
 
 export class App extends Component {
-  protected onStart(): void {
+  constructor(){
+    super();
     world.onPlayerJoin(({entity}) => {this.onPlyaerJoin(entity)});
     world.onPlayerLeave(({entity}) => {this.onPlayerLeave(entity)});
   }
-
-  protected onUpdate(dt: number): void {
-
-  }
   
   onPlyaerJoin(entity: GamePlayerEntity){
-    Player.create(entity);
+    PlayerManager.instance.create(entity);
   }
 
   onPlayerLeave(entity: GamePlayerEntity){
-    Player.delete(entity);
+    PlayerManager.instance.delete(entity);
   }
 }
 
@@ -25,7 +23,7 @@ const gameMgr = new KGameManager();
 const app = new App();
 
 world.onPlayerPurchaseSuccess(({userId, orderId, productId}) => {
-  const player = Player.findPlayerByUserId(userId);
+  const player = PlayerManager.instance.findPlayerByUserId(userId);
   if(!player) return;
   if(productId === 383003838722692){
     player.entity.player.scale = 1.5;
