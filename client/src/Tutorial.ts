@@ -1,44 +1,67 @@
-import { BackgroundColor, FontSize_H1, GirdSize, ScreenInfo, TextColor } from "./Constants";
+import {
+  BackgroundColor,
+  FontSize_H1,
+  GirdSize,
+  ScreenInfo,
+  TextColor,
+} from "./Constants";
 import { KGrid } from "./Grid";
 import { MineMotion } from "./lib/MineMotion";
 
 async function text(textEl: UiText, text: string) {
-  await MineMotion.fromTo(textEl.textColor, 500, {
-    r: TextColor.r, g: TextColor.g, b: TextColor.b
-  }, {
-    r: BackgroundColor.r, g: BackgroundColor.g, b: BackgroundColor.b
-  }).wait
+  await MineMotion.fromTo(
+    textEl.textColor,
+    500,
+    {
+      r: TextColor.r,
+      g: TextColor.g,
+      b: TextColor.b,
+    },
+    {
+      r: BackgroundColor.r,
+      g: BackgroundColor.g,
+      b: BackgroundColor.b,
+    }
+  ).wait;
   textEl.textContent = text;
-  textEl.size.offset.y = FontSize_H1*2;
-  await MineMotion.fromTo(textEl.textColor, 500, {
-    r: BackgroundColor.r, g: BackgroundColor.g, b: BackgroundColor.b
-  }, {
-    r: TextColor.r, g: TextColor.g, b: TextColor.b
-  }).wait
+  textEl.size.offset.y = FontSize_H1 * 2;
+  await MineMotion.fromTo(
+    textEl.textColor,
+    500,
+    {
+      r: BackgroundColor.r,
+      g: BackgroundColor.g,
+      b: BackgroundColor.b,
+    },
+    {
+      r: TextColor.r,
+      g: TextColor.g,
+      b: TextColor.b,
+    }
+  ).wait;
 }
 
-export async function tutorial(grid: KGrid, textEl: UiText){
+export async function tutorial(grid: KGrid, textEl: UiText) {
   await grid.show();
   await text(textEl, "下面开始新手教程。");
   await grid.forceClear();
   await sleep(2000);
 
-  await text(textEl, "游戏开始时，你会被随机分配到一个队伍。\n每个队伍有不同的颜色。");
+  await text(
+    textEl,
+    "游戏开始时，你会被随机分配到一个队伍。\n每个队伍有不同的颜色。"
+  );
   grid.updateInfo.forEach((_, i, a) => {
     a[i].forEach((_, j, b) => {
-      b[j] = j == 4 - i 
-        ? 255
-        : j < 5 - i 
-        ? 1 
-        : 2
-    })
+      b[j] = j == 4 - i ? 255 : j < 5 - i ? 1 : 2;
+    });
   });
   await grid.update();
   await sleep(2000);
   grid.updateInfo.forEach((_, i, a) => {
     a[i].forEach((_, j, b) => {
-      b[j] = 255
-    })
+      b[j] = 255;
+    });
   });
   await grid.update();
   await sleep(2000);
@@ -110,19 +133,22 @@ export async function tutorial(grid: KGrid, textEl: UiText){
   grid.updateInfo[2][0] = 1;
   await grid.update();
   await sleep(3000);
-  await text(textEl, "如果是「雪天」，无论发生了什么，\n区域内的方块将不会有任何改变。");
+  await text(
+    textEl,
+    "如果是「雪天」，无论发生了什么，\n区域内的方块将不会有任何改变。"
+  );
   grid.updateInfo.forEach((_, i, a) => {
     a[i].forEach((_, j, b) => {
-      if(Math.random() < 0.6) return;
-      b[j] = grid.gridInfo[i][j]
-    })
+      if (Math.random() < 0.6) return;
+      b[j] = grid.gridInfo[i][j];
+    });
   });
   await grid.update();
   grid.updateInfo.forEach((_, i, a) => {
     a[i].forEach((_, j, b) => {
-      if(Math.random() < 0.6) return;
-      b[j] = grid.gridInfo[i][j]
-    })
+      if (Math.random() < 0.6) return;
+      b[j] = grid.gridInfo[i][j];
+    });
   });
   await grid.update();
   await sleep(5000);
