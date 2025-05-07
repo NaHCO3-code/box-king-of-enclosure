@@ -1,10 +1,8 @@
-import Component from "@/Component/Definition";
 import { Event } from "@/Event";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
-import { Rich } from "@/lib/Rich";
 import { RemoteEvent } from "@shares/RemoteEvent";
-import { PlayerManager } from "@/PlayerManager";
+import { PlayerManager } from "@/Controller/PlayerManager";
 
 export class Player {
   entity: GamePlayerEntity;

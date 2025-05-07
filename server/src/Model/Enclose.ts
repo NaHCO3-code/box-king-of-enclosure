@@ -1,6 +1,9 @@
 import { PosX, PosY, Teams } from "@/Constants";
 import { MAP_SIZE, MAP_ZINDEX } from "@/Constants";
 
+/**
+ * DO NOT EDIT THIS UNLESS YOU KNOW WHAT YOU ARE DOING.
+ */
 export class KEnclose {
   /**
    * 地图
@@ -28,7 +31,7 @@ export class KEnclose {
     }
   }
 
-  getstat(){
+  getStat(){
     let res: {[key: string]: number} = {};
     for(let i=1; i<Teams.length; ++i) {
       res[Teams[i].name] = 0;

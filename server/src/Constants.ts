@@ -4,17 +4,27 @@ export type PosX = number;
 export type PosY = number;
 export type TeamId = number;
 
+export enum KGameState {
+  GAME = "GAME",
+  REST = "REST",
+}
+
+export enum KGameAction {
+  START_GAME = "START_GAME",
+  END_GAME = "END_GAME",
+}
+
 export const KEvents = {
-  VoxelContact: "KOE:VoxelContact"
+  VoxelContact: "KOE:VoxelContact",
 } as const;
 
 export type KEventType = {
-  VoxelContact: (x: PosX, y: PosY, teamId: TeamId) => void
-}
+  VoxelContact: (x: PosX, y: PosY, teamId: TeamId) => void;
+};
 
 export type KEventEmitterType = GenEmitterType<typeof KEvents, KEventType>;
 
-export const Teams: {name: string, voxel: voxelId}[] = [
+export const Teams: { name: string; voxel: voxelId }[] = [
   {
     name: "DEFAULT",
     voxel: 95,
@@ -25,16 +35,16 @@ export const Teams: {name: string, voxel: voxelId}[] = [
   },
   {
     name: "blue",
-    voxel: 91
+    voxel: 91,
   },
   {
     name: "yellow",
-    voxel: 121
+    voxel: 121,
   },
   {
     name: "purple",
-    voxel: 369
-  }
+    voxel: 369,
+  },
 ] as const;
 
 export const MAP_SIZE = { x: 255, y: 255 } as const;

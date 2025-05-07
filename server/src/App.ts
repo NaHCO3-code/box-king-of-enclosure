@@ -1,7 +1,7 @@
 import Component from "@/Component/Definition";
 import { Player } from "./Controller/Player";
 import { KGameManager } from "./Controller/GameManager";
-import { PlayerManager } from "./PlayerManager";
+import { PlayerManager } from "./Controller/PlayerManager";
 
 export class App extends Component {
   constructor(){

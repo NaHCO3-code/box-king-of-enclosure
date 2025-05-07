@@ -1,60 +1,73 @@
 import { Teams } from "@/Constants";
-import { Rich } from "@/lib/Rich";
 import { Player } from "./Player";
 import { RemoteEvent } from "@shares/RemoteEvent";
-import { PlayerManager } from "@/PlayerManager";
+import { PlayerManager } from "@/Controller/PlayerManager";
 
-
-
+/**
+ * 队伍管理
+ */
 export class KTeamManager {
+  /**
+   * 各个队伍人员
+   */
   teams: Player[][];
-  teamNum: number;
 
-  constructor(){
+  /**
+   * 队伍数量
+   */
+  teamCount: number;
+
+  constructor() {
     this.teams = new Array(Teams.length).fill([]);
-    this.teamNum = 0;
+    this.teamCount = 0;
   }
 
-  clear(){
-    PlayerManager.instance.players.forEach(player => {
+  /**
+   * 清除队伍状态
+   */
+  clear() {
+    PlayerManager.instance.players.forEach((player) => {
       player.team = null;
       player.entity.player.spectator = true;
       remoteChannel.sendClientEvent(player.entity, {
-        type: RemoteEvent.gameEnd
-      })
-    })
+        type: RemoteEvent.gameEnd,
+      });
+    });
     this.teams = new Array(Teams.length).fill([]);
-    this.teamNum = 0;
+    this.teamCount = 0;
   }
 
-  alloc(){
-    if(PlayerManager.instance.players.size <= Teams.length * 2 - 2){
-      this.teamNum = 2;
-      PlayerManager.instance.players.forEach(player => {
-        if(!player.joinNextGame) return;
-        if(Math.random() < 0.5){
+  /**
+   * 分配队伍
+   */
+  alloc() {
+    if (PlayerManager.instance.players.size <= Teams.length * 2 - 2) {
+      this.teamCount = 2;
+      PlayerManager.instance.players.forEach((player) => {
+        if (!player.joinNextGame) return;
+        if (Math.random() < 0.5) {
           player.team = 1;
           this.teams[1].push(player);
-        }else{
+        } else {
           player.team = 2;
           this.teams[2].push(player);
         }
         player.entity.player.spectator = false;
         remoteChannel.sendClientEvent(player.entity, {
-          type: RemoteEvent.gameStart
-        })
-      })
-    }else{
-      this.teamNum = Teams.length - 1;
-      PlayerManager.instance.players.forEach(player => {
-        if(!player.joinNextGame) return;
-        player.team = Math.floor(Math.random() * (Teams.length - 1))+1;
+          type: RemoteEvent.gameStart,
+        });
+      });
+    } else {
+      this.teamCount = Teams.length - 1;
+      PlayerManager.instance.players.forEach((player) => {
+        if (!player.joinNextGame) return;
+        player.team = Math.floor(Math.random() * (Teams.length - 1)) + 1;
         this.teams[player.team].push(player);
         player.entity.player.spectator = false;
         remoteChannel.sendClientEvent(player.entity, {
-          type: RemoteEvent.gameStart
-        })
-      })
+          type: RemoteEvent.gameStart,
+        });
+      });
     }
   }
 }

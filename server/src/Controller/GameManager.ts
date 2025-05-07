@@ -1,53 +1,93 @@
 import Component from "../Component/Definition";
 import { KGameUpdater } from "./GameUpdater";
-import { GAME_REST_TIME, GAME_TIME } from "@/Constants";
-import { Rich } from "@/lib/Rich";
+import {
+  GAME_REST_TIME,
+  GAME_TIME,
+  KGameAction,
+  KGameState,
+} from "@/Constants";
+import { StateMachine, StateMachineConfig } from "@/lib/StateMachine";
 
-export enum KGameState {
-  GAME,
-  REST
+interface KGameContext {
+  updater: KGameUpdater;
+  tick: number;
+  nextStateChangeTime: number;
 }
 
-export class KGameManager extends Component {
-  updater: KGameUpdater;
-  state: KGameState;
-  nextStateChangeTime: number;
-  tick: number;
+const config: StateMachineConfig<KGameContext, KGameState, KGameAction> = {
+  [KGameState.REST]: {
+    enter: (context) => {
+      context.updater.enable = false;
+      context.nextStateChangeTime = GAME_REST_TIME;
+      context.tick = 0;
+    },
+    transitions: {
+      [KGameAction.START_GAME]: {
+        target: KGameState.GAME,
+      },
+    },
+  },
+  [KGameState.GAME]: {
+    enter: (context) => {
+      context.updater.enable = true;
+      context.nextStateChangeTime = GAME_TIME;
+      context.tick = 0;
+    },
+    transitions: {
+      [KGameAction.END_GAME]: {
+        target: KGameState.REST,
+      },
+    },
+  },
+};
 
-  constructor(){
+/**
+ * 游戏状态管理器
+ */
+export class KGameManager extends Component {
+  private context = {
+    updater: new KGameUpdater(),
+    tick: 0,
+    nextStateChangeTime: GAME_REST_TIME,
+  };
+
+  private stateMachine = new StateMachine(
+    this.context,
+    config,
+    KGameState.REST
+  );
+
+  constructor() {
     super();
-    this.tick = 0;
-    this.state = KGameState.REST;
-    this.nextStateChangeTime = GAME_REST_TIME;
-    this.updater = new KGameUpdater();
-    this.updater.enable = false;
+
+    this.context.updater.enable = false;
+
     setInterval(() => {
-      world.say(`距离${this.state === KGameState.REST ? "游戏开始" : "游戏结束"}还有${this.nextStateChangeTime - Math.floor(this.tick / 1000)}秒`);
+      const currentState = this.getCurrentState();
+      world.say(
+        `距离${currentState === KGameState.REST ? "游戏开始" : "游戏结束"}还有${
+          this.context.nextStateChangeTime -
+          Math.floor(this.context.tick / 1000)
+        }秒`
+      );
     }, 3000);
   }
 
-  toGame(){
-    this.state = KGameState.GAME;
-    this.nextStateChangeTime = GAME_TIME;
-    this.updater.enable = true;
-  }
-
-  toRest(){
-    this.state = KGameState.REST;
-    this.nextStateChangeTime = GAME_REST_TIME;
-    this.updater.enable = false;
+  getCurrentState(): KGameState {
+    return this.context.updater.enable ? KGameState.GAME : KGameState.REST;
   }
 
   protected onUpdate(deltaTime: number): void {
-    this.tick += deltaTime;
-    if(this.tick / 1000 <= this.nextStateChangeTime){
+    this.context.tick += deltaTime;
+    if (this.context.tick / 1000 <= this.context.nextStateChangeTime) {
       return;
     }
-    if(this.state === KGameState.REST){
-      this.toGame();
-    }else{
-      this.toRest();
+
+    const currentState = this.getCurrentState();
+    if (currentState === KGameState.REST) {
+      this.stateMachine.handleAction(KGameAction.START_GAME);
+    } else {
+      this.stateMachine.handleAction(KGameAction.END_GAME);
     }
-    this.tick = 0;
   }
 }
