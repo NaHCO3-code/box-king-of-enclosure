@@ -1,10 +1,10 @@
-import { Player } from "./Player";
+import { Player } from "../Model/Player";
 
-export class PlayerManager {
-  protected static _instance: PlayerManager | null = null;
-  static get instance(): PlayerManager {
+export class KPlayerManager {
+  protected static _instance: KPlayerManager | null = null;
+  static get instance(): KPlayerManager {
     if (!this._instance) {
-      this._instance = new PlayerManager();
+      this._instance = new KPlayerManager();
     }
     return this._instance;
   }

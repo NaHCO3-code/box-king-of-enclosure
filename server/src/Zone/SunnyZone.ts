@@ -20,7 +20,7 @@ export class SunnyZone extends KZone {
     });
   }
 
-  calcEffect(model: KEnclose): void {
+  useEffect(model: KEnclose): void {
     const mx = this.position.x + this.size.x;
     const my = this.position.y + this.size.y;
     for (let x = this.position.x; x < mx; ++x) {

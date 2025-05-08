@@ -1,5 +1,4 @@
 import { MIN_ZONE_SIZE, MAP_SIZE } from "@/Constants";
-import { KEnclose } from "@/Model/Enclose";
 import { Vector2 } from "@/lib/Vector";
 import { KZone } from "@/Zone/Zone";
 import { SunnyZone } from "@/Zone/SunnyZone";
@@ -9,7 +8,7 @@ import { SnowZone } from "@/Zone/SnowZone";
 /**
  * 区域管理器
  */
-export class KZoneMgr {
+export class KZoneManager {
   /**
    * 区域
    */
@@ -101,15 +100,5 @@ export class KZoneMgr {
       z.destory();
     });
     this.zones = [];
-  }
-
-  /**
-   * 计算区域影响
-   * @param model
-   */
-  calcEffect(model: KEnclose) {
-    for (const z of this.zones) {
-      z.calcEffect(model);
-    }
   }
 }

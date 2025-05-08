@@ -2,7 +2,7 @@ import { Event } from "@/Event";
 import { KEvents, TeamId } from "@/Constants";
 import { SPlayed } from "./Storage";
 import { RemoteEvent } from "@shares/RemoteEvent";
-import { PlayerManager } from "@/Controller/PlayerManager";
+import { KPlayerManager } from "@/Manager/PlayerManager";
 
 export class Player {
   entity: GamePlayerEntity;
@@ -35,7 +35,7 @@ export class Player {
 }
 
 Event.on(RemoteEvent.alterInvolvement, (event) => {
-  const player = PlayerManager.instance.findPlayerByUserId(event.entity.player.userId);
+  const player = KPlayerManager.instance.findPlayerByUserId(event.entity.player.userId);
   if(!player) return;
   player.joinNextGame = event.args.value;
 })

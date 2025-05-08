@@ -20,6 +20,6 @@ export abstract class KZone {
 
   abstract destory(): void;
 
-  abstract calcEffect(model: KEnclose): void;
+  abstract useEffect(model: KEnclose): void;
 }
 

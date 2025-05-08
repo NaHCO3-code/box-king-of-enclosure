@@ -2,11 +2,11 @@ import Component from "@/Component/Definition";
 import { KEnclose } from "@/Model/Enclose";
 import { Event } from "@/Event";
 import { KEvents, WEATHER_CHANGE_TIME } from "@/Constants";
-import { KTeamManager } from "./TeamManager";
+import { KTeamManager } from "../Manager/TeamManager";
 import { Listener } from "@/lib/Emitter";
-import { KZoneMgr } from "./ZoneManager";
+import { KZoneManager } from "../Manager/ZoneManager";
 import { RemoteEvent } from "@shares/RemoteEvent";
-import { PlayerManager } from "@/Controller/PlayerManager";
+import { KPlayerManager } from "@/Manager/PlayerManager";
 
 /**
  * 游戏更新器
@@ -15,7 +15,7 @@ export class KGameUpdater extends Component {
   model: KEnclose;
   tick: number;
   teamMgr: KTeamManager;
-  zoneMgr: KZoneMgr;
+  zoneMgr: KZoneManager;
   voxelContactListener: Listener | null;
 
   constructor() {
@@ -23,7 +23,7 @@ export class KGameUpdater extends Component {
     this.model = new KEnclose();
     this.tick = 0;
     this.teamMgr = new KTeamManager();
-    this.zoneMgr = new KZoneMgr();
+    this.zoneMgr = new KZoneManager();
     this.voxelContactListener = null;
   }
 
@@ -48,7 +48,7 @@ export class KGameUpdater extends Component {
   protected onDisable(): void {
     const result = this.model.getStat();
     remoteChannel.sendClientEvent(
-      Array.from(PlayerManager.instance.players.values()).map(
+      Array.from(KPlayerManager.instance.players.values()).map(
         (player) => player.entity
       ),
       {
@@ -67,9 +67,8 @@ export class KGameUpdater extends Component {
   }
 
   protected onUpdate(deltaTime: number): void {
-    this.model.updateModel(this.teamMgr.teamCount);
-    this.zoneMgr.calcEffect(this.model);
-    this.model.updateMap();
+    this.model.update(this.teamMgr.teamCount, this.zoneMgr);
+
     this.tick += deltaTime;
     if (this.tick / 1000 <= WEATHER_CHANGE_TIME) {
       return;
