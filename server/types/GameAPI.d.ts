@@ -14636,7 +14636,7 @@ declare class GameRaycastResult {
   /**
    * 被射线检测命中的方块 ID（如果没有命中方块则为 0）。
    */
-  hitVoxel: number;
+  hitVoxel: voxelId;
 
   /**
    * 射线检测的起点。
